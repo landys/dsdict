@@ -160,30 +160,51 @@
             NSString* lpCn = nil;
             int lPriority = 0;
             
-            lpBuf = lWordBuf;
-            int i = 0;
-            int j = 0;
-            for (; lpBuf[i]!='\0'; ++i) {
-                if (lpBuf[i] == '|') {
-                    lpBuf[i] = '\0';
-                    // decript
-                    for (j=0; j<i; ++j) {
-                        lpBuf[j] = lpBuf[j] + i;
-                    }
-                    lpWordText = [[NSString alloc] initWithUTF8String:lpBuf];
-                    lPriority = lpBuf[i+1] - '0';
-                    lpBuf += (i + 3); // to the position of the word source.
-                    break;
-                }
+//            lpBuf = lWordBuf;
+//            int i = 0;
+//            int j = 0;
+//            for (; lpBuf[i]!='\0'; ++i) {
+//                if (lpBuf[i] == '|') {
+//                    lpBuf[i] = '\0';
+//                    // decript                    
+//                    for (j=0; j<i; ++j) {
+//                        lpBuf[j] = lpBuf[j] + i;
+//                    }
+//                    lpWordText = [[NSString alloc] initWithUTF8String:lpBuf];
+//                    lPriority = lpBuf[i+1] - '0';
+//                    lpBuf += (i + 3); // to the position of the word source.
+//                    break;
+//                }
+//            }
+            
+            // for decription
+            int lMinusV = lWordBuf[0] - 'A';
+            lpBuf = lWordBuf + 1;
+            int i = -1;
+            while (lpBuf[++i] != '|') {
+                // decript
+                lpBuf[i] = lpBuf[i] + (lMinusV + i);
             }
+            
+            // construct string
+            lpBuf[i] = '\0';
+            lpWordText = [[NSString alloc] initWithUTF8String:lpBuf];
+            
+            // get priority value, it should be one digit.
+            lPriority = lpBuf[i+1] - '0';
+            
+            // to the position of the word explanation.
+            lpBuf += (i + 3);
+            
             //while (*(lpBuf++) != '|'); // end of while here, will reach the beginning of the cn meaning.
             if (*lpBuf != '\0' && *lpBuf != '\n') {
-                for (i=0; lpBuf[i]!='\0'; ++i); // end of for here, will reach the end of the read line.
+                //for (i=0; lpBuf[i]!='\0'; ++i); // end of for here, will reach the end of the read line.
                 
                 // i should be > 0 here, because of the if check out of for loop.
-                if (lpBuf[i-1] == '\n') {
-                    lpBuf[i-1] = '\0';
-                }
+                //if (lpBuf[i-1] == '\n') {
+                //    lpBuf[i-1] = '\0';
+                //}
+                lpBuf[strlen(lpBuf) - 1] = '\0';
                 lpCn = [[NSString alloc] initWithUTF8String:lpBuf];
             }
             
