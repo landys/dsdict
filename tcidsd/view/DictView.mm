@@ -11,6 +11,8 @@
 #import "DictUtil.h"
 #import "Global.h"
 
+#define DEFAULT_WORD_LENGTH 5
+
 #define BG_TOP_COLOR 0x40c5f2 //0x3b6dcd
 #define BG_BOTTOM_COLOR 0xe1f9ff //0x9be1f9 //0xffffff
 
@@ -36,6 +38,9 @@
 
 - (void)initHintsText;
 - (void)displayHints:(NSString*)iHints textColor:(UIColor*)ipColor;
+
+- (void)setWordLength:(int)iLength;
+- (void)sliderChanged:(UISlider*)ipSlider;
 
 @end
 
@@ -72,9 +77,9 @@
 - (UILabel*)addLabel:(NSString*)ipText frame:(CGRect)iFrame{
     UILabel* lpLabel = [[UILabel alloc] initWithFrame:iFrame];
     lpLabel.text = ipText;
-    lpLabel.font = [Global getCommonFont:([DictUtil isIPad] ? 33 : 17)];//lpLabel.font.pointSize)];
+    lpLabel.font = [Global getCommonBoldFont:([DictUtil isIPad] ? 44 : 22)];
     lpLabel.backgroundColor = [UIColor clearColor];
-    lpLabel.textColor = [ColorUtil colorFromInteger:0xfbfbfb];//[UIColor whiteColor];//[Global getLightTextColor];
+    lpLabel.textColor = [UIColor whiteColor];//[ColorUtil colorFromInteger:0xfbfbfb];
     [self addSubview:lpLabel];
     [lpLabel release];
     
@@ -108,8 +113,10 @@
     CGRect lChooseImageFrame = CGRectMake(5, 3, 240, 360);
     CGRect lTitleFrame = CGRectMake(258, 10, 288, 72);
     CGRect lSettingFrame = CGRectMake(552, 10, 74, 72);
-    CGRect lLblLengthFrame = CGRectMake(260, 90, 224, 72);
-    CGRect lTxtLengthFrame = CGRectMake(485, 96, 150, 72);
+    //CGRect lLblLengthFrame = CGRectMake(260, 90, 224, 72);
+    //CGRect lTxtLengthFrame = CGRectMake(485, 96, 150, 72);
+    CGRect lSldLengthFrame = CGRectMake(260, 93, 320, 72);
+    CGRect lLblLengthFrame = CGRectMake(590, 90, 45, 72);
     CGRect lTxtLettersFrame = CGRectMake(258, 186, 377, 72);
     CGRect lResetFrame = CGRectMake(368, 276, 148, 72);
     CGRect lResultAreaFrame = CGRectMake(5, 368, 630, 589);
@@ -117,8 +124,10 @@
         lTitleFrame.size.width += 80;
         lSettingFrame.origin.x += 80;
         //lLblLengthFrame.origin.y += 4;
-        lTxtLengthFrame.origin.x -= 10;
-        lTxtLengthFrame.size.width += 90;
+        //lTxtLengthFrame.origin.x -= 10;
+        //lTxtLengthFrame.size.width += 90;
+        lSldLengthFrame.size.width += 80;
+        lLblLengthFrame.origin.x += 80;
         lTxtLettersFrame.size.width += 80;
         lResetFrame.origin.x += 80 / 2;
         lResultAreaFrame.size.width += 80;
@@ -144,7 +153,8 @@
         lTitleFrame = [DictUtil resizeFrame:lTitleFrame widthRatio:lWidthRatio heightRatio:lHeightRatio];
         lSettingFrame = [DictUtil resizeFrame:lSettingFrame widthRatio:lWidthRatio heightRatio:lHeightRatio];
         lLblLengthFrame = [DictUtil resizeFrame:lLblLengthFrame widthRatio:lWidthRatio heightRatio:lHeightRatio];
-        lTxtLengthFrame = [DictUtil resizeFrame:lTxtLengthFrame widthRatio:lWidthRatio heightRatio:lHeightRatio];
+        //lTxtLengthFrame = [DictUtil resizeFrame:lTxtLengthFrame widthRatio:lWidthRatio heightRatio:lHeightRatio];
+        lSldLengthFrame = [DictUtil resizeFrame:lSldLengthFrame widthRatio:lWidthRatio heightRatio:lHeightRatio];        
         lTxtLettersFrame = [DictUtil resizeFrame:lTxtLettersFrame widthRatio:lWidthRatio heightRatio:lHeightRatio];
         lResetFrame = [DictUtil resizeFrame:lResetFrame widthRatio:lWidthRatio heightRatio:lHeightRatio];
         lResultAreaFrame = [DictUtil resizeFrame:lResultAreaFrame widthRatio:lWidthRatio heightRatio:lHeightRatio];
@@ -207,13 +217,24 @@
     [mpBtnSetting release];
     
     // add labels of word length.
-    [self addLabel:@"Word Length:" frame:lLblLengthFrame];    
+    //[self addLabel:@"Word Length:" frame:lLblLengthFrame];    
     
     // input text field for length
-    mpTxtLength = [self addTextField:lTxtLengthFrame];
-    mpTxtLength.clearsOnBeginEditing = YES;
-    //mpTxtLength.placeholder = @"5";
-    mpTxtLength.keyboardType = UIKeyboardTypeNumberPad;
+    //mpTxtLength = [self addTextField:lTxtLengthFrame];
+    //mpTxtLength.clearsOnBeginEditing = YES;
+    //mpTxtLength.keyboardType = UIKeyboardTypeNumberPad;
+    mpSldLength = [[UISlider alloc] initWithFrame:lSldLengthFrame];
+    mpSldLength.minimumValue = 2;
+    mpSldLength.maximumValue = 8;
+    mpSldLength.continuous = NO;
+    [mpSldLength addTarget:self action:@selector(sliderChanged:) forControlEvents:UIControlEventValueChanged];
+    [self addSubview:mpSldLength];
+    [mpSldLength release];
+    
+    // add number lable for word length
+    mpLblLength = [self addLabel:@"" frame:lLblLengthFrame];
+    
+    [self setWordLength:DEFAULT_WORD_LENGTH];
     
     // input text field for letters
     mpTxtChars = [self addTextField:lTxtLettersFrame];
@@ -270,21 +291,19 @@
         [lpHintsText appendString:@"Hints:\n\n"];
         [lpHintsText appendString:@"The app provides two input ways:\n"];
         [lpHintsText appendString:@"1. Import a screenshot from your \"Draw Something\" game. It will recognize the screenshot automatically and return candidate words in an instant.\n"];
-        [lpHintsText appendString:@"2. Enter the word length and the candidate letters manually. It will search the words after every typing immediately.\n\n"];
-        [lpHintsText appendString:@"The app provides two result views, that can be configured by the top-right \"Setting\" button:\n"];
-        [lpHintsText appendString:@"1. Display the candidate words in detail, including the Chinese explanations. You can tap on the item to see the whole explanation in tooltip.\n"];
-        [lpHintsText appendString:@"2. Display the candidate words in columns without Chinese explanations.\n\n"];
-        [lpHintsText appendString:@"Please report issues to \"drawdict@gmail.com\", and rate for us if convenient.\n"];
-        //[lpHintsText appendString:@"Good luck and have fun!\n"];
+        [lpHintsText appendString:@"2. Enter the word length and the candidate letters manually. It will search the words after every typing immediately.\n"];
     }
     else {
         [lpHintsText appendString:@"Hints:\n"];
         [lpHintsText appendString:@"1. The app can automatically recognize the screenshot from your \"Draw Something\" game, and also the letters entered by you manually.\n"];
-        [lpHintsText appendString:@"2. The app provides candidate words in an instant, with or without Chinese explanations configured by the top-right \"Setting\" button.\n\n"];
-        [lpHintsText appendString:@"Please report issues to \"drawdict@gmail.com\", and rate for us if convenient.\n"];
-        //[lpHintsText appendString:@"Good luck and have fun!\n"];
+        [lpHintsText appendString:@"2. The app provides candidate words in an instant, with or without Chinese explanations configured by the top-right \"Setting\" button.\n"];
     }
     mpHintsText = lpHintsText;
+}
+
+- (void)setWordLength:(int)iLength {
+    mpSldLength.value = iLength;
+    mpLblLength.text = [NSString stringWithFormat:@"%d", iLength];
 }
 
 - (void)resizeForAds:(CGSize)iAdSize showAd:(BOOL)iShowAd animation:(BOOL)doAnimation {
@@ -343,11 +362,11 @@
 - (void)resetViews {
     [self releaseFocusInTextFields];
     
-    NSString* lpLengthText = mpTxtLength.text;
+    NSString* lpText = mpTxtChars.text;
     // get super privilege.
     NSString* lpPrivilegeKey = [Global getPrivilegeKey];
     if (lpPrivilegeKey != nil) {
-        if ([lpPrivilegeKey compare:lpLengthText] == NSOrderedSame) {
+        if ([lpPrivilegeKey compare:lpText] == NSOrderedSame) {
             [Global saveSuperPrivilege];
             [self resizeForAds:CGSizeZero showAd:NO animation:NO];
             [mpMainVC performSelector:@selector(unloadAdBannerView)];
@@ -356,7 +375,7 @@
     // or remove super privilege
     NSString* lpRemovePrivilegeKey = [Global getRemovePrivilegeKey];
     if (lpRemovePrivilegeKey != nil) {
-        if ([lpRemovePrivilegeKey compare:lpLengthText] == NSOrderedSame) {
+        if ([lpRemovePrivilegeKey compare:lpText] == NSOrderedSame) {
             [Global removeSuperPrivilege];
             [mpMainVC performSelector:@selector(reloadAdBannerView)];
         }
@@ -364,7 +383,8 @@
     
     // do real reset work.
     mpTxtChars.text = @"";
-    mpTxtLength.text = @"";
+    [self setWordLength:DEFAULT_WORD_LENGTH];
+    //mpTxtLength.text = @"";
     [mpBtnChooseImage setImage:nil forState:UIControlStateNormal];
     [self displayHints:mpHintsText textColor:[Global getHintInfoColor]];
     mpTxtHint.hidden = NO;
@@ -373,9 +393,9 @@
 
 - (void)searchWords {
     NSString* lpChars = mpTxtChars.text;
-    if (!lpChars || lpChars.length == 0 || !mpTxtLength.text || mpTxtLength.text.length == 0) return;
+    if (!lpChars || lpChars.length == 0) return;
     
-    int lLen = [mpTxtLength.text intValue];
+    int lLen = [mpLblLength.text intValue];
     if (lLen <= 0) {
         [self displayHints:LENGTH_ONLY_NUMBER_ALLOWED textColor:[Global getHintErrorColor]];
         return;
@@ -482,9 +502,9 @@
         [mpTxtChars resignFirstResponder];
     }
     
-    if ([mpTxtLength isFirstResponder]) {
-        [mpTxtLength resignFirstResponder];
-    }
+//    if ([mpTxtLength isFirstResponder]) {
+//        [mpTxtLength resignFirstResponder];
+//    }
 }
 
 - (void)removeTooltipView {
@@ -493,6 +513,12 @@
         [mpTooltipView removeFromSuperview];
         mpTooltipView = nil;
     }
+}
+
+- (void)sliderChanged:(UISlider*)ipSlider {
+    mpLblLength.text = [NSString stringWithFormat:@"%d", (int)(ipSlider.value + 0.5)];
+    
+    [self searchWords];
 }
 
 //- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -520,7 +546,7 @@
 - (void)touchesEnded: (NSSet *)touches withEvent: (UIEvent *)event {
 	UITouch *lpTouch = [touches anyObject];
 	UIView* lpView = [lpTouch view];
-	if (lpView != mpTxtChars && lpView != mpTxtLength) {
+	if (lpView != mpTxtChars) {
         [self releaseFocusInTextFields];
 	}
 }
@@ -532,12 +558,14 @@
     int lNGuessChars = [mpImageRecognizer recognizeImage:ipImage oCharts:lpChars];
     if (lNGuessChars > 0 && lNGuessChars <= 8 && lpChars.length > 1 && lpChars.length >= lNGuessChars) {
         mpTxtChars.text = [lpChars uppercaseString];
-        mpTxtLength.text = [NSString stringWithFormat:@"%d", lNGuessChars];
+        [self setWordLength:lNGuessChars];
+        //mpTxtLength.text = [NSString stringWithFormat:@"%d", lNGuessChars];
         [self searchWords];
     }
     else {
         // not correct pic.
-        mpTxtLength.text = @"";
+        //mpTxtLength.text = @"";
+        
         mpTxtChars.text = @"";
         [self displayHints:SCREENSHOT_CANNOT_RECOGNIZE textColor:[Global getHintErrorColor]];
     }
@@ -567,15 +595,16 @@
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     BOOL lAllowed = YES;
     @autoreleasepool {
-        if (textField == mpTxtLength) {
-            lAllowed = [DictUtil stringInCharSet:string charSet:[Global getNumbersCharSet]];
-            if (!lAllowed) {
-                if (!mpTxtHint.hidden) {
-                    [self displayHints:LENGTH_ONLY_NUMBER_ALLOWED textColor:[Global getHintErrorColor]];
-                }
-            }
-        }
-        else if (textField == mpTxtChars) {
+//        if (textField == mpTxtLength) {
+//            lAllowed = [DictUtil stringInCharSet:string charSet:[Global getNumbersCharSet]];
+//            if (!lAllowed) {
+//                if (!mpTxtHint.hidden) {
+//                    [self displayHints:LENGTH_ONLY_NUMBER_ALLOWED textColor:[Global getHintErrorColor]];
+//                }
+//            }
+//        }
+//        else 
+        if (textField == mpTxtChars) {
             lAllowed = [DictUtil stringInCharSet:string charSet:[Global getAlphaCharSet]];
             if (!lAllowed) {
                 if (!mpTxtHint.hidden) {

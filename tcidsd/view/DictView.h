@@ -22,7 +22,9 @@
     UIButton* mpBtnChooseImage;
     DropDownButton* mpBtnSetting;
     UITextField* mpTxtChars;
-    UITextField* mpTxtLength;
+    //UITextField* mpTxtLength;
+    UISlider* mpSldLength;
+    UILabel* mpLblLength;
     UIButton* mpBtnReset;
     
     UITextView* mpTxtHint;
