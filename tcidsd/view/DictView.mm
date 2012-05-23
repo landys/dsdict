@@ -40,7 +40,10 @@
 - (void)displayHints:(NSString*)iHints textColor:(UIColor*)ipColor;
 
 - (void)setWordLength:(int)iLength;
-- (void)sliderChanged:(UISlider*)ipSlider;
+//- (void)sliderChanged:(UISlider*)ipSlider;
+- (void)sliderTouchesBegan:(UISlider*)ipSlider;
+- (void)sliderTouchesMoved:(UISlider*)ipSlider;
+- (void)sliderTouchesEnd:(UISlider*)ipSlider;
 
 @end
 
@@ -223,11 +226,28 @@
     //mpTxtLength = [self addTextField:lTxtLengthFrame];
     //mpTxtLength.clearsOnBeginEditing = YES;
     //mpTxtLength.keyboardType = UIKeyboardTypeNumberPad;
+//    mSlider = [[UISlider alloc] initWithFrame:CGRectZero];
+//	UIImage * thumb = [UIImage imageNamed:@"FinalBundle.bundle/Contents/Resources/SliderRangeHandle.png"];
+//	UIImage* track = [[[UIImage imageNamed:@"FinalBundle.bundle/Contents/Resources/SliderTrack"] stretchableImageWithLeftCapWidth:6 topCapHeight:0] retain];
+//    
+//	[mSlider setThumbImage:thumb forState:UIControlStateNormal];
+//	[mSlider setMinimumTrackImage:track forState:UIControlStateNormal];
+//	[mSlider setMaximumTrackImage:track forState:UIControlStateNormal];
+//	[track release];
+//	
+//	[mSlider addTarget:self action:@selector(sliderTouchesMoved:) forControlEvents:UIControlEventValueChanged];
+//	[mSlider addTarget:self action:@selector(sliderTouchesBegan:) forControlEvents:UIControlEventTouchDown];
+//	[mSlider addTarget:self action:@selector(sliderTouchesEnd:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
+    
     mpSldLength = [[UISlider alloc] initWithFrame:lSldLengthFrame];
     mpSldLength.minimumValue = 2;
     mpSldLength.maximumValue = 8;
-    mpSldLength.continuous = NO;
-    [mpSldLength addTarget:self action:@selector(sliderChanged:) forControlEvents:UIControlEventValueChanged];
+    //mpSldLength.continuous = NO;
+    //[mpSldLength addTarget:self action:@selector(sliderChanged:) forControlEvents:UIControlEventValueChanged];
+    [mpSldLength addTarget:self action:@selector(sliderTouchesMoved:) forControlEvents:UIControlEventValueChanged];
+    [mpSldLength addTarget:self action:@selector(sliderTouchesBegan:) forControlEvents:UIControlEventTouchDown];
+    [mpSldLength addTarget:self action:@selector(sliderTouchesEnd:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
+    
     [self addSubview:mpSldLength];
     [mpSldLength release];
     
@@ -515,9 +535,23 @@
     }
 }
 
-- (void)sliderChanged:(UISlider*)ipSlider {
-    mpLblLength.text = [NSString stringWithFormat:@"%d", (int)(ipSlider.value + 0.5)];
-    
+//- (void)sliderChanged:(UISlider*)ipSlider {
+//    mpLblLength.text = [NSString stringWithFormat:@"%d", (int)(ipSlider.value + 0.5)];
+//    
+//    [self searchWords];
+//}
+
+- (void)sliderTouchesBegan:(UISlider*)ipSlider {
+    [self releaseFocusInTextFields];
+}
+
+- (void)sliderTouchesMoved:(UISlider*)ipSlider {
+    if (mpLblLength.text.intValue != (int)(ipSlider.value + 0.5)) {
+        mpLblLength.text = [NSString stringWithFormat:@"%d", (int)(ipSlider.value + 0.5)];
+    }
+}
+
+- (void)sliderTouchesEnd:(UISlider*)ipSlider {
     [self searchWords];
 }
 
