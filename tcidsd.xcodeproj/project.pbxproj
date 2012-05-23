@@ -137,7 +137,7 @@
 		1F74D1E2153BC225009B27D1 /* title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = title.png; sourceTree = "<group>"; };
 		1F74D1E5153BE8D4009B27D1 /* TileTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TileTableViewCell.h; sourceTree = "<group>"; };
 		1F74D1E6153BE8D6009B27D1 /* TileTableViewCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TileTableViewCell.mm; sourceTree = "<group>"; };
-		1F8D2C35151DA348003DB451 /* Draw Dict.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "Draw Dict.app"; path = "Draw Dict Free.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F8D2C35151DA348003DB451 /* Draw Dict Free.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Draw Dict Free.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F8D2C39151DA348003DB451 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		1F8D2C3B151DA348003DB451 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1F8D2C3D151DA348003DB451 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -264,7 +264,7 @@
 		1F8D2C36151DA348003DB451 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1F8D2C35151DA348003DB451 /* Draw Dict.app */,
+				1F8D2C35151DA348003DB451 /* Draw Dict Free.app */,
 				1FD1F295156CEB0B000A1786 /* Draw Dict Free copy.app */,
 			);
 			name = Products;
@@ -435,7 +435,7 @@
 			);
 			name = "Draw Dict Free";
 			productName = tcidsd;
-			productReference = 1F8D2C35151DA348003DB451 /* Draw Dict.app */;
+			productReference = 1F8D2C35151DA348003DB451 /* Draw Dict Free.app */;
 			productType = "com.apple.product-type.application";
 		};
 		1FD1F25A156CEB0B000A1786 /* Draw Dict */ = {
