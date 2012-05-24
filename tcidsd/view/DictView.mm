@@ -12,6 +12,8 @@
 #import "Global.h"
 
 #define DEFAULT_WORD_LENGTH 5
+#define MIN_WORD_LENGTH 2
+#define MAX_WORD_LENGTH 8
 
 #define BG_TOP_COLOR 0x40c5f2 //0x3b6dcd
 #define BG_BOTTOM_COLOR 0xe1f9ff //0x9be1f9 //0xffffff
@@ -240,8 +242,8 @@
 //	[mSlider addTarget:self action:@selector(sliderTouchesEnd:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
     
     mpSldLength = [[UISlider alloc] initWithFrame:lSldLengthFrame];
-    mpSldLength.minimumValue = 2;
-    mpSldLength.maximumValue = 8;
+    mpSldLength.minimumValue = MIN_WORD_LENGTH;
+    mpSldLength.maximumValue = MAX_WORD_LENGTH;
     //mpSldLength.continuous = NO;
     //[mpSldLength addTarget:self action:@selector(sliderChanged:) forControlEvents:UIControlEventValueChanged];
     [mpSldLength addTarget:self action:@selector(sliderTouchesMoved:) forControlEvents:UIControlEventValueChanged];
@@ -590,7 +592,7 @@
 - (void)searchWordsWithImage:(UIImage*)ipImage {
     NSMutableString* lpChars = [[NSMutableString alloc] initWithCapacity:0];
     int lNGuessChars = [mpImageRecognizer recognizeImage:ipImage oCharts:lpChars];
-    if (lNGuessChars > 0 && lNGuessChars <= 8 && lpChars.length > 1 && lpChars.length >= lNGuessChars) {
+    if (lNGuessChars >= MIN_WORD_LENGTH && lNGuessChars <= MAX_WORD_LENGTH && lpChars.length >= lNGuessChars) {
         mpTxtChars.text = [lpChars uppercaseString];
         [self setWordLength:lNGuessChars];
         //mpTxtLength.text = [NSString stringWithFormat:@"%d", lNGuessChars];
