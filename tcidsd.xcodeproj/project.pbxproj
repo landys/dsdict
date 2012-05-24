@@ -141,7 +141,6 @@
 		1F8D2C39151DA348003DB451 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		1F8D2C3B151DA348003DB451 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1F8D2C3D151DA348003DB451 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		1F8D2C41151DA348003DB451 /* tcidsd-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "tcidsd-Info.plist"; sourceTree = "<group>"; };
 		1F8D2C43151DA348003DB451 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1F8D2C45151DA348003DB451 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1F8D2C47151DA348003DB451 /* tcidsd-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "tcidsd-Prefix.pch"; sourceTree = "<group>"; };
@@ -151,8 +150,7 @@
 		1F8D2C4C151DA348003DB451 /* ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
 		1F8D2C4F151DA348003DB451 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPhone.xib; sourceTree = "<group>"; };
 		1F8D2C52151DA348003DB451 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
-		1FD1F295156CEB0B000A1786 /* Draw Dict Free copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Draw Dict Free copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		1FD1F297156CEB0B000A1786 /* Draw Dict Free copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Draw Dict Free copy-Info.plist"; path = "/codes/xcode/tcidsd/Draw Dict Free copy-Info.plist"; sourceTree = "<absolute>"; };
+		1FD1F295156CEB0B000A1786 /* Draw Dict.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Draw Dict.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FEB252C153D3566002F9C5A /* GADBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADBannerView.h; sourceTree = "<group>"; };
 		1FEB252D153D3566002F9C5A /* GADBannerViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADBannerViewDelegate.h; sourceTree = "<group>"; };
 		1FEB252E153D3566002F9C5A /* GADInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADInterstitial.h; sourceTree = "<group>"; };
@@ -257,7 +255,6 @@
 				1F8D2C3F151DA348003DB451 /* tcidsd */,
 				1F8D2C38151DA348003DB451 /* Frameworks */,
 				1F8D2C36151DA348003DB451 /* Products */,
-				1FD1F297156CEB0B000A1786 /* Draw Dict Free copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -265,7 +262,7 @@
 			isa = PBXGroup;
 			children = (
 				1F8D2C35151DA348003DB451 /* Draw Dict Free.app */,
-				1FD1F295156CEB0B000A1786 /* Draw Dict Free copy.app */,
+				1FD1F295156CEB0B000A1786 /* Draw Dict.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -303,7 +300,6 @@
 		1F8D2C40151DA348003DB451 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				1F8D2C41151DA348003DB451 /* tcidsd-Info.plist */,
 				1F8D2C42151DA348003DB451 /* InfoPlist.strings */,
 				1F8D2C45151DA348003DB451 /* main.m */,
 				1F8D2C47151DA348003DB451 /* tcidsd-Prefix.pch */,
@@ -453,7 +449,7 @@
 			);
 			name = "Draw Dict";
 			productName = tcidsd;
-			productReference = 1FD1F295156CEB0B000A1786 /* Draw Dict Free copy.app */;
+			productReference = 1FD1F295156CEB0B000A1786 /* Draw Dict.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -684,7 +680,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jinde Wang (T5NXTACS89)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tcidsd/tcidsd-Prefix.pch";
-				INFOPLIST_FILE = "tcidsd/tcidsd-Info.plist";
+				INFOPLIST_FILE = "tcidsd/Draw Dict Free-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -704,7 +700,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Jinde Wang";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tcidsd/tcidsd-Prefix.pch";
-				INFOPLIST_FILE = "tcidsd/tcidsd-Info.plist";
+				INFOPLIST_FILE = "tcidsd/Draw Dict Free-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -724,13 +720,13 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jinde Wang (T5NXTACS89)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tcidsd/tcidsd-Prefix.pch";
-				INFOPLIST_FILE = "Draw Dict Free copy-Info.plist";
+				INFOPLIST_FILE = "tcidsd/Draw Dict Adless-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/tcidsd/AdMobAdsSDK\"",
 				);
-				PRODUCT_NAME = "Draw Dict Free copy";
+				PRODUCT_NAME = "Draw Dict";
 				PROVISIONING_PROFILE = "9A20879D-C889-4A16-BD18-2AAFB07C84EE";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "9A20879D-C889-4A16-BD18-2AAFB07C84EE";
 				WRAPPER_EXTENSION = app;
@@ -744,15 +740,15 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Jinde Wang";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tcidsd/tcidsd-Prefix.pch";
-				INFOPLIST_FILE = "Draw Dict Free copy-Info.plist";
+				INFOPLIST_FILE = "tcidsd/Draw Dict Adless-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/tcidsd/AdMobAdsSDK\"",
 				);
-				PRODUCT_NAME = "Draw Dict Free copy";
-				PROVISIONING_PROFILE = "ED0FB981-4C26-4A40-9FD2-FBA06C4C5326";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "ED0FB981-4C26-4A40-9FD2-FBA06C4C5326";
+				PRODUCT_NAME = "Draw Dict";
+				PROVISIONING_PROFILE = "B3AC69A6-EDF4-4B93-821B-F10B829D4545";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B3AC69A6-EDF4-4B93-821B-F10B829D4545";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

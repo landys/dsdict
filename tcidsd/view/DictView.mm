@@ -311,15 +311,20 @@
     NSMutableString* lpHintsText = [[NSMutableString alloc] initWithCapacity:0];
     if ([DictUtil isIPad]) {
         [lpHintsText appendString:@"Hints:\n\n"];
-        [lpHintsText appendString:@"The app provides two input ways:\n"];
-        [lpHintsText appendString:@"1. Import a screenshot from your \"Draw Something\" game. It will recognize the screenshot automatically and return candidate words in an instant.\n"];
-        [lpHintsText appendString:@"2. Enter the word length and the candidate letters manually. It will search the words after every typing immediately.\n"];
+//        [lpHintsText appendString:@"The app provides two input ways:\n"];
+//        [lpHintsText appendString:@"1. Import a screenshot from your \"Draw Something\" game. It will recognize the screenshot automatically and return candidate words in an instant.\n"];
+//        [lpHintsText appendString:@"2. Enter the word length and the candidate letters manually. It will search the words after every typing immediately.\n"];
     }
     else {
         [lpHintsText appendString:@"Hints:\n"];
-        [lpHintsText appendString:@"1. The app can automatically recognize the screenshot from your \"Draw Something\" game, and also the letters entered by you manually.\n"];
-        [lpHintsText appendString:@"2. The app provides candidate words in an instant, with or without Chinese explanations configured by the top-right \"Setting\" button.\n"];
+//        [lpHintsText appendString:@"1. The app can automatically recognize the screenshot from your \"Draw Something\" game, and also the letters entered by you manually.\n"];
+//        [lpHintsText appendString:@"2. The app provides candidate words in an instant, with or without Chinese explanations configured by the top-right \"Setting\" button.\n"];
     }
+    
+    [lpHintsText appendString:@"1. The app can automatically recognize the screenshot from your \"Draw Something\" game, and also the letters entered by you manually.\n"];
+    [lpHintsText appendString:@"2. The app provides candidate words in an instant, with or without Chinese explanations configured by the top-right \"Settings\" button.\n\n"];
+    [lpHintsText appendString:@"Please rate me if you like it. :)"];
+    
     mpHintsText = lpHintsText;
 }
 
@@ -384,22 +389,24 @@
 - (void)resetViews {
     [self releaseFocusInTextFields];
     
-    NSString* lpText = mpTxtChars.text;
-    // get super privilege.
-    NSString* lpPrivilegeKey = [Global getPrivilegeKey];
-    if (lpPrivilegeKey != nil) {
-        if ([lpPrivilegeKey compare:lpText] == NSOrderedSame) {
-            [Global saveSuperPrivilege];
-            [self resizeForAds:CGSizeZero showAd:NO animation:NO];
-            [mpMainVC performSelector:@selector(unloadAdBannerView)];
+    if (![Global isBornSuper]) {
+        NSString* lpText = mpTxtChars.text;
+        // get super privilege.
+        NSString* lpPrivilegeKey = [Global getPrivilegeKey];
+        if (lpPrivilegeKey != nil) {
+            if ([lpPrivilegeKey compare:lpText] == NSOrderedSame) {
+                [Global saveSuperPrivilege];
+                [self resizeForAds:CGSizeZero showAd:NO animation:NO];
+                [mpMainVC performSelector:@selector(unloadAdBannerView)];
+            }
         }
-    }
-    // or remove super privilege
-    NSString* lpRemovePrivilegeKey = [Global getRemovePrivilegeKey];
-    if (lpRemovePrivilegeKey != nil) {
-        if ([lpRemovePrivilegeKey compare:lpText] == NSOrderedSame) {
-            [Global removeSuperPrivilege];
-            [mpMainVC performSelector:@selector(reloadAdBannerView)];
+        // or remove super privilege
+        NSString* lpRemovePrivilegeKey = [Global getRemovePrivilegeKey];
+        if (lpRemovePrivilegeKey != nil) {
+            if ([lpRemovePrivilegeKey compare:lpText] == NSOrderedSame) {
+                [Global removeSuperPrivilege];
+                [mpMainVC performSelector:@selector(reloadAdBannerView)];
+            }
         }
     }
     

@@ -35,8 +35,15 @@
 //#define ALPHANUM @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
 //#define NUMBERSPERIOD @"0123456789."
 
-#define RATE_URL_EN @"http://itunes.apple.com/app/id521185012"
-#define RATE_URL_CN @"http://itunes.apple.com/cn/app/id521185012"
+// free version
+//#define RATE_URL_EN @"http://itunes.apple.com/app/id521185012"
+//#define RATE_URL_CN @"http://itunes.apple.com/cn/app/id521185012"
+//#define IS_SUPER NO
+
+// adless version
+#define RATE_URL_EN @"http://itunes.apple.com/app/id530189788"
+#define RATE_URL_CN @"http://itunes.apple.com/cn/app/id530189788"
+#define IS_SUPER YES
 
 static SettingManager* gpSettingManager;
 static NSArray* gpPriorityMap;
@@ -186,7 +193,13 @@ static WaitView* gpWaitView;
     return nil;
 }
 
++ (BOOL)isBornSuper {
+    return IS_SUPER;
+}
+
 + (BOOL)hasSuperPrivilege {
+    if (IS_SUPER) return YES;
+    
     BOOL isSuper = NO;
     @autoreleasepool {
         NSString* lpPrivilegeId = [Global generatePrivilegeIdentify];
@@ -198,6 +211,8 @@ static WaitView* gpWaitView;
 }
 
 + (void)saveSuperPrivilege {
+    if (IS_SUPER) return;
+    
     @autoreleasepool {
         NSString* lpPrivilegeId = [Global generatePrivilegeIdentify];
         if (lpPrivilegeId != nil) {
@@ -207,6 +222,8 @@ static WaitView* gpWaitView;
 }
 
 + (void)removeSuperPrivilege {
+    if (IS_SUPER) return;
+    
     if ([Global hasSuperPrivilege]) {
         [gpSettingManager setSetting:@"Thanks Guy~" forKey:PRIVILEGE_IDENTIFY];
     }

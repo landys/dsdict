@@ -35,6 +35,7 @@
 + (void)removeSuperPrivilege;
 + (NSString*)getPrivilegeKey;
 + (NSString*)getRemovePrivilegeKey;
++ (BOOL)isBornSuper;
 
 + (UIFont*)getCommonBoldFont:(int)iFontSize;
 + (UIFont*)getCommonFont:(int)iFontSize;
