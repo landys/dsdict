@@ -68,6 +68,8 @@
 - (void)dealloc {
     [mpLblWords release];
     [mpWords release];
+    
+    [super dealloc];
 }
 
 @end

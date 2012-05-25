@@ -35,15 +35,17 @@
 //#define ALPHANUM @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
 //#define NUMBERSPERIOD @"0123456789."
 
+#if defined (FREE_VERSION)
 // free version
-//#define RATE_URL_EN @"http://itunes.apple.com/app/id521185012"
-//#define RATE_URL_CN @"http://itunes.apple.com/cn/app/id521185012"
-//#define IS_SUPER NO
-
+#define RATE_URL_EN @"http://itunes.apple.com/app/id521185012"
+#define RATE_URL_CN @"http://itunes.apple.com/cn/app/id521185012"
+#define IS_SUPER NO
+#else
 // adless version
 #define RATE_URL_EN @"http://itunes.apple.com/app/id530189788"
 #define RATE_URL_CN @"http://itunes.apple.com/cn/app/id530189788"
 #define IS_SUPER YES
+#endif
 
 static SettingManager* gpSettingManager;
 static NSArray* gpPriorityMap;
