@@ -13,7 +13,8 @@
 //#define DICT_CN_FILE @"dict_cn.txt"
 //#define DICT_EN_FILE @"dict_en.txt"
 //#define DICT_FILE @"dict.txt"
-#define DICT_FILE @"background_e"
+#define DICT_FILE @"d_e"
+#define WORDS_FILE @"w_e"
 
 //#define WORDS_NUM_LEVEL 160000
 
@@ -147,7 +148,38 @@
 //    fclose(lpFHandle);
 //}
 
-// can read dict.txt, every item in the dict is as "word|1|0|chinese/english mean".
+// read encrypted word list, every word in a line.
+//- (void)readWordsFile {
+//    NSString* lpFinalPath = [[NSBundle mainBundle] pathForResource:WORDS_FILE ofType:@""];
+//    FILE* lpFHandle = fopen([lpFinalPath UTF8String], "r");
+//    if (lpFHandle == nil) {
+//        return;
+//    }
+//    
+//    const int lBufSize = 256;
+//    char lWordBuf[lBufSize];
+//    while (fgets(lWordBuf, lBufSize, lpFHandle) != nil) {
+//        
+//        NSString* lpWordText = [[NSString alloc] initWithUTF8String:lWordBuf];
+//        Word* lpWord = [[Word alloc] initWithWordContent:lpWordText priority:lPriority source:lSource];
+//        
+//        // add to dict
+//        int lIDict = (lpWordText.length > mDictLength ? mDictLength : lpWordText.length);
+//        NSMutableArray* lpWords = [mpDict objectAtIndex:lIDict];
+//        [lpWords addObject:lpWord];
+//        
+//        // add to word map
+//        [mpWordMap setObject:lpWord forKey:lpWordText];
+//        
+//        [lpWordText release];
+//        [lpWord release];
+//    }
+//    
+//    fclose(lpFHandle);
+//}
+
+
+// read encrypted dict file, every item in the dict is as "word|1|chinese/english mean".
 - (void)readDictFile {
     NSString* lpFinalPath = [[NSBundle mainBundle] pathForResource:DICT_FILE ofType:@""];
     FILE* lpFHandle = fopen([lpFinalPath UTF8String], "r");
