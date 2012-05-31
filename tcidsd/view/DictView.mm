@@ -47,6 +47,8 @@
 - (void)sliderTouchesMoved:(UISlider*)ipSlider;
 - (void)sliderTouchesEnd:(UISlider*)ipSlider;
 
+- (void)loadDictAndRefresh:(NSString*)mpLanguage;
+
 @end
 
 @implementation DictView
@@ -60,7 +62,9 @@
         [self initHintsText];
         
         mpDictCore = [[DictCore alloc] init];
-        [mpDictCore reInitDicts:[Global isLanguageNone]];
+        // currently, we always load the whole dictionary.
+        [mpDictCore reInitDicts:NO];
+        //[mpDictCore reInitDicts:[Global isLanguageNone]];
         
         // image recognizer
         mpImageRecognizer = [[ImageRecognizer alloc] init];
@@ -679,8 +683,23 @@
 #pragma mark -
 #pragma mark - DropDownButtonDelegate methods
 - (void)didSelectItem:(NSString*)mpLanguage {
+    if (![mpDictCore isCnDictLoaded] && mpLanguage != nil && [mpLanguage compare:LANGUAGE_NONE] != NSOrderedSame) {
+        [Global showWaitView:mpMainVC.view text:@"Load dictinaries..."];
+        [self performSelector:@selector(loadDictAndRefresh:) withObject:mpLanguage afterDelay:0];
+    }
+    else {
+        [Global setLanguageSetting:mpLanguage];
+        [mpResultWordsView reloadData];
+    }
+}
+
+- (void)loadDictAndRefresh:(NSString*)mpLanguage {
+    [mpDictCore reInitDicts:NO];
+    
     [Global setLanguageSetting:mpLanguage];
     [mpResultWordsView reloadData];
+    
+    [Global hideWaitView];
 }
 
 @end

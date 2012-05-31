@@ -14,7 +14,7 @@
 //#define DICT_EN_FILE @"dict_en.txt"
 //#define DICT_FILE @"dict.txt"
 #define DICT_FILE @"d_e"
-#define WORDS_FILE @"d_e"//@"w_e"
+#define WORDS_FILE @"w_e"
 
 //#define WORDS_NUM_LEVEL 160000
 
@@ -27,6 +27,8 @@
 
 - (NSArray*)countChars:(NSString*)ipChars;
 - (void)readDictFile:(NSString*)ipFileName onlyWords:(BOOL)iOnlyWords;
+- (void)cleanDicts;
+
 //- (void)readWordsFile;
 //- (void)readDictCnFile;
 //- (void)readDictEnFile;
@@ -202,10 +204,10 @@
             // get priority value, it should be one digit.
             lPriority = lpBuf[i+1] - '0';
             
-            // to the position of the word explanation.
-            lpBuf += (i + 3);
-            
             if (!iOnlyWords) {
+                // to the position of the word explanation.
+                lpBuf += (i + 3);
+
                 //while (*(lpBuf++) != '|'); // end of while here, will reach the beginning of the cn meaning.
                 if (*lpBuf != '\0' && *lpBuf != '\n') {
                     //for (i=0; lpBuf[i]!='\0'; ++i); // end of for here, will reach the end of the read line.
