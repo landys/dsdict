@@ -60,7 +60,7 @@
         [self initHintsText];
         
         mpDictCore = [[DictCore alloc] init];
-        [mpDictCore initDicts];
+        [mpDictCore reInitDicts:[Global isLanguageNone]];
         
         // image recognizer
         mpImageRecognizer = [[ImageRecognizer alloc] init];

@@ -17,10 +17,12 @@
     // map from "word" to Word object. key - NSString, value - Word.
     //NSMutableDictionary* mpWordMap;
     
-    int mDictLength;
+    BOOL mCnDictLoaded;
 }
 
-- (void)initDicts;
+- (void)reInitDicts:(BOOL)iOnlyWords;
+- (BOOL)isCnDictLoaded;
+
 //- (void)addDict:(NSString*) ipDictFile;
 //- (void)clearDict;
 - (NSArray*)lookupWords:(NSString*)ipChars length:(int)iWordLength;
