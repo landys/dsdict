@@ -13,7 +13,6 @@
 
 - (void)addWaitLabel;
 - (void)addWaitActivity;
-- (void)resetSubviewsFrames;
 
 @end
 
@@ -38,12 +37,6 @@
 - (void) stopAnimating {
 	[mpWaitActivity stopAnimating];
     self.hidden = YES;
-}
-
-- (void)setFrame:(CGRect)frame {
-    [super setFrame:frame];
-    
-    [self resetSubviewsFrames];
 }
 
 - (void)addWaitLabel {

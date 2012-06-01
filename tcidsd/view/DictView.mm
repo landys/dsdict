@@ -47,6 +47,7 @@
 - (void)sliderTouchesMoved:(UISlider*)ipSlider;
 - (void)sliderTouchesEnd:(UISlider*)ipSlider;
 
+- (void)prepareForSearch;
 - (void)loadDictAndRefresh:(NSString*)mpLanguage;
 
 @end
@@ -61,26 +62,30 @@
         // init the hints text displayed at the beginning.
         [self initHintsText];
         
-        mpDictCore = [[DictCore alloc] init];
-        // currently, we always load the whole dictionary.
-        [mpDictCore reInitDicts:NO];
-        //[mpDictCore reInitDicts:[Global isLanguageNone]];
-        
-        // image recognizer
-        mpImageRecognizer = [[ImageRecognizer alloc] init];
-        
         // create subviews
         [self createSubViews];
         
         // show hints at the beginning.
         [self displayHints:mpHintsText textColor:[Global getHintInfoColor]];
         
-        // image chooser
-        mpImageChooser = [[ImageChooser alloc] initWithMainViewController:mpMainVC popRect:mpBtnChooseImage.frame];
-        mpImageChooser.mpDelegate = self;
-       //mpImageChooser.mpActivityIndicator = mpActivityIndicator;
+        [self performSelector:@selector(prepareForSearch) withObject:nil afterDelay:0];
+
     }
     return self;
+}
+
+- (void)prepareForSearch {
+    mpDictCore = [[DictCore alloc] init];
+//        // currently, we always load the whole dictionary.
+//        [mpDictCore reInitDicts:NO];
+    [mpDictCore reInitDicts:[Global isLanguageNone]];
+    
+    // image recognizer
+    mpImageRecognizer = [[ImageRecognizer alloc] init];
+    
+    // image chooser
+    mpImageChooser = [[ImageChooser alloc] initWithMainViewController:mpMainVC popRect:mpBtnChooseImage.frame];
+    mpImageChooser.mpDelegate = self;
 }
 
 - (UILabel*)addLabel:(NSString*)ipText frame:(CGRect)iFrame{
@@ -684,7 +689,7 @@
 #pragma mark - DropDownButtonDelegate methods
 - (void)didSelectItem:(NSString*)mpLanguage {
     if (![mpDictCore isCnDictLoaded] && mpLanguage != nil && [mpLanguage compare:LANGUAGE_NONE] != NSOrderedSame) {
-        [Global showWaitView:mpMainVC.view text:@"Load dictinaries..."];
+        [Global showWaitView:mpMainVC.view text:@"Load Dictionaries..."];
         [self performSelector:@selector(loadDictAndRefresh:) withObject:mpLanguage afterDelay:0];
     }
     else {
@@ -697,7 +702,8 @@
     [mpDictCore reInitDicts:NO];
     
     [Global setLanguageSetting:mpLanguage];
-    [mpResultWordsView reloadData];
+    
+    [self searchWords];
     
     [Global hideWaitView];
 }

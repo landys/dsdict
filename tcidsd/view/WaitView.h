@@ -17,5 +17,6 @@
 
 - (void)startAnimating;
 - (void)stopAnimating;
+- (void)resetSubviewsFrames;
 
 @end

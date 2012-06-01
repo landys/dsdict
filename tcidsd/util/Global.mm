@@ -295,6 +295,9 @@ static WaitView* gpWaitView;
     [ipParentView addSubview:gpWaitView];
     gpWaitView.frame = CGRectMake(0, 0, ipParentView.frame.size.width, ipParentView.frame.size.height);
     gpWaitView.mpWaitLabel.text = ipText;
+    
+    [gpWaitView resetSubviewsFrames];
+    
     [gpWaitView startAnimating];
 }
 
