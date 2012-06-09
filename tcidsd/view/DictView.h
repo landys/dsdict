@@ -47,6 +47,7 @@
 }
 
 - (id)initWithFrame:(CGRect)frame viewController:(UIViewController*)ipVC;
+- (void)initForSearch;
 // iAdSize is only needed when iShowAd is YES.
 - (void)resizeForAds:(CGSize)iAdSize showAd:(BOOL)iShowAd animation:(BOOL)doAnimation;
 

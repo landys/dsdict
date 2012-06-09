@@ -39,11 +39,15 @@
 // free version
 #define RATE_URL_EN @"http://itunes.apple.com/app/id521185012"
 #define RATE_URL_CN @"http://itunes.apple.com/cn/app/id521185012"
+#define UPGRADE_URL_EN @"http://itunes.apple.com/app/id530189788"
+#define UPGRADE_URL_CN @"http://itunes.apple.com/cn/app/id530189788"
 #define IS_SUPER NO
 #else
 // adless version
 #define RATE_URL_EN @"http://itunes.apple.com/app/id530189788"
 #define RATE_URL_CN @"http://itunes.apple.com/cn/app/id530189788"
+#define UPGRADE_URL_EN @""
+#define UPGRADE_URL_CN @""
 #define IS_SUPER YES
 #endif
 
@@ -113,7 +117,6 @@ static WaitView* gpWaitView;
     
     //gpIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     gpWaitView = [[WaitView alloc] initWithFrame:CGRectZero];
-    gpWaitView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
 }
 
 + (void)releaseGlobalValues {
@@ -235,6 +238,10 @@ static WaitView* gpWaitView;
     return ([DictUtil isChinesePreferred] ? RATE_URL_CN : RATE_URL_EN);
 }
 
++ (NSString*)getUpgradeUrl {
+    return ([DictUtil isChinesePreferred] ? UPGRADE_URL_CN : UPGRADE_URL_EN);
+}
+
 + (NSString*)getPrivilegeKey {
     return PRIVILEGE_KEY;
 }
@@ -291,8 +298,10 @@ static WaitView* gpWaitView;
 //    return gpIndicatorView;
 //}
 
-+ (void)showWaitView:(UIView*)ipParentView text:(NSString *)ipText {
++ (void)showWaitView:(UIView*)ipParentView text:(NSString *)ipText bgMask:(BOOL)iBgMask iconBgMask:(BOOL)iIconBgMask {
     [ipParentView addSubview:gpWaitView];
+    gpWaitView.mBgMask = iBgMask;
+    gpWaitView.mIconBgMask = iIconBgMask;
     gpWaitView.frame = CGRectMake(0, 0, ipParentView.frame.size.width, ipParentView.frame.size.height);
     gpWaitView.mpWaitLabel.text = ipText;
     

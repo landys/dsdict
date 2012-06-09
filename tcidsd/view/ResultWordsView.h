@@ -33,5 +33,6 @@
 
 - (void)refreshData:(NSDictionary*)ipData dataKeys:(NSArray*)ipDataKeys;
 - (void)reDisplayNoResultsIfNeeded;
+- (void)deselectAll;
 
 @end

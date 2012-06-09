@@ -65,6 +65,13 @@
 	}
 }
 
+- (void)deselectAll {
+    NSIndexPath* lpSelIndexPath = [self indexPathForSelectedRow];
+    if (lpSelIndexPath != nil) {
+        [self deselectRowAtIndexPath:lpSelIndexPath animated:NO];
+    }
+}
+
 - (void)dealloc {
 	[mpData release];
     [mpDataKeys release];

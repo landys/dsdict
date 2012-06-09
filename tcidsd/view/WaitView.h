@@ -11,9 +11,13 @@
 @interface WaitView : UIView {
 	UILabel* mpWaitLabel;
 	UIActivityIndicatorView* mpWaitActivity;
+    BOOL mBgMask;
+    BOOL mIconBgMask;
 }
 
 @property (nonatomic, readonly) UILabel* mpWaitLabel;
+@property (nonatomic) BOOL mBgMask;
+@property (nonatomic) BOOL mIconBgMask;
 
 - (void)startAnimating;
 - (void)stopAnimating;

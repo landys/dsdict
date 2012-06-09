@@ -24,6 +24,8 @@
 #define LETTERS_ONLY_LETTER_ALLOWED @"Only letters are allowed in \"Enter Letters\" field."
 #define SCREENSHOT_CANNOT_RECOGNIZE @"Sorry, the imported \"Screenshot\" cannot be recognized.\n\nPlease check if it's really a screenshot of your \"Draw Something\" game. It should have the candidate letters at the bottom. :)"
 
+#define LOADING_DICTIONARY @"Loading Dictionaries..."
+
 @interface DictView (Private)
 
 - (void)createSubViews;
@@ -67,11 +69,14 @@
         
         // show hints at the beginning.
         [self displayHints:mpHintsText textColor:[Global getHintInfoColor]];
-        
-        [self performSelector:@selector(prepareForSearch) withObject:nil afterDelay:0];
-
     }
     return self;
+}
+
+- (void)initForSearch {
+    [Global showWaitView:mpMainVC.view text:LOADING_DICTIONARY bgMask:NO iconBgMask:YES];
+    
+    [self performSelector:@selector(prepareForSearch) withObject:nil afterDelay:0];
 }
 
 - (void)prepareForSearch {
@@ -86,6 +91,8 @@
     // image chooser
     mpImageChooser = [[ImageChooser alloc] initWithMainViewController:mpMainVC popRect:mpBtnChooseImage.frame];
     mpImageChooser.mpDelegate = self;
+    
+    [Global hideWaitView];
 }
 
 - (UILabel*)addLabel:(NSString*)ipText frame:(CGRect)iFrame{
@@ -629,7 +636,7 @@
 - (void)handleChosenImage:(UIImage*)ipImage {
     if (!ipImage) return;
     
-    [Global showWaitView:mpMainVC.view text:nil];
+    [Global showWaitView:mpMainVC.view text:nil bgMask:YES iconBgMask:NO];
 
     [mpBtnChooseImage setImage:ipImage forState:UIControlStateNormal];
     
@@ -689,7 +696,7 @@
 #pragma mark - DropDownButtonDelegate methods
 - (void)didSelectItem:(NSString*)mpLanguage {
     if (![mpDictCore isCnDictLoaded] && mpLanguage != nil && [mpLanguage compare:LANGUAGE_NONE] != NSOrderedSame) {
-        [Global showWaitView:mpMainVC.view text:@"Load Dictionaries..."];
+        [Global showWaitView:mpMainVC.view text:LOADING_DICTIONARY bgMask:NO iconBgMask:YES];
         [self performSelector:@selector(loadDictAndRefresh:) withObject:mpLanguage afterDelay:0];
     }
     else {
@@ -700,7 +707,7 @@
 
 - (void)loadDictAndRefresh:(NSString*)mpLanguage {
     [mpDictCore reInitDicts:NO];
-    
+
     [Global setLanguageSetting:mpLanguage];
     
     [self searchWords];

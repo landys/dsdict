@@ -98,17 +98,13 @@
     mpDictView = [[DictView alloc] initWithFrame:self.view.frame viewController:self];
     [self.view addSubview:mpDictView];
     
+    [mpDictView initForSearch];
+    
     // move the request ad to AppDelegate#applicationDidBecomeActive.
     if (![Global hasSuperPrivilege]) {
         //[self reloadAdBannerView];
         [self reInitAdBannerView];
     }
-    
-    // initialize activity indicator view
-    //UIActivityIndicatorView* lpIndicatorView = [Global getIndicatorView];
-    //[self.view addSubview:lpIndicatorView];
-    //lpIndicatorView.frame = CGRectMake(0, 0, 32, 32);
-    //[lpIndicatorView setCenter:CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height / 2)];
 }
 
 - (void)viewDidUnload

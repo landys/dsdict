@@ -53,10 +53,11 @@
 + (NSCharacterSet*)getNumbersCharSet;
 
 + (NSString*)getRateUrl;
++ (NSString*)getUpgradeUrl;
 
 //+ (UIActivityIndicatorView*)getIndicatorView;
 
-+ (void)showWaitView:(UIView*)ipParentView text:(NSString*)ipText;
++ (void)showWaitView:(UIView*)ipParentView text:(NSString*)ipText bgMask:(BOOL)iBgMask iconBgMask:(BOOL)iIconBgMask;
 + (void)hideWaitView;
 
 @end

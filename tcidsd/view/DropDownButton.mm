@@ -62,6 +62,10 @@
     }
     
     [lpDropDownList addButtonWithTitle:@"Rate me"];
+    NSString* lpUpgradeUrl = [Global getUpgradeUrl];
+    if (lpUpgradeUrl != nil && lpUpgradeUrl.length > 0) {
+        [lpDropDownList addButtonWithTitle:@"Get Ad Free Version"];
+    }
     
 //    for (int i=0; i<lpLanguages.count; ++i) {
 //        //if (mSelectedIndex != i) {
@@ -95,9 +99,9 @@
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-//    if (buttonIndex == actionSheet.cancelButtonIndex) {
-//        return;
-//    }
+    if (buttonIndex == actionSheet.cancelButtonIndex) {
+        return;
+    }
     
     if (buttonIndex == 0) {
         if (mStatus == 0) {
@@ -112,6 +116,10 @@
     else if (buttonIndex == 1) {
         // redirect to rate page.
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[Global getRateUrl]]];
+    }
+    else if (buttonIndex == 2) {
+        // only in free version, upgrade
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[Global getUpgradeUrl]]];        
     }
 }
 
