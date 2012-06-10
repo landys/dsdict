@@ -64,7 +64,7 @@
     [lpDropDownList addButtonWithTitle:@"Rate me"];
     NSString* lpUpgradeUrl = [Global getUpgradeUrl];
     if (lpUpgradeUrl != nil && lpUpgradeUrl.length > 0) {
-        [lpDropDownList addButtonWithTitle:@"Get Ad Free Version"];
+        [lpDropDownList addButtonWithTitle:@"Upgrade to Ad Free"];
     }
     
 //    for (int i=0; i<lpLanguages.count; ++i) {

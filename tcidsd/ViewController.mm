@@ -12,13 +12,15 @@
 #import "DictUtil.h"
 #import "Global.h"
 
-#define ADMOB_PUBLISHER_ID @"a14f8cf7c904423"
-#define ADMOB_PUBLISHER_ID_IPAD @"a14f8cf8b3c2a9c"
+//#define ADMOB_PUBLISHER_ID @"a14f8cf7c904423"
+//#define ADMOB_PUBLISHER_ID_IPAD @"a14f8cf8b3c2a9c"
+#define ADWHIRL_SDK_KEY @"cdd4cf099fdc437a84e636e4814e9392"
+#define ADWHIRL_SDK_KEY_IPAD @"d2710366ddf546898764d521ebd39267"
 
 @interface ViewController (Private)
 
 - (void)reInitAdBannerView;
-- (GADRequest*)generateRequest;
+//- (GADRequest*)generateRequest;
 - (CGSize)getAdBannerSize;
 
 @end
@@ -33,17 +35,18 @@
 
 #pragma mark - View lifecycle
 
-- (GADRequest *)generateRequest {
-    GADRequest *request = [GADRequest request];
-    
-    // Make the request for a test ad.
-    //request.testing = YES;
-    
-    return request;
-}
+//- (GADRequest *)generateRequest {
+//    GADRequest *request = [GADRequest request];
+//    
+//    // Make the request for a test ad.
+//    //request.testing = YES;
+//    
+//    return request;
+//}
 
 - (CGSize)getAdBannerSize {
-    return [DictUtil isIPad] ? GAD_SIZE_728x90 : GAD_SIZE_320x50;
+    //return [DictUtil isIPad] ? GAD_SIZE_728x90 : GAD_SIZE_320x50;
+    return [DictUtil isIPad] ? CGSizeMake(728, 90) : CGSizeMake(320, 50);
 }
 
 - (void)reloadAdBannerView {
@@ -52,7 +55,7 @@
 }
 
 - (void)reInitAdBannerView {
-    if (bannerView_ != nil) {
+    if (mpAdView != nil) {
         [self unloadAdBannerView];
     }
     
@@ -60,28 +63,32 @@
     CGSize lBannerSize = [self getAdBannerSize];
     CGRect lBannerFrame = CGRectMake((int)((self.view.frame.size.width - lBannerSize.width) / 2), self.view.frame.size.height, lBannerSize.width, lBannerSize.height);
     
-    bannerView_ = [[GADBannerView alloc] initWithFrame:lBannerFrame];
+    mpAdView = [AdWhirlView requestAdWhirlViewWithDelegate:self];
+    mpAdView.frame = lBannerFrame;
     
-    // Specify the ad's "unit identifier." This is your AdMob Publisher ID.
-    bannerView_.adUnitID = [DictUtil isIPad] ? ADMOB_PUBLISHER_ID_IPAD : ADMOB_PUBLISHER_ID;
-    bannerView_.delegate = self;
-    
-    // Let the runtime know which UIViewController to restore after taking
-    // the user wherever the ad goes and add it to the view hierarchy.
-    bannerView_.rootViewController = self;
-    [self.view addSubview:bannerView_];
+//    mpAdView = [[GADBannerView alloc] initWithFrame:lBannerFrame];
+//    
+//    // Specify the ad's "unit identifier." This is your AdMob Publisher ID.
+//    mpAdView.adUnitID = [DictUtil isIPad] ? ADMOB_PUBLISHER_ID_IPAD : ADMOB_PUBLISHER_ID;
+//    mpAdView.delegate = self;
+//    
+//    // Let the runtime know which UIViewController to restore after taking
+//    // the user wherever the ad goes and add it to the view hierarchy.
+//    mpAdView.rootViewController = self;
+    [self.view addSubview:mpAdView];
 }
 
 - (void)unloadAdBannerView {
-    bannerView_.delegate = nil;
-    [bannerView_ removeFromSuperview];
-    [bannerView_ release];
-    bannerView_ = nil;
+    mpAdView.delegate = nil;
+    [mpAdView removeFromSuperview];
+    //[mpAdView release];
+    mpAdView = nil;
 }
 
 - (void)requestNewAd {
     // Initiate a generic request to load it with an ad.
-    [bannerView_ loadRequest:[self generateRequest]];
+    //[mpAdView loadRequest:[self generateRequest]];
+    [mpAdView requestFreshAd];
 }
 
 - (void)viewDidLoad
@@ -112,9 +119,9 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
-    bannerView_.delegate = nil;
-    [bannerView_ release];
-    bannerView_ = nil;
+    mpAdView.delegate = nil;
+    //[mpAdView release];
+    mpAdView = nil;
     
     [mpDictView release];
     mpDictView = nil;
@@ -154,22 +161,46 @@
     return NO;
 }
 
-#pragma mark GADBannerViewDelegate impl
+//#pragma mark GADBannerViewDelegate impl
+//
+//// Since we've received an ad, let's go ahead and add it to the view.
+//- (void)adViewDidReceiveAd:(GADBannerView *)adView {
+//    // This code slides the banner up onto the screen with an animation.
+//    if (adView.frame.origin.y != self.view.frame.size.height - adView.frame.size.height) {
+//        [UIView animateWithDuration:1.0 animations:^ {
+//            adView.frame = CGRectMake(adView.frame.origin.x, self.view.frame.size.height - adView.frame.size.height, adView.frame.size.width, adView.frame.size.height);
+//        }];
+//        
+//        [mpDictView resizeForAds:[self getAdBannerSize] showAd:YES animation:YES];
+//    }
+//}
 
-// Since we've received an ad, let's go ahead and add it to the view.
-- (void)adViewDidReceiveAd:(GADBannerView *)adView {
+//- (void)adView:(GADBannerView *)view didFailToReceiveAdWithError:(GADRequestError *)error {
+//    NSLog(@"Failed to receive ad with error: %@", [error localizedFailureReason]);
+//}
+
+#pragma mark AdWhirlDelegate impl
+- (NSString *)adWhirlApplicationKey {
+    return [DictUtil isIPad] ? ADWHIRL_SDK_KEY_IPAD : ADWHIRL_SDK_KEY;
+}
+
+- (UIViewController *)viewControllerForPresentingModalView {
+    return self;
+}
+
+- (void)adWhirlDidReceiveAd:(AdWhirlView *)adWhirlView {
     // This code slides the banner up onto the screen with an animation.
-    if (adView.frame.origin.y != self.view.frame.size.height - adView.frame.size.height) {
+    if (adWhirlView.frame.origin.y != self.view.frame.size.height - adWhirlView.frame.size.height) {
         [UIView animateWithDuration:1.0 animations:^ {
-            adView.frame = CGRectMake(adView.frame.origin.x, self.view.frame.size.height - adView.frame.size.height, adView.frame.size.width, adView.frame.size.height);
+            adWhirlView.frame = CGRectMake(adWhirlView.frame.origin.x, self.view.frame.size.height - adWhirlView.frame.size.height, adWhirlView.frame.size.width, adWhirlView.frame.size.height);
         }];
         
         [mpDictView resizeForAds:[self getAdBannerSize] showAd:YES animation:YES];
     }
 }
 
-//- (void)adView:(GADBannerView *)view didFailToReceiveAdWithError:(GADRequestError *)error {
-//    NSLog(@"Failed to receive ad with error: %@", [error localizedFailureReason]);
+//-(BOOL)adWhirlTestMode {
+//    return YES;
 //}
 
 @end
