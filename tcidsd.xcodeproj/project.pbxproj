@@ -73,6 +73,7 @@
 		9986994B153DDB3D00B85BB7 /* reset.png in Resources */ = {isa = PBXBuildFile; fileRef = 99869947153DDB3D00B85BB7 /* reset.png */; };
 		9986994C153DDB3D00B85BB7 /* resethover.png in Resources */ = {isa = PBXBuildFile; fileRef = 99869948153DDB3D00B85BB7 /* resethover.png */; };
 		9997C67E158454850065C828 /* libGoogleAdMobAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 99B51556158432CA00D0E739 /* libGoogleAdMobAds.a */; };
+		9997C6891584733A0065C828 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99B5163A158434E800D0E739 /* iAd.framework */; };
 		999E5F7B15347E4F00F231AF /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 999E5F7115347E4F00F231AF /* Icon-72.png */; };
 		999E5F7C15347E4F00F231AF /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 999E5F7215347E4F00F231AF /* Icon-Small-50.png */; };
 		999E5F7D15347E4F00F231AF /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 999E5F7315347E4F00F231AF /* Icon-Small.png */; };
@@ -406,6 +407,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9997C6891584733A0065C828 /* iAd.framework in Frameworks */,
 				99B516501584375B00D0E739 /* MapKit.framework in Frameworks */,
 				99B516521584377F00D0E739 /* QuartzCore.framework in Frameworks */,
 				99B5164E1584375200D0E739 /* libz.dylib in Frameworks */,
