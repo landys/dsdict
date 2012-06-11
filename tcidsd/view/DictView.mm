@@ -589,6 +589,7 @@
     
     if (mpTooltipView) {
         [self removeTooltipView];
+        [mpResultWordsView deselectAll];
 //        [mpTooltipView removeFromSuperview];
 //        mpTooltipView = nil;
     }
