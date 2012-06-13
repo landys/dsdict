@@ -1104,7 +1104,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer: Jinde Wang (T5NXTACS89)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jinde Wang (T5NXTACS89)";
-				COMPRESS_PNG_FILES = NO;
+				COMPRESS_PNG_FILES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tcidsd/tcidsd-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1132,7 +1132,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Jinde Wang";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Jinde Wang";
-				COMPRESS_PNG_FILES = NO;
+				COMPRESS_PNG_FILES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tcidsd/tcidsd-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = FREE_VERSION;
@@ -1155,7 +1155,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer: Jinde Wang (T5NXTACS89)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jinde Wang (T5NXTACS89)";
-				COMPRESS_PNG_FILES = NO;
+				COMPRESS_PNG_FILES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tcidsd/tcidsd-Prefix.pch";
 				INFOPLIST_FILE = "tcidsd/Draw Dict Adless-Info.plist";
@@ -1176,7 +1176,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Jinde Wang";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Jinde Wang";
-				COMPRESS_PNG_FILES = NO;
+				COMPRESS_PNG_FILES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tcidsd/tcidsd-Prefix.pch";
 				INFOPLIST_FILE = "tcidsd/Draw Dict Adless-Info.plist";
