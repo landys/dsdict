@@ -8,7 +8,8 @@
 
 #import "ImageRecognizer.h"
 
-#define CHARS_IMAGE @"chars.png"
+#define CHARS_IMAGE @"chars2_ipod.png" //@"chars.png"
+#define CHARS2_IPOD_IMAGE @"chars2_ipod.png"
 
 #define CHARS_NUM 26
 #define STD_CHAR_TOP_PADDING 18
@@ -73,8 +74,10 @@
 #define LETTERS_IN_LINE 6
 
 static const int gXCoords[LETTERS_IN_LINE] = {27, 111, 195, 278, 362, 446};
-// {69, 159, 
+
 static const int gXCoordsIpad[LETTERS_IN_LINE] = {70, 160, 250, 341, 431, 521};
+
+static const int gXCoordsIpad2[LETTERS_IN_LINE] = {69, 159, 249, 339, 429, 519};
 
 #define MAX_WORD_LENGTH 8
 static const int gGuessingBegXCoords[MAX_WORD_LENGTH] = {284, 245, 206, 167, 128, 89, 50, 11};
