@@ -16,7 +16,7 @@
 #define BG_BLUE 0x50cef8
 
 #define COLOR_TH 30
-#define WHITE_COLOR_TH 40
+#define WHITE_COLOR_TH 10
 
 static float sRatio = 1.0;
 

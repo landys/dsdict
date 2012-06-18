@@ -96,12 +96,47 @@ typedef enum {IRIPhone, IRIPad} ImageResolution;
 
 @implementation ImageRecognizer
 
+#define MIN_SEG_PIXELS 5
+
+- (int)scanLine:(CGRect)iRect pos:(CGFloat)iPos vertical:(BOOL)iVertical {
+    if ((iVertical && (iPos < iRect.origin.y || iPos >= iRect.origin.y + iRect.size.height)) || (!iVertical && (iPos < iRect.origin.x || iPos >= iRect.origin.x + iRect.size.width))) return -1;
+    
+    int lSegs = -1;
+    BOOL lWhiteBeg = false;
+    int lNWhite = 0;
+    if (iVertical) {
+        for (int i=0; i<iRect.size.height; i+=2) {
+            CGFloat ly = i + iRect.origin.y;
+            Pixel lPixel = [mpChars getPixelColor:iPos y:ly];
+            BOOL lIsWhite = [ColorUtil isCharWhite:lPixel];
+            if (lWhiteBeg) {
+                if (lIsWhite) {
+                    ++lNWhite;
+                }
+            }
+        }
+    }
+    else {
+        for (int i=0; i<iRect.size.width; ++i) {
+            
+        }
+    }
+}
+
+- (void)encodeCharImages {
+    
+}
+
 - (id)init {
     self = [super init];
     if (self) {
         NSString* lpFinalPath = [[NSBundle mainBundle] pathForResource:CHARS_IMAGE ofType:@""];
         UIImage* lpCharsImage = [[UIImage alloc] initWithContentsOfFile:lpFinalPath];
         mpChars = [[ImageCore alloc] initWithUIImage:lpCharsImage];
+        
+        //***
+        [self encodeCharImages];
+        
         [lpCharsImage release];
     }
     return self;
