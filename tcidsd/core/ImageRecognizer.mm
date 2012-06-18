@@ -96,35 +96,149 @@ typedef enum {IRIPhone, IRIPad} ImageResolution;
 
 @implementation ImageRecognizer
 
-#define MIN_SEG_PIXELS 5
+#define MIN_SEG_PIXELS 2
 
-- (int)scanLine:(CGRect)iRect pos:(CGFloat)iPos vertical:(BOOL)iVertical {
-    if ((iVertical && (iPos < iRect.origin.y || iPos >= iRect.origin.y + iRect.size.height)) || (!iVertical && (iPos < iRect.origin.x || iPos >= iRect.origin.x + iRect.size.width))) return -1;
-    
-    int lSegs = -1;
-    BOOL lWhiteBeg = false;
+- (int)scanLine:(BOOL[STD_CHAR_HEIGHT][STD_CHAR_WIDTH])iCharBmp size:(CGSize)iSize pos:(int)iOff vertical:(BOOL)iVertical {
+    BOOL lIsLong = NO;
+    int lNSegs = 0;
+    BOOL lWhiteBeg = NO;
     int lNWhite = 0;
-    if (iVertical) {
-        for (int i=0; i<iRect.size.height; i+=2) {
-            CGFloat ly = i + iRect.origin.y;
-            Pixel lPixel = [mpChars getPixelColor:iPos y:ly];
-            BOOL lIsWhite = [ColorUtil isCharWhite:lPixel];
-            if (lWhiteBeg) {
-                if (lIsWhite) {
-                    ++lNWhite;
+    int lNPixels = (iVertical ? iSize.height : iSize.width);
+    int lNLongSegPixels = lNPixels - 1;
+
+    for (int i=0; i<lNPixels; ++i) {
+        BOOL lIsWhite = (iVertical ? iCharBmp[i][iOff] : iCharBmp[iOff][i]);
+        if (lWhiteBeg) {
+            if (lIsWhite) {
+                ++lNWhite;
+            }
+            else {
+                if (lNWhite >= lNLongSegPixels) {
+                    lIsLong = YES;
+                    break;
                 }
+                else if (lNWhite >= MIN_SEG_PIXELS) {
+                    ++lNSegs;
+                }
+                lWhiteBeg = NO;
+            }
+        }
+        else {
+            if (lIsWhite) {
+                lNWhite = 1;
+                lWhiteBeg = YES;
             }
         }
     }
-    else {
-        for (int i=0; i<iRect.size.width; ++i) {
-            
+    
+    if (lWhiteBeg && !lIsLong) {
+        if (lNWhite >= lNLongSegPixels) {
+            lIsLong = YES;
+        }
+        else if (lNWhite >= MIN_SEG_PIXELS) {
+            ++lNWhite;
         }
     }
+    
+    return lIsLong ? 0 : (lNSegs > 0 ? lNSegs : -1);
+}
+
+- (NSString*)encodeChar:(BOOL[STD_CHAR_HEIGHT][STD_CHAR_WIDTH])iCharBmp size:(CGSize)iSize {
+    NSMutableString* lpEncode = [NSMutableString stringWithCapacity:0];
+    int lNCurSegs = -1;
+    for (int x=0; x<iSize.width; ++x) {
+        int lNSegs = [self scanLine:iCharBmp size:iSize pos:x vertical:YES];
+        if (lNSegs >= 0 && lNCurSegs != lNSegs) {
+            if (lNCurSegs >= 0) {
+                [lpEncode appendString:@" "];
+            }
+            [lpEncode appendFormat:@"%d", lNSegs];
+            
+            lNCurSegs = lNSegs;
+        }
+    }
+    
+    return lpEncode;
+}
+
+- (CGSize)convertToCharBmp:(ImageCore*)ipImage leftTop:(CGPoint)iLeftTop charBmp:(BOOL[STD_CHAR_HEIGHT][STD_CHAR_WIDTH])oCharBmp {
+    if (!ipImage) return CGSizeZero;
+    
+    int lTop = -1;
+    int lBottom = -1;
+    int lLeft = -1;
+    int lRight = -1;
+    for (int y=16; y<CHAR_HEIGHT && lTop == -1; ++y) {
+        int lY = y + iLeftTop.y;
+        for (int x=6; x<CHAR_WIDTH-6; ++x) {
+            if ([ColorUtil isCharWhite:[ipImage getPixelColor:x+iLeftTop.x y:lY]]) {
+                lTop = lY;
+                break;
+            }
+        }
+    }
+    
+    for (int y=CHAR_HEIGHT-10; y>=0 && lBottom == -1; --y) {
+        int lY = y + iLeftTop.y;
+        for (int x=6; x<CHAR_WIDTH-6; ++x) {
+            if ([ColorUtil isCharWhite:[ipImage getPixelColor:x+iLeftTop.x y:lY]]) {
+                lBottom = lY + 1;
+                break;
+            }
+        }
+    }
+    
+    for (int x=6; x<CHAR_WIDTH && lLeft == -1; ++x) {
+        int lX = x + iLeftTop.x;
+        for (int y=16; y<CHAR_HEIGHT-10; ++y) {
+            if ([ColorUtil isCharWhite:[ipImage getPixelColor:lX y:y+iLeftTop.y]]) {
+                lLeft = lX;
+                break;
+            }
+        }
+    }
+    
+    for (int x=CHAR_WIDTH-6; x>=0 && lRight == -1; --x) {
+        int lX = x + iLeftTop.x;
+        for (int y=16; y<CHAR_HEIGHT-10; ++y) {
+            if ([ColorUtil isCharWhite:[ipImage getPixelColor:lX y:y+iLeftTop.y]]) {
+                lRight = lX + 1;
+                break;
+            }
+        }
+    }
+    
+    int lWidth = lRight - lLeft;
+    int lHeight = lBottom - lTop;
+    
+    for (int i=0; i<lHeight; ++i) {
+        int lY = i + lTop;
+        for (int j=0; j<lWidth; ++j) {
+            oCharBmp[i][j] = [ColorUtil isCharWhite:[ipImage getPixelColor:j+lLeft y:lY]];
+        }
+    }
+    
+    return CGSizeMake(lWidth, lHeight);
 }
 
 - (void)encodeCharImages {
-    
+    BOOL lCharBmp[STD_CHAR_HEIGHT][STD_CHAR_WIDTH];
+    for (int i=0; i<CHARS_NUM; ++i) {
+        CGSize lSize = [self convertToCharBmp:mpChars leftTop:CGPointMake(STD_CHAR_WIDTH * i, 0) charBmp:lCharBmp];
+        
+//        NSMutableString* lpCharStr = [NSMutableString stringWithCapacity:0];
+//        for (int j=0; j<lSize.height; ++j) {
+//            for (int t=0; t<lSize.width; ++t) {
+//                [lpCharStr appendFormat:@"%d ", (lCharBmp[j][t] ? 1 : 0)];
+//            }
+//            [lpCharStr appendString:@"\n"];
+//        }
+//        NSLog(@"%c: \n%@", (char)(i+'A'), lpCharStr);
+        
+        NSString* lpEncode = [self encodeChar:lCharBmp size:lSize];
+        
+        NSLog(@"%c %@", (char)(i+'A'), lpEncode);
+    }
 }
 
 - (id)init {
@@ -135,7 +249,7 @@ typedef enum {IRIPhone, IRIPad} ImageResolution;
         mpChars = [[ImageCore alloc] initWithUIImage:lpCharsImage];
         
         //***
-        [self encodeCharImages];
+        //[self encodeCharImages];
         
         [lpCharsImage release];
     }
@@ -330,6 +444,9 @@ typedef enum {IRIPhone, IRIPad} ImageResolution;
 }
 
 - (int)recognizeImage:(UIImage*)ipImage oCharts:(NSMutableString*)opChars {
+    // ***
+    [self encodeCharImages];
+    
     if (!ipImage || !opChars || !mpChars) return 0;
     
     UIImage* lpImage = ipImage;
