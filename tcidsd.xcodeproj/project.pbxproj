@@ -368,6 +368,7 @@
 		99B6A496153AB3C40062C4A6 /* TooltipView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TooltipView.mm; sourceTree = "<group>"; };
 		99C082791549A12500D43EE7 /* WaitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaitView.h; sourceTree = "<group>"; };
 		99C0827A1549A12500D43EE7 /* WaitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaitView.m; sourceTree = "<group>"; };
+		99C92E3D1590C35000EB969C /* CharCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharCode.h; sourceTree = "<group>"; };
 		99D5874D1585146E007160B4 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
 		99D5874E1585146E007160B4 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
 		99D5874F1585146E007160B4 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
@@ -696,6 +697,7 @@
 				99B6A46F153AB3B70062C4A6 /* ImageRecognizer.mm */,
 				99B6A470153AB3B70062C4A6 /* Word.h */,
 				99B6A471153AB3B70062C4A6 /* Word.mm */,
+				99C92E3D1590C35000EB969C /* CharCode.h */,
 			);
 			path = core;
 			sourceTree = "<group>";

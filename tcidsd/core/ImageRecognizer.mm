@@ -7,6 +7,7 @@
 //
 
 #import "ImageRecognizer.h"
+#import "CharCode.h"
 
 #define CHARS_IMAGE @"chars.png"
 #define CHARS2_IPOD_IMAGE @"chars2_ipod.png"
@@ -100,6 +101,8 @@ typedef enum {IRIPhone, IRIPad} ImageResolution;
 #define REPEAT_LIMIT 5
 #define CHAR_INNER_PADDING 0
 #define LONG_SEG_PERCENT 0.8
+#define MAX_VERTICAL_CODES 3
+
 
 - (int)scanLine:(BOOL[STD_CHAR_HEIGHT][STD_CHAR_WIDTH])iCharBmp size:(CGSize)iSize pos:(int)iOff vertical:(BOOL)iVertical {
     BOOL lIsLong = NO;
@@ -111,6 +114,7 @@ typedef enum {IRIPhone, IRIPad} ImageResolution;
 
     for (int i=0; i<lNPixels; ++i) {
         BOOL lIsWhite = (iVertical ? iCharBmp[i][iOff] : iCharBmp[iOff][i]);
+        
         if (lWhiteBeg) {
             if (lIsWhite) {
                 ++lNWhite;
@@ -144,24 +148,43 @@ typedef enum {IRIPhone, IRIPad} ImageResolution;
         }
     }
     
-    return lIsLong ? 0 : (lNSegs > 0 ? lNSegs : -1);
+    return lIsLong ? 8 : (lNSegs > 0 ? lNSegs : -1);
 }
 
-- (NSString*)encodeChar:(BOOL[STD_CHAR_HEIGHT][STD_CHAR_WIDTH])iCharBmp size:(CGSize)iSize {
-    NSMutableString* lpEncode = [NSMutableString stringWithCapacity:0];
+//- (int)encodeCharByPos:(BOOL[STD_CHAR_HEIGHT][STD_CHAR_WIDTH])iCharBmp size:(CGSize)iSize vertical:(BOOL)iVertical pos:(int[])iPos npos:(int)iNPos {
+//    int lCode = 0;
+//    for (int i=0; i<iNPos; ++i) {
+//        int lNSegs = [self scanLine:iCharBmp size:iSize pos:iPos[i] vertical:iVertical];
+//        
+//        lCode = lCode * 10 + lNSegs;
+//    }
+//    
+//    return lCode;
+//}
+//
+//- (int)encodeCharHorizontal:(BOOL[STD_CHAR_HEIGHT][STD_CHAR_WIDTH])iCharBmp size:(CGSize)iSize {
+//    int lNPos = 2;
+//    int lPos[] = {iSize.height / 2, iSize.height * 2 / 3};
+//    
+//    return [self encodeCharByPos:iCharBmp size:iSize vertical:NO pos:lPos npos:lNPos];
+//}
+
+- (int)encodeChar:(BOOL[STD_CHAR_HEIGHT][STD_CHAR_WIDTH])iCharBmp size:(CGSize)iSize vertical:(BOOL)iVertical {
+    int lCode = 0;
     int lNCurSegs = -1;
     int lLastEncode = -1;
     int lNRepeat = 0;
-    for (int x=0; x<iSize.width; ++x) {
-        int lNSegs = [self scanLine:iCharBmp size:iSize pos:x vertical:YES];
+    int lSide = (iVertical ? iSize.width : iSize.height);
+    for (int i=0; i<lSide; ++i) {
+        int lNSegs = [self scanLine:iCharBmp size:iSize pos:i vertical:iVertical];
         if (lNSegs >= 0) {
             if (lNCurSegs == lNSegs) {
                 ++lNRepeat;
                 if (lNRepeat == REPEAT_LIMIT && lLastEncode != lNSegs) {
-                    if (lpEncode.length > 0) {
-                        [lpEncode appendString:@" "];
+                    lCode = lCode * 10 + lNSegs;
+                    if (lCode >= 100) {
+                        break;
                     }
-                    [lpEncode appendFormat:@"%d", lNSegs];
                     lLastEncode = lNSegs;
                 }
             }
@@ -176,7 +199,26 @@ typedef enum {IRIPhone, IRIPad} ImageResolution;
         }
     }
     
-    return lpEncode;
+    int iPos = -1;
+    if (V_HMNU == lCode || V_VWY == lCode || V_CQ == lCode || V_DP == lCode) {
+        iPos = iSize.height / 2; 
+    }
+    else if (V_AO == lCode || V_FR == lCode || V_SZ == lCode || V_QG == lCode) {
+        iPos = iSize.height - 2;
+    }
+    
+    if (iPos >= 0) {
+        int lNSegs = [self scanLine:iCharBmp size:iSize pos:iPos vertical:NO];
+        lCode += 1000 * lNSegs;
+    }
+    
+    if (V2_MN == lCode) {
+        iPos = iSize.height / 2 - 2;
+        int lNSegs = [self scanLine:iCharBmp size:iSize pos:iPos vertical:NO];
+        lCode += 10000 * lNSegs;
+    }
+    
+    return lCode;
 }
 
 - (CGSize)convertToCharBmp:(ImageCore*)ipImage leftTop:(CGPoint)iLeftTop padding:(int)iPadding charBmp:(BOOL[STD_CHAR_HEIGHT][STD_CHAR_WIDTH])oCharBmp {
@@ -268,18 +310,24 @@ typedef enum {IRIPhone, IRIPad} ImageResolution;
 //        }
 //        NSLog(@"%c: \n%@", (char)(i+'A'), lpCharStr);
         
-        NSString* lpEncode = [self encodeChar:lCharBmp size:lSize];
-        
+        int lCode = [self encodeChar:lCharBmp size:lSize vertical:YES];
+        //int lCode = [self encodeCharHorizontal:lCharBmp size:lSize];
         lSize = [self convertToCharBmp:lpImage2 leftTop:CGPointMake(STD_CHAR_WIDTH * i, 0) padding:CHAR_INNER_PADDING charBmp:lCharBmp];
         
-        NSString* lpEncode2 = [self encodeChar:lCharBmp size:lSize];
+        int lCode2 = [self encodeChar:lCharBmp size:lSize vertical:YES];
+        //int lCode2 = [self encodeCharHorizontal:lCharBmp size:lSize];
         
-        if ([lpEncode compare:lpEncode2] != NSOrderedSame) {
-            NSLog(@"%c %@ ** %@", (char)(i+'A'), lpEncode, lpEncode2);
+        printf("#define %c %d\n", (char)(i+'A'), lCode);
+        if (lCode != lCode2) {
+            printf("#define %c %d\n", (char)(i+'A'), lCode2);
         }
-        else {
-            NSLog(@"%c %@ -- %@", (char)(i+'A'), lpEncode, lpEncode2);
-        }
+        
+//        if ([lpEncode compare:lpEncode2] != NSOrderedSame) {
+//            NSLog(@"%c %d ** %d", (char)(i+'A'), lpEncode, lpEncode2);
+//        }
+//        else {
+//            NSLog(@"%c %d -- %d", (char)(i+'A'), lpEncode, lpEncode2);
+//        }
     }
 }
 
