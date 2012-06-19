@@ -8,7 +8,7 @@
 
 #import "ImageRecognizer.h"
 
-#define CHARS_IMAGE @"chars2_ipod.png" //@"chars.png"
+#define CHARS_IMAGE @"chars.png"
 #define CHARS2_IPOD_IMAGE @"chars2_ipod.png"
 
 #define CHARS_NUM 26
@@ -97,6 +97,9 @@ typedef enum {IRIPhone, IRIPad} ImageResolution;
 @implementation ImageRecognizer
 
 #define MIN_SEG_PIXELS 2
+#define REPEAT_LIMIT 5
+#define CHAR_INNER_PADDING 0
+#define LONG_SEG_PERCENT 0.8
 
 - (int)scanLine:(BOOL[STD_CHAR_HEIGHT][STD_CHAR_WIDTH])iCharBmp size:(CGSize)iSize pos:(int)iOff vertical:(BOOL)iVertical {
     BOOL lIsLong = NO;
@@ -104,7 +107,7 @@ typedef enum {IRIPhone, IRIPad} ImageResolution;
     BOOL lWhiteBeg = NO;
     int lNWhite = 0;
     int lNPixels = (iVertical ? iSize.height : iSize.width);
-    int lNLongSegPixels = lNPixels - 1;
+    int lNLongSegPixels = lNPixels * LONG_SEG_PERCENT;
 
     for (int i=0; i<lNPixels; ++i) {
         BOOL lIsWhite = (iVertical ? iCharBmp[i][iOff] : iCharBmp[iOff][i]);
@@ -121,11 +124,12 @@ typedef enum {IRIPhone, IRIPad} ImageResolution;
                     ++lNSegs;
                 }
                 lWhiteBeg = NO;
+                lNWhite = 0;
             }
         }
         else {
             if (lIsWhite) {
-                lNWhite = 1;
+                ++lNWhite;
                 lWhiteBeg = YES;
             }
         }
@@ -136,7 +140,7 @@ typedef enum {IRIPhone, IRIPad} ImageResolution;
             lIsLong = YES;
         }
         else if (lNWhite >= MIN_SEG_PIXELS) {
-            ++lNWhite;
+            ++lNSegs;
         }
     }
     
@@ -146,22 +150,36 @@ typedef enum {IRIPhone, IRIPad} ImageResolution;
 - (NSString*)encodeChar:(BOOL[STD_CHAR_HEIGHT][STD_CHAR_WIDTH])iCharBmp size:(CGSize)iSize {
     NSMutableString* lpEncode = [NSMutableString stringWithCapacity:0];
     int lNCurSegs = -1;
+    int lLastEncode = -1;
+    int lNRepeat = 0;
     for (int x=0; x<iSize.width; ++x) {
         int lNSegs = [self scanLine:iCharBmp size:iSize pos:x vertical:YES];
-        if (lNSegs >= 0 && lNCurSegs != lNSegs) {
-            if (lNCurSegs >= 0) {
-                [lpEncode appendString:@" "];
+        if (lNSegs >= 0) {
+            if (lNCurSegs == lNSegs) {
+                ++lNRepeat;
+                if (lNRepeat == REPEAT_LIMIT && lLastEncode != lNSegs) {
+                    if (lpEncode.length > 0) {
+                        [lpEncode appendString:@" "];
+                    }
+                    [lpEncode appendFormat:@"%d", lNSegs];
+                    lLastEncode = lNSegs;
+                }
             }
-            [lpEncode appendFormat:@"%d", lNSegs];
-            
-            lNCurSegs = lNSegs;
+            else {
+                lNCurSegs = lNSegs;
+                lNRepeat = 1;
+            }
+        }
+        else {
+            lNCurSegs = -1;
+            lNRepeat = 0;
         }
     }
     
     return lpEncode;
 }
 
-- (CGSize)convertToCharBmp:(ImageCore*)ipImage leftTop:(CGPoint)iLeftTop charBmp:(BOOL[STD_CHAR_HEIGHT][STD_CHAR_WIDTH])oCharBmp {
+- (CGSize)convertToCharBmp:(ImageCore*)ipImage leftTop:(CGPoint)iLeftTop padding:(int)iPadding charBmp:(BOOL[STD_CHAR_HEIGHT][STD_CHAR_WIDTH])oCharBmp {
     if (!ipImage) return CGSizeZero;
     
     int lTop = -1;
@@ -208,6 +226,11 @@ typedef enum {IRIPhone, IRIPad} ImageResolution;
         }
     }
     
+    lLeft += iPadding;
+    lRight -= iPadding;
+    lTop += iPadding;
+    lBottom -= iPadding;
+    
     int lWidth = lRight - lLeft;
     int lHeight = lBottom - lTop;
     
@@ -222,9 +245,19 @@ typedef enum {IRIPhone, IRIPad} ImageResolution;
 }
 
 - (void)encodeCharImages {
+    NSString* lpFinalPath = [[NSBundle mainBundle] pathForResource:CHARS_IMAGE ofType:@""];
+    UIImage* lpCharsImage = [[UIImage alloc] initWithContentsOfFile:lpFinalPath];
+    ImageCore* lpImage = [[ImageCore alloc] initWithUIImage:lpCharsImage];
+    [lpCharsImage release];
+    
+    lpFinalPath = [[NSBundle mainBundle] pathForResource:CHARS2_IPOD_IMAGE ofType:@""];
+    lpCharsImage = [[UIImage alloc] initWithContentsOfFile:lpFinalPath];
+    ImageCore* lpImage2 = [[ImageCore alloc] initWithUIImage:lpCharsImage];
+    [lpCharsImage release];
+    
     BOOL lCharBmp[STD_CHAR_HEIGHT][STD_CHAR_WIDTH];
     for (int i=0; i<CHARS_NUM; ++i) {
-        CGSize lSize = [self convertToCharBmp:mpChars leftTop:CGPointMake(STD_CHAR_WIDTH * i, 0) charBmp:lCharBmp];
+        CGSize lSize = [self convertToCharBmp:lpImage leftTop:CGPointMake(STD_CHAR_WIDTH * i, 0) padding:CHAR_INNER_PADDING charBmp:lCharBmp];
         
 //        NSMutableString* lpCharStr = [NSMutableString stringWithCapacity:0];
 //        for (int j=0; j<lSize.height; ++j) {
@@ -237,7 +270,16 @@ typedef enum {IRIPhone, IRIPad} ImageResolution;
         
         NSString* lpEncode = [self encodeChar:lCharBmp size:lSize];
         
-        NSLog(@"%c %@", (char)(i+'A'), lpEncode);
+        lSize = [self convertToCharBmp:lpImage2 leftTop:CGPointMake(STD_CHAR_WIDTH * i, 0) padding:CHAR_INNER_PADDING charBmp:lCharBmp];
+        
+        NSString* lpEncode2 = [self encodeChar:lCharBmp size:lSize];
+        
+        if ([lpEncode compare:lpEncode2] != NSOrderedSame) {
+            NSLog(@"%c %@ ** %@", (char)(i+'A'), lpEncode, lpEncode2);
+        }
+        else {
+            NSLog(@"%c %@ -- %@", (char)(i+'A'), lpEncode, lpEncode2);
+        }
     }
 }
 
@@ -249,7 +291,7 @@ typedef enum {IRIPhone, IRIPad} ImageResolution;
         mpChars = [[ImageCore alloc] initWithUIImage:lpCharsImage];
         
         //***
-        //[self encodeCharImages];
+        [self encodeCharImages];
         
         [lpCharsImage release];
     }
