@@ -102,7 +102,7 @@ typedef enum {IRIPhone, IRIPad} ImageResolution;
 #define CHAR_INNER_PADDING 0
 #define LONG_SEG_PERCENT 0.8
 #define MAX_VERTICAL_CODES 3
-
+#define LONG_SEG_VALUE 8
 
 - (int)scanLine:(BOOL[STD_CHAR_HEIGHT][STD_CHAR_WIDTH])iCharBmp size:(CGSize)iSize pos:(int)iOff vertical:(BOOL)iVertical {
     BOOL lIsLong = NO;
@@ -148,7 +148,7 @@ typedef enum {IRIPhone, IRIPad} ImageResolution;
         }
     }
     
-    return lIsLong ? 8 : (lNSegs > 0 ? lNSegs : -1);
+    return lIsLong ? LONG_SEG_VALUE : (lNSegs > 0 ? lNSegs : -1);
 }
 
 //- (int)encodeCharByPos:(BOOL[STD_CHAR_HEIGHT][STD_CHAR_WIDTH])iCharBmp size:(CGSize)iSize vertical:(BOOL)iVertical pos:(int[])iPos npos:(int)iNPos {
@@ -213,8 +213,14 @@ typedef enum {IRIPhone, IRIPad} ImageResolution;
     }
     
     if (V2_MN == lCode) {
-        iPos = iSize.height / 2 - 2;
-        int lNSegs = [self scanLine:iCharBmp size:iSize pos:iPos vertical:NO];
+        int lNSegs = 3;
+        for (int i=iSize.height / 2 - 7; i<iSize.height / 2; ++i) {
+            lNSegs = [self scanLine:iCharBmp size:iSize pos:i vertical:NO];
+            if (lNSegs == LONG_SEG_VALUE) {
+                break;
+            }
+        }
+
         lCode += 10000 * lNSegs;
     }
     

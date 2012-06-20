@@ -9,42 +9,41 @@
 #ifndef tcidsd_Header_h
 #define tcidsd_Header_h
 
-#define A 121
+#define A 2121
 #define B 832
-#define C 12
-#define D 821
+#define C 1012
+#define D 2821
 #define E 83
-#define F 82
-#define G 123
-#define H 818
+#define F 1082
+#define G 1123
+#define H 8818
 #define I 8
 #define J 18
 #define K 812
 #define L 81
-#define M 818
-#define N 818
-#define O 121
-#define P 821
-#define Q 12
-#define Q2 123
-#define R 82
-#define S 232
+#define M 4818
+#define M2 83818
+#define N 33818
+#define O 1121
+#define P 8821
+#define Q 2012
+#define Q2 2123
+#define R 2082
+#define S 1232
 #define T 181
-#define U 818
-#define V 1
-#define W 1
+#define U 2818
+#define V 2001
+#define W 4001
 #define X 212
-#define Y 1
-#define Z 232
+#define Y 1001
+#define Z 8232
 
-// add a code to scan the horizontal middle line
+// add a code to scan the horizontal line
 #define V_CQ 12
 #define V_VWY 1
 #define V_HMNU 818
 #define V_DP 821
 #define V_QG 123
-
-// add a code to scan the horizontal end line
 #define V_FR 82
 #define V_AO 121
 #define V_SZ 232
