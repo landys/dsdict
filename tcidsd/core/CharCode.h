@@ -22,12 +22,10 @@
 #define K 812
 #define L 81
 #define M 4818
-#define M2 83818
 #define N 33818
 #define O 1121
 #define P 8821
 #define Q 2012
-#define Q2 2123
 #define R 2082
 #define S 1232
 #define T 181
@@ -37,6 +35,8 @@
 #define X 212
 #define Y 1001
 #define Z 8232
+#define M2 83818
+#define Q2 2123
 
 // add a code to scan the horizontal line
 #define V_CQ 12

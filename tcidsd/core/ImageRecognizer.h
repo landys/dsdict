@@ -8,9 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "ImageCore.h"
+#import <map>
 
 @interface ImageRecognizer : NSObject {
-    ImageCore* mpChars;
+    //ImageCore* mpChars;
+    std::map<int, char> mCharCodes;
 }
 
 // return the length of guessing word.
