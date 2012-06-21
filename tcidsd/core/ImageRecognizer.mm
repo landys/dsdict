@@ -9,8 +9,8 @@
 #import "ImageRecognizer.h"
 #import "CharCode.h"
 
-#define CHARS_IMAGE @"chars.png"
-#define CHARS2_IPOD_IMAGE @"chars2_ipod.png"
+//#define CHARS_IMAGE @"chars.png"
+//#define CHARS2_IPOD_IMAGE @"chars2_ipod.png"
 
 #define CHARS_NUM 26
 //#define STD_CHAR_TOP_PADDING 18
@@ -51,10 +51,10 @@
 // ipad
 //#define CHAR_TOP_PADDING_IPAD 21
 //#define CHAR_LEFT_PADDING_IPAD 21
-#define CHAR_TOP_PADDING_IPAD 20
-#define CHAR_LEFT_PADDING_IPAD 12
-#define CHAR_BOTTOM_PADDING_IPAD 20
-#define CHAR_RIGHT_PADDING_IPAD 12
+#define CHAR_TOP_PADDING_IPAD 18
+#define CHAR_LEFT_PADDING_IPAD 10
+#define CHAR_BOTTOM_PADDING_IPAD 18
+#define CHAR_RIGHT_PADDING_IPAD 10
 #define CHAR_WIDTH_IPAD 77
 #define CHAR_HEIGHT_IPAD 75
 
@@ -113,6 +113,8 @@ typedef enum {IRIPhone, IRIPad} ImageResolution;
 #define LONG_SEG_PERCENT 0.8
 #define MAX_VERTICAL_CODES 3
 #define LONG_SEG_VALUE 8
+
+#define Empty_WIDTH_LIMIT (STD_CHAR_WIDTH / 2)
 
 - (int)scanLine:(BOOL[STD_CHAR_HEIGHT][STD_CHAR_WIDTH])iCharBmp size:(CGSize)iSize pos:(int)iOff vertical:(BOOL)iVertical {
     BOOL lIsLong = NO;
@@ -215,6 +217,12 @@ typedef enum {IRIPhone, IRIPad} ImageResolution;
 - (int)encodeChar:(BOOL[STD_CHAR_HEIGHT][STD_CHAR_WIDTH])iCharBmp size:(CGSize)iSize {
     int lCode = [self encodeCharByTraverse:iCharBmp size:iSize vertical:YES];
     
+    if (lCode == LONG_SEG_VALUE || lCode <= 0) {
+        if (iSize.width > Empty_WIDTH_LIMIT) {
+            return 0;
+        }
+    }
+    
     // add more codes for the chars with the same code.
     int iPos = -1;
     if (V_HMNU == lCode || V_VWY == lCode || V_CQ == lCode || V_DP == lCode) {
@@ -247,11 +255,15 @@ typedef enum {IRIPhone, IRIPad} ImageResolution;
 - (CGSize)convertToCharBmp:(ImageCore*)ipImage leftTop:(CGPoint)iLeftTop ir:(ImageResolution)iIR padding:(int)iPadding charBmp:(BOOL[STD_CHAR_HEIGHT][STD_CHAR_WIDTH])oCharBmp {
     if (!ipImage) return CGSizeZero;
     
+    int lWholeWidth = CHAR_WIDTH;
+    int lWholeHeight = CHAR_HEIGHT;
     int lTopPadding = CHAR_TOP_PADDING;
     int lBottomPadding = CHAR_BOTTOM_PADDING;
     int lLeftPadding = CHAR_LEFT_PADDING;
     int lRightPadding = CHAR_RIGHT_PADDING;
     if (iIR == IRIPad) {
+        lWholeWidth = CHAR_WIDTH_IPAD;
+        lWholeHeight = CHAR_HEIGHT_IPAD;
         lTopPadding = CHAR_TOP_PADDING_IPAD;
         lBottomPadding = CHAR_BOTTOM_PADDING_IPAD;
         lLeftPadding = CHAR_LEFT_PADDING_IPAD;
@@ -262,9 +274,9 @@ typedef enum {IRIPhone, IRIPad} ImageResolution;
     int lBottom = -1;
     int lLeft = -1;
     int lRight = -1;
-    for (int y=lTopPadding; y<CHAR_HEIGHT-lBottomPadding && lTop == -1; ++y) {
+    for (int y=lTopPadding; y<lWholeHeight-lBottomPadding && lTop == -1; ++y) {
         int lY = y + iLeftTop.y;
-        for (int x=lLeftPadding; x<CHAR_WIDTH-lRightPadding; ++x) {
+        for (int x=lLeftPadding; x<lWholeWidth-lRightPadding; ++x) {
             if ([ColorUtil isCharWhite:[ipImage getPixelColor:x+iLeftTop.x y:lY]]) {
                 lTop = lY;
                 break;
@@ -272,9 +284,9 @@ typedef enum {IRIPhone, IRIPad} ImageResolution;
         }
     }
     
-    for (int y=CHAR_HEIGHT-lBottomPadding; y>=lTopPadding && lBottom == -1; --y) {
+    for (int y=lWholeHeight-lBottomPadding; y>=lTopPadding && lBottom == -1; --y) {
         int lY = y + iLeftTop.y;
-        for (int x=lLeftPadding; x<CHAR_WIDTH-lRightPadding; ++x) {
+        for (int x=lLeftPadding; x<lWholeWidth-lRightPadding; ++x) {
             if ([ColorUtil isCharWhite:[ipImage getPixelColor:x+iLeftTop.x y:lY]]) {
                 lBottom = lY + 1;
                 break;
@@ -282,9 +294,9 @@ typedef enum {IRIPhone, IRIPad} ImageResolution;
         }
     }
     
-    for (int x=lLeftPadding; x<CHAR_WIDTH-lRightPadding && lLeft == -1; ++x) {
+    for (int x=lLeftPadding; x<lWholeWidth-lRightPadding && lLeft == -1; ++x) {
         int lX = x + iLeftTop.x;
-        for (int y=lTopPadding; y<CHAR_HEIGHT-lBottomPadding; ++y) {
+        for (int y=lTopPadding; y<lWholeHeight-lBottomPadding; ++y) {
             if ([ColorUtil isCharWhite:[ipImage getPixelColor:lX y:y+iLeftTop.y]]) {
                 lLeft = lX;
                 break;
@@ -292,9 +304,9 @@ typedef enum {IRIPhone, IRIPad} ImageResolution;
         }
     }
     
-    for (int x=CHAR_WIDTH-lRightPadding; x>=lLeftPadding && lRight == -1; --x) {
+    for (int x=lWholeWidth-lRightPadding; x>=lLeftPadding && lRight == -1; --x) {
         int lX = x + iLeftTop.x;
-        for (int y=lTopPadding; y<CHAR_HEIGHT-lBottomPadding; ++y) {
+        for (int y=lTopPadding; y<lWholeHeight-lBottomPadding; ++y) {
             if ([ColorUtil isCharWhite:[ipImage getPixelColor:lX y:y+iLeftTop.y]]) {
                 lRight = lX + 1;
                 break;
@@ -371,11 +383,10 @@ typedef enum {IRIPhone, IRIPad} ImageResolution;
 //        NSString* lpFinalPath = [[NSBundle mainBundle] pathForResource:CHARS_IMAGE ofType:@""];
 //        UIImage* lpCharsImage = [[UIImage alloc] initWithContentsOfFile:lpFinalPath];
 //        mpChars = [[ImageCore alloc] initWithUIImage:lpCharsImage];
+//        [lpCharsImage release];
         
         //***
 //        [self encodeCharImages];
-        
-//        [lpCharsImage release];
         
         int lCodes[] = {A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z};
         for (int i=0; i<26; ++i) {
@@ -391,11 +402,28 @@ typedef enum {IRIPhone, IRIPad} ImageResolution;
     BOOL lCharBmp[STD_CHAR_HEIGHT][STD_CHAR_WIDTH];
     
     CGSize lSize = [self convertToCharBmp:ipImage leftTop:iLeftTop ir:iIR padding:CHAR_INNER_PADDING charBmp:lCharBmp];
-
-    int lCode = [self encodeChar:lCharBmp size:lSize];
     
-    std::map<int, char>::iterator it = mCharCodes.find(lCode);
-    return (it == mCharCodes.end() ? 0 : it->second);
+    char lChar = 0;
+    
+    int lCode = [self encodeChar:lCharBmp size:lSize];
+    if (lCode > 0) {
+        std::map<int, char>::iterator it = mCharCodes.find(lCode);
+        if (it != mCharCodes.end()) {
+            lChar = it->second;
+        }
+    }
+    
+    //** print bmp
+    NSMutableString* lpCharStr = [NSMutableString stringWithCapacity:0];
+    for (int j=0; j<lSize.height; ++j) {
+        for (int t=0; t<lSize.width; ++t) {
+            [lpCharStr appendFormat:@"%d ", (lCharBmp[j][t] ? 1 : 0)];
+        }
+        [lpCharStr appendString:@"\n"];
+    }
+    NSLog(@"%c: \n%@", lChar, lpCharStr);
+    
+    return lChar;
 }
 
 //- (char)recognizeChar:(ImageCore*)ipImage leftTop:(CGPoint)iLeftTop ir:(ImageResolution)iIR {
