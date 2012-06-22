@@ -22,7 +22,7 @@
 #define NO_WORDS_FOR_LENGTH @"No results for word length bigger than 8, since it's designed only for \"Draw Something\". :)"
 #define CANNOT_FIND_WORDS @"No results for current word length and candidate letters. Please enter more.\n\nIf you have finished your input, I'd to say the word is not in our library. :("
 #define LETTERS_ONLY_LETTER_ALLOWED @"Only letters are allowed in \"Enter Letters\" field."
-#define SCREENSHOT_CANNOT_RECOGNIZE @"Sorry, the imported \"Screenshot\" cannot be recognized.\n\nPlease check if it's really a screenshot of your \"Draw Something\" game. It should have the candidate letters at the bottom. :)"
+#define SCREENSHOT_CANNOT_RECOGNIZE @"Sorry, the screenshot cannot be recognized. You may try to input letters manually.\n\nPlease check if it's really a screenshot of your \"Draw Something\" game. It should have the candidate letters at the bottom. :)"
 
 #define LOADING_DICTIONARY @"Loading Dictionaries..."
 

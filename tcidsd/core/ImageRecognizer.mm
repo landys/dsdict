@@ -53,7 +53,7 @@
 //#define CHAR_LEFT_PADDING_IPAD 21
 #define CHAR_TOP_PADDING_IPAD 18
 #define CHAR_LEFT_PADDING_IPAD 10
-#define CHAR_BOTTOM_PADDING_IPAD 18
+#define CHAR_BOTTOM_PADDING_IPAD 12
 #define CHAR_RIGHT_PADDING_IPAD 10
 #define CHAR_WIDTH_IPAD 77
 #define CHAR_HEIGHT_IPAD 75
@@ -225,11 +225,14 @@ typedef enum {IRIPhone, IRIPad} ImageResolution;
     
     // add more codes for the chars with the same code.
     int iPos = -1;
-    if (V_HMNU == lCode || V_VWY == lCode || V_CQ == lCode || V_DP == lCode) {
+    if (V_HMNU == lCode || V_VWY == lCode || V_CQ == lCode) {
         iPos = iSize.height / 2; 
     }
     else if (V_AO == lCode || V_FR == lCode || V_SZ == lCode || V_QG == lCode) {
         iPos = iSize.height - 2;
+    }
+    else if (V_DP == lCode) {
+        iPos = iSize.height * 2 / 3;
     }
     
     if (iPos >= 0) {
@@ -238,15 +241,16 @@ typedef enum {IRIPhone, IRIPad} ImageResolution;
     }
     
     if (V2_MN == lCode) {
-        int lNSegs = 3;
+        int lNGoodSegs = 3;
         for (int i=iSize.height / 2 - 7; i<iSize.height / 2; ++i) {
-            lNSegs = [self scanLine:iCharBmp size:iSize pos:i vertical:NO];
-            if (lNSegs == LONG_SEG_VALUE) {
+            int lNSegs = [self scanLine:iCharBmp size:iSize pos:i vertical:NO];
+            if (lNSegs > lNGoodSegs) {
+                lNGoodSegs = LONG_SEG_VALUE;
                 break;
             }
         }
         
-        lCode += 10000 * lNSegs;
+        lCode += 10000 * lNGoodSegs;
     }
 
     return lCode;
@@ -347,28 +351,42 @@ typedef enum {IRIPhone, IRIPad} ImageResolution;
 //    for (int i=0; i<CHARS_NUM; ++i) {
 //        CGSize lSize = [self convertToCharBmp:lpImage leftTop:CGPointMake(STD_CHAR_WIDTH * i, 0) ir:IRIPhone padding:CHAR_INNER_PADDING charBmp:lCharBmp];
 //        
+//        int lCode = [self encodeChar:lCharBmp size:lSize];
+//        
+////        //** print bmp
 ////        NSMutableString* lpCharStr = [NSMutableString stringWithCapacity:0];
 ////        for (int j=0; j<lSize.height; ++j) {
+////            [lpCharStr appendFormat:@"%2d: ", j];
 ////            for (int t=0; t<lSize.width; ++t) {
 ////                [lpCharStr appendFormat:@"%d ", (lCharBmp[j][t] ? 1 : 0)];
 ////            }
 ////            [lpCharStr appendString:@"\n"];
 ////        }
-////        NSLog(@"%c: \n%@", (char)(i+'A'), lpCharStr);
+////        NSLog(@"%c - %d: \n%@", (char)(i + 'A'), lCode, lpCharStr);         
 //        
-//        int lCode = [self encodeChar:lCharBmp size:lSize];
 //        //int lCode = [self encodeCharHorizontal:lCharBmp size:lSize];
 //        lSize = [self convertToCharBmp:lpImage2 leftTop:CGPointMake(STD_CHAR_WIDTH * i, 0) ir:IRIPhone padding:CHAR_INNER_PADDING charBmp:lCharBmp];
 //        
 //        int lCode2 = [self encodeChar:lCharBmp size:lSize];
 //        //int lCode2 = [self encodeCharHorizontal:lCharBmp size:lSize];
 //        
-//        printf("#define %c %d\n", (char)(i+'A'), lCode);
-//        if (lCode != lCode2) {
-//            printf("#define %c %d\n", (char)(i+'A'), lCode2);
-//        }
+////        printf("#define %c %d\n", (char)(i+'A'), lCode);
+////        if (lCode != lCode2) {
+////            printf("#define %c %d\n", (char)(i+'A'), lCode2);
+////        }
 //        
 //        if (lCode != lCode2) {
+////            //** print bmp
+////            lpCharStr = [NSMutableString stringWithCapacity:0];
+////            for (int j=0; j<lSize.height; ++j) {
+////                [lpCharStr appendFormat:@"%2d: ", j];
+////                for (int t=0; t<lSize.width; ++t) {
+////                    [lpCharStr appendFormat:@"%d ", (lCharBmp[j][t] ? 1 : 0)];
+////                }
+////                [lpCharStr appendString:@"\n"];
+////            }
+////            NSLog(@"%c - %d: \n%@", (char)(i + 'A'), lCode2, lpCharStr);
+//            
 //            NSLog(@"%c %d ** %d", (char)(i+'A'), lCode, lCode2);
 //        }
 //        else {
@@ -413,15 +431,16 @@ typedef enum {IRIPhone, IRIPad} ImageResolution;
         }
     }
     
-    //** print bmp
-    NSMutableString* lpCharStr = [NSMutableString stringWithCapacity:0];
-    for (int j=0; j<lSize.height; ++j) {
-        for (int t=0; t<lSize.width; ++t) {
-            [lpCharStr appendFormat:@"%d ", (lCharBmp[j][t] ? 1 : 0)];
-        }
-        [lpCharStr appendString:@"\n"];
-    }
-    NSLog(@"%c: \n%@", lChar, lpCharStr);
+//    //** print bmp
+//    NSMutableString* lpCharStr = [NSMutableString stringWithCapacity:0];
+//    for (int j=0; j<lSize.height; ++j) {
+//        [lpCharStr appendFormat:@"%2d: ", j];
+//        for (int t=0; t<lSize.width; ++t) {
+//            [lpCharStr appendFormat:@"%d ", (lCharBmp[j][t] ? 1 : 0)];
+//        }
+//        [lpCharStr appendString:@"\n"];
+//    }
+//    NSLog(@"%c - %d: \n%@", lChar, lCode, lpCharStr);
     
     return lChar;
 }
