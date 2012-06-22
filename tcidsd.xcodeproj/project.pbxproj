@@ -57,7 +57,6 @@
 		1FD1F28B156CEB0B000A1786 /* btnsnapshothover.png in Resources */ = {isa = PBXBuildFile; fileRef = 99869946153DDB3D00B85BB7 /* btnsnapshothover.png */; };
 		1FD1F28C156CEB0B000A1786 /* reset.png in Resources */ = {isa = PBXBuildFile; fileRef = 99869947153DDB3D00B85BB7 /* reset.png */; };
 		1FD1F28D156CEB0B000A1786 /* resethover.png in Resources */ = {isa = PBXBuildFile; fileRef = 99869948153DDB3D00B85BB7 /* resethover.png */; };
-		1FD1F28E156CEB0B000A1786 /* chars.png in Resources */ = {isa = PBXBuildFile; fileRef = 99AFBD3D1540622C00366B31 /* chars.png */; };
 		1FEB2536153D3CBE002F9C5A /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FEB2535153D3CBE002F9C5A /* AudioToolbox.framework */; };
 		1FEB2538153D3CD5002F9C5A /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FEB2537153D3CD5002F9C5A /* MessageUI.framework */; };
 		1FEB253A153D3D08002F9C5A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FEB2539153D3D08002F9C5A /* SystemConfiguration.framework */; };
@@ -65,11 +64,8 @@
 		9986994A153DDB3D00B85BB7 /* btnsnapshothover.png in Resources */ = {isa = PBXBuildFile; fileRef = 99869946153DDB3D00B85BB7 /* btnsnapshothover.png */; };
 		9986994B153DDB3D00B85BB7 /* reset.png in Resources */ = {isa = PBXBuildFile; fileRef = 99869947153DDB3D00B85BB7 /* reset.png */; };
 		9986994C153DDB3D00B85BB7 /* resethover.png in Resources */ = {isa = PBXBuildFile; fileRef = 99869948153DDB3D00B85BB7 /* resethover.png */; };
-		99914EA1158A45BF0090458B /* chars2_ipod.png in Resources */ = {isa = PBXBuildFile; fileRef = 99914EA0158A45BF0090458B /* chars2_ipod.png */; };
-		99914EA2158A45BF0090458B /* chars2_ipod.png in Resources */ = {isa = PBXBuildFile; fileRef = 99914EA0158A45BF0090458B /* chars2_ipod.png */; };
 		9997C67E158454850065C828 /* libGoogleAdMobAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 99B51556158432CA00D0E739 /* libGoogleAdMobAds.a */; };
 		9997C6891584733A0065C828 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99B5163A158434E800D0E739 /* iAd.framework */; };
-		99AFBD3E1540622C00366B31 /* chars.png in Resources */ = {isa = PBXBuildFile; fileRef = 99AFBD3D1540622C00366B31 /* chars.png */; };
 		99B51558158432CA00D0E739 /* libGoogleAdMobAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 99B51556158432CA00D0E739 /* libGoogleAdMobAds.a */; };
 		99B515A4158432F900D0E739 /* AdWhirlAdapterGoogleAdMobAds.m in Sources */ = {isa = PBXBuildFile; fileRef = 99B5155E158432F900D0E739 /* AdWhirlAdapterGoogleAdMobAds.m */; };
 		99B515A5158432F900D0E739 /* AdWhirlAdapterGoogleAdMobAds.m in Sources */ = {isa = PBXBuildFile; fileRef = 99B5155E158432F900D0E739 /* AdWhirlAdapterGoogleAdMobAds.m */; };
@@ -240,8 +236,6 @@
 		99869946153DDB3D00B85BB7 /* btnsnapshothover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btnsnapshothover.png; sourceTree = "<group>"; };
 		99869947153DDB3D00B85BB7 /* reset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reset.png; sourceTree = "<group>"; };
 		99869948153DDB3D00B85BB7 /* resethover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = resethover.png; sourceTree = "<group>"; };
-		99914EA0158A45BF0090458B /* chars2_ipod.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chars2_ipod.png; sourceTree = "<group>"; };
-		99AFBD3D1540622C00366B31 /* chars.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chars.png; sourceTree = "<group>"; };
 		99B51550158432CA00D0E739 /* GADBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADBannerView.h; sourceTree = "<group>"; };
 		99B51551158432CA00D0E739 /* GADBannerViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADBannerViewDelegate.h; sourceTree = "<group>"; };
 		99B51552158432CA00D0E739 /* GADInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADInterstitial.h; sourceTree = "<group>"; };
@@ -513,7 +507,6 @@
 		999E5F6C15347E4F00F231AF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				99914EA0158A45BF0090458B /* chars2_ipod.png */,
 				99D5875B1585147D007160B4 /* icon */,
 				99D5874C1585146E007160B4 /* icon_free */,
 				FE02A2331578988F006ADF45 /* Default.png */,
@@ -522,7 +515,6 @@
 				FE02A23615789890006ADF45 /* Default~ipad@2x.png */,
 				FE02A23015788307006ADF45 /* w_e */,
 				FE02A21D15762665006ADF45 /* d_e */,
-				99AFBD3D1540622C00366B31 /* chars.png */,
 				99869945153DDB3D00B85BB7 /* btnsnapshot.png */,
 				99869946153DDB3D00B85BB7 /* btnsnapshothover.png */,
 				99869947153DDB3D00B85BB7 /* reset.png */,
@@ -860,7 +852,6 @@
 				9986994A153DDB3D00B85BB7 /* btnsnapshothover.png in Resources */,
 				9986994B153DDB3D00B85BB7 /* reset.png in Resources */,
 				9986994C153DDB3D00B85BB7 /* resethover.png in Resources */,
-				99AFBD3E1540622C00366B31 /* chars.png in Resources */,
 				FE02A21E15762665006ADF45 /* d_e in Resources */,
 				FE02A23115788307006ADF45 /* w_e in Resources */,
 				FE02A23715789890006ADF45 /* Default.png in Resources */,
@@ -875,7 +866,6 @@
 				99D587581585146F007160B4 /* Icon.png in Resources */,
 				99D587591585146F007160B4 /* Icon@2x.png in Resources */,
 				99D5875A1585146F007160B4 /* iTunesArtwork in Resources */,
-				99914EA1158A45BF0090458B /* chars2_ipod.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -892,7 +882,6 @@
 				1FD1F28B156CEB0B000A1786 /* btnsnapshothover.png in Resources */,
 				1FD1F28C156CEB0B000A1786 /* reset.png in Resources */,
 				1FD1F28D156CEB0B000A1786 /* resethover.png in Resources */,
-				1FD1F28E156CEB0B000A1786 /* chars.png in Resources */,
 				FE02A21F15762665006ADF45 /* d_e in Resources */,
 				FE02A23215788307006ADF45 /* w_e in Resources */,
 				FE02A23815789890006ADF45 /* Default.png in Resources */,
@@ -907,7 +896,6 @@
 				99D587671585147D007160B4 /* Icon.png in Resources */,
 				99D587681585147D007160B4 /* Icon@2x.png in Resources */,
 				99D587691585147D007160B4 /* iTunesArtwork in Resources */,
-				99914EA2158A45BF0090458B /* chars2_ipod.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
