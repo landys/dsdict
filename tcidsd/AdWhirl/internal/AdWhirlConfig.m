@@ -202,11 +202,12 @@ BOOL awDoubleVal(double *var, id val) {
                                           @selector(locationServicesEnabled)]) {
       bLocationServiceEnabled = [CLLocationManager locationServicesEnabled];
     }
-    else {
-      CLLocationManager* locMan = [[CLLocationManager alloc] init];
-      bLocationServiceEnabled = locMan.locationServicesEnabled;
-      [locMan release], locMan = nil;
-    }
+      // jinde: no need to support version below ios4.
+//    else {
+//      CLLocationManager* locMan = [[CLLocationManager alloc] init];
+//      bLocationServiceEnabled = locMan.locationServicesEnabled;
+//      [locMan release], locMan = nil;
+//    }
 
     if (locationOn == YES && bLocationServiceEnabled == NO) {
       AWLogDebug(@"User disabled location services, set locationOn to NO");

@@ -37,6 +37,7 @@
 #define Z 8232
 #define M2 83818
 #define Q2 2123
+#define Q3 128
 
 // add a code to scan the horizontal line
 #define V_CQ 12

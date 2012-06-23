@@ -51,8 +51,8 @@
 // ipad
 //#define CHAR_TOP_PADDING_IPAD 21
 //#define CHAR_LEFT_PADDING_IPAD 21
-#define CHAR_TOP_PADDING_IPAD 18
-#define CHAR_LEFT_PADDING_IPAD 10
+#define CHAR_TOP_PADDING_IPAD 17
+#define CHAR_LEFT_PADDING_IPAD 9
 #define CHAR_BOTTOM_PADDING_IPAD 12
 #define CHAR_RIGHT_PADDING_IPAD 10
 #define CHAR_WIDTH_IPAD 77
@@ -412,6 +412,7 @@ typedef enum {IRIPhone, IRIPad} ImageResolution;
         }
         mCharCodes[M2] = 'M';
         mCharCodes[Q2] = 'Q';
+        mCharCodes[Q3] = 'Q';
     }
     return self;
 }

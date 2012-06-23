@@ -1110,7 +1110,7 @@
 				);
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "";
 				INFOPLIST_FILE = "tcidsd/Draw Dict Free-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/tcidsd/AdNetworkLibs/AdMobAdsSDK\"",
@@ -1134,7 +1134,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = FREE_VERSION;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "";
 				INFOPLIST_FILE = "tcidsd/Draw Dict Free-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/tcidsd/AdNetworkLibs/AdMobAdsSDK\"",
@@ -1155,7 +1155,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tcidsd/tcidsd-Prefix.pch";
 				INFOPLIST_FILE = "tcidsd/Draw Dict Adless-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/tcidsd/AdNetworkLibs/AdMobAdsSDK\"",
@@ -1176,7 +1176,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tcidsd/tcidsd-Prefix.pch";
 				INFOPLIST_FILE = "tcidsd/Draw Dict Adless-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/tcidsd/AdNetworkLibs/AdMobAdsSDK\"",

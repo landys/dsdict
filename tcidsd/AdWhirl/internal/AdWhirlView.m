@@ -31,6 +31,8 @@
 
 #define kAdWhirlViewAdSubViewTag   1000
 
+NSInteger adNetworkPriorityComparer(id a, id b, void *ctx);
+
 
 NSInteger adNetworkPriorityComparer(id a, id b, void *ctx) {
   AdWhirlAdNetworkConfig *acfg = a, *bcfg = b;
