@@ -36,7 +36,9 @@
 //#define NUMBERSPERIOD @"0123456789."
 #if defined (FREE_VERSION)
 // free version
-#define RATE_URL @"https://userpub.itunes.apple.com/WebObjects/MZUserPublishing.woa/wa/addUserReview?id=521185012&type=Purple+Software"
+//#define RATE_URL @"itms-apps://itunes.apple.com/us/app/domainsicle-domain-name-search/id521185012?ls=1&mt=8"
+#define RATE_URL @"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=521185012"
+#define UPGRADE_URL @"http://itunes.apple.com/app/id530189788"
 //#define RATE_URL_EN @"http://itunes.apple.com/app/id521185012"
 //#define RATE_URL_CN @"http://itunes.apple.com/cn/app/id521185012"
 //#define UPGRADE_URL_EN @"http://itunes.apple.com/app/id530189788"
@@ -44,6 +46,9 @@
 #define IS_SUPER NO
 #else
 // adless version
+//#define RATE_URL @"itms-apps://itunes.apple.com/us/app/domainsicle-domain-name-search/id530189788?ls=1&mt=8"
+#define RATE_URL @"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=530189788"
+#define UPGRADE_URL @""
 //#define RATE_URL_EN @"http://itunes.apple.com/app/id530189788"
 //#define RATE_URL_CN @"http://itunes.apple.com/cn/app/id530189788"
 //#define UPGRADE_URL_EN @""
@@ -235,11 +240,13 @@ static WaitView* gpWaitView;
 }
 
 + (NSString*)getRateUrl {
-    return ([DictUtil isChinesePreferred] ? RATE_URL_CN : RATE_URL_EN);
+    return RATE_URL;
+    //return ([DictUtil isChinesePreferred] ? RATE_URL_CN : RATE_URL_EN);
 }
 
 + (NSString*)getUpgradeUrl {
-    return ([DictUtil isChinesePreferred] ? UPGRADE_URL_CN : UPGRADE_URL_EN);
+    return UPGRADE_URL;
+    //return ([DictUtil isChinesePreferred] ? UPGRADE_URL_CN : UPGRADE_URL_EN);
 }
 
 + (NSString*)getPrivilegeKey {
