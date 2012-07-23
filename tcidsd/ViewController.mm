@@ -123,7 +123,6 @@
     //[mpAdView release];
     mpAdView = nil;
     
-    [mpDictView release];
     mpDictView = nil;
 }
 

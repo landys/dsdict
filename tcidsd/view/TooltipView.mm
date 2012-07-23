@@ -53,7 +53,7 @@ const float ShadowSpread = 3;
 		self.backgroundColor = [UIColor clearColor];	
 		self.clipsToBounds = NO;
 		
-		mpWord = [ipWord retain];
+		mpWord = ipWord;
 		
 		[self createToolTip];
 		CGSize tooltipSize = CGSizeMake(self.bounds.size.width, self.bounds.size.height);
@@ -242,7 +242,6 @@ const float ShadowSpread = 3;
 //                [lpArrDatas addObject:label];
 //            }
             [self addSubview:label];
-            [label release];
             //
             //NSString* labelStr = [NSString stringWithUTF8String:content.c_str()];
             UIFont* labelFont = [Global getCommonLightFont:TooltipFontSize];
@@ -320,7 +319,6 @@ const float ShadowSpread = 3;
 		}
 	}
     
-    [lpDataProvider release];
 	
 	if (lTitleMaxWidth > MaxLabelWidth) {
 		lTitleMaxWidth = MaxLabelWidth;
@@ -349,7 +347,6 @@ const float ShadowSpread = 3;
 	float lBorderHeight = OuterBorderWidth + InnerBorderWidth + ShadowHeight + ShadowSpread;
 	self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, LeftPadding + mSepLineLen + RightPadding + lBorderWith, lCurY + BottomPadding + lBorderHeight);
 	
-	[lpArrTitles release];
 	//[lpArrDatas release];
 }
 
@@ -465,9 +462,5 @@ const float ShadowSpread = 3;
 	[UIView commitAnimations];
 }
 
-- (void)dealloc {
-    [mpWord release];
-    [super dealloc];
-}
 
 @end

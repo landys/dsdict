@@ -715,15 +715,9 @@ typedef enum {IRIPhone, IRIPad} ImageResolution;
     // merge the letters from guessing bar and letters bar.
     [opChars appendString:lpLetters];
     
-    [lpSnapshot release];
-    [lpLetters release];
     
     return lNGuessChars;
 }
 
-- (void)dealloc {
-//    [mpChars release];
-    [super dealloc];
-}
 
 @end

@@ -31,7 +31,6 @@
         mpLblWord.textColor = [Global getDarkTextColor];
         mpLblWord.highlightedTextColor = [Global getLightTextColor];
         [self.contentView addSubview:mpLblWord];
-        [mpLblWord release];
         
         // render title
         mpLblMeaning = [[UILabel alloc] initWithFrame:CGRectMake(lWordWidth, 0, lSize.width - lWordWidth, lSize.height)];
@@ -39,7 +38,6 @@
         mpLblMeaning.textColor = [Global getDarkTextColor];
         mpLblMeaning.highlightedTextColor = [Global getLightTextColor];
         [self.contentView addSubview:mpLblMeaning];
-        [mpLblMeaning release];
     }
     return self;
 }
@@ -52,26 +50,19 @@
 
 - (void)applayData:(Word*)ipWord begIndex:(int)iBegIndex {
     if (ipWord) {
-        [mpWord release];
-        mpWord = [ipWord retain];
+        mpWord = ipWord;
         NSString* lpText = [[NSString alloc] initWithFormat:@"%d). %@", iBegIndex + 1, mpWord.mpWord];
         mpLblWord.text = lpText;
-        [lpText release];
 //        NSString* lpLanguage = [Global getLanguageSetting];
 //        mpLblMeaning.text = (lpLanguage != nil && [lpLanguage compare:LANGUAGE_CHINESE] == NSOrderedSame ? [mpWord displayedCn] : [mpWord displayedEn]);
         mpLblMeaning.text = [mpWord displayedCn];
     }
     else {
-        [mpWord release];
         mpWord = nil;
         mpLblWord.text = nil;
         mpLblMeaning.text = nil;
     }
 }
 
-- (void)dealloc {
-    [mpWord release];
-    [super dealloc];
-}
 
 @end

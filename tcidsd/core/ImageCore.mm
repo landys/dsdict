@@ -114,7 +114,6 @@
 
 - (void)dealloc {
     free(mpPixels);
-    [super dealloc];
 }
 
 @end

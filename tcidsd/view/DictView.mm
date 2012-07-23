@@ -102,7 +102,6 @@
     lpLabel.backgroundColor = [UIColor clearColor];
     lpLabel.textColor = [UIColor whiteColor];//[ColorUtil colorFromInteger:0xfbfbfb];
     [self addSubview:lpLabel];
-    [lpLabel release];
     
     return lpLabel;
 }
@@ -122,7 +121,6 @@
     lpTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     
     [self addSubview:lpTextField];
-    [lpTextField release];
     
     return lpTextField;
 }
@@ -195,8 +193,6 @@
     UIImage* lpImgChooseImageHover = [ColorUtil newImage:@"btnsnapshothover.png"];
     [mpBtnChooseImage setBackgroundImage:lpImgChooseImage forState:UIControlStateNormal];
     [mpBtnChooseImage setBackgroundImage:lpImgChooseImageHover forState:UIControlStateHighlighted];
-    [lpImgChooseImage release];
-    [lpImgChooseImageHover release];
     mpBtnChooseImage.titleLabel.textAlignment = UITextAlignmentCenter;
     mpBtnChooseImage.titleLabel.font = [Global getCommonBoldFont:([DictUtil isIPad] ? 44 : 22)];
     mpBtnChooseImage.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
@@ -210,15 +206,12 @@
     UIImageView* lpTitleView = [[UIImageView alloc] initWithFrame:lTitleFrame];
     UIImage* lpTitleImage = [ColorUtil newImage:@"title.png"];//([DictUtil isIPad] ? @"title_shadow.png" : @"title.png")];
     lpTitleView.image = lpTitleImage;
-    [lpTitleImage release];
     [self addSubview:lpTitleView];
-    [lpTitleView release];
     
     // create setting button
     mpBtnSetting = [[DropDownButton alloc] initWithFrame:lSettingFrame mainVC:mpMainVC popRect:lSettingFrame];
      UIImage* lpSettingImage = [ColorUtil newImage:@"settings.png"];
     [mpBtnSetting setImage:lpSettingImage forState:UIControlStateNormal];
-    [lpSettingImage release];
     
     int lLangStatus = 0;
     NSString* lpLanguageCode = [Global getLanguageSetting];
@@ -235,7 +228,6 @@
     //[mpBtnSetting addTarget:self action:@selector(changeSettings) forControlEvents:UIControlEventTouchUpInside];
     mpBtnSetting.mDelegate = self;
     [self addSubview:mpBtnSetting];
-    [mpBtnSetting release];
     
     // add labels of word length.
     //[self addLabel:@"Word Length:" frame:lLblLengthFrame];    
@@ -267,7 +259,6 @@
     [mpSldLength addTarget:self action:@selector(sliderTouchesEnd:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
     
     [self addSubview:mpSldLength];
-    [mpSldLength release];
     
     // add number lable for word length
     mpLblLength = [self addLabel:@"" frame:lLblLengthFrame];
@@ -288,8 +279,6 @@
     UIImage* lpImgResetHover = [ColorUtil newImage:@"resethover.png"];
     [mpBtnReset setBackgroundImage:lpImgReset forState:UIControlStateNormal];
     [mpBtnReset setBackgroundImage:lpImgResetHover forState:UIControlStateHighlighted];
-    [lpImgReset release];
-    [lpImgResetHover release];    
     mpBtnReset.titleLabel.textAlignment = UITextAlignmentCenter;
     mpBtnReset.titleLabel.font = [Global getCommonBoldFont:[DictUtil isIPad] ? 38 : 18];
     mpBtnReset.titleLabel.lineBreakMode = UILineBreakModeWordWrap;
@@ -306,14 +295,12 @@
     mpTxtHint.font = [Global getCommonLightFont:[DictUtil isIPad] ? 16 : 14];
     //mpTxtHint.textColor = [Global getDarkTextColor];
     [self addSubview:mpTxtHint];
-    [mpTxtHint release];
     
     // text result area
     mpResultWordsView = [[ResultWordsView alloc] initWithFrame:lResultAreaFrame style:UITableViewStylePlain];
     mpResultWordsView.hidden = YES;
     mpResultWordsView.mDelegate = self;
     [self addSubview:mpResultWordsView];
-    [mpResultWordsView release];
     
     // waiting indicator
 //    mpActivityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
@@ -471,7 +458,6 @@
             for (int i=0; i<lpPriorityMap.count; ++i) {
                 NSMutableArray* lpItems = [[NSMutableArray alloc] initWithCapacity:0];
                 [lpDividedWords addObject:lpItems];
-                [lpItems release];
             }
             
             // divide words by priority.
@@ -493,11 +479,8 @@
                     [lpItemMap setObject:lpItems forKey:lpItemKey];
                 }
             }
-            [lpDividedWords release];
             
             [mpResultWordsView refreshData:lpItemMap dataKeys:lpItemKeys];
-            [lpItemMap release];
-            [lpItemKeys release];
             
             mpTxtHint.hidden = YES;
             mpResultWordsView.hidden = NO;
@@ -534,13 +517,6 @@
     CGGradientRelease(myGradient);
 }
 
-- (void)dealloc {
-    [mpDictCore release];
-    [mpImageChooser release];
-    [mpImageRecognizer release];
-    [mpHintsText release];
-    [super dealloc];
-}
 
 - (void)releaseFocusInTextFields {
     if ([mpTxtChars isFirstResponder]) {
@@ -629,7 +605,6 @@
         mpTxtChars.text = @"";
         [self displayHints:SCREENSHOT_CANNOT_RECOGNIZE textColor:[Global getHintErrorColor]];
     }
-    [lpChars release];
     
     [Global hideWaitView];
 }
@@ -690,7 +665,6 @@
     
     mpTooltipView = [[TooltipView alloc] initWithAvailFrameInContainer:self.frame withDataElementFrame:lCellFrame data:ipWord];
     [self addSubview:mpTooltipView];
-    [mpTooltipView release];
 }
 
 #pragma mark -

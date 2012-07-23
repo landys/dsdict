@@ -21,9 +21,9 @@
     //int mSource;
 }
 
-@property(nonatomic, retain)NSString* mpWord;
-@property(nonatomic, retain)NSString* mpEn;
-@property(nonatomic, retain)NSString* mpCn;
+@property(nonatomic)NSString* mpWord;
+@property(nonatomic)NSString* mpEn;
+@property(nonatomic)NSString* mpCn;
 @property(nonatomic, assign)int mPriority;
 //@property(nonatomic, assign)int mSource;
 

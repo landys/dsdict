@@ -50,13 +50,11 @@
 }
 
 - (void)cleanDicts {
-    [mpDict release];
     
     mpDict = [[NSMutableArray alloc] initWithCapacity:MAX_WORD_LENGTH];
     for (int i=0; i<=MAX_WORD_LENGTH; ++i) { // it's right with "<=" here.
         NSMutableArray* lpWords = [[NSMutableArray alloc] initWithCapacity:0];
         [mpDict addObject:lpWords];
-        [lpWords release];
     }
 }
 
@@ -226,10 +224,7 @@
             
             Word* lpWord = [[Word alloc] initWithWordContent:lpWordText en:nil cn:lpCn priority:lPriority];
             [lpWords addObject:lpWord];
-            [lpWord release];
             
-            [lpWordText release];
-            [lpCn release];
         }
         
         fclose(lpFHandle);
@@ -267,10 +262,5 @@
     return lpResults;
 }
 
--(void) dealloc {
-    [mpDict release];
-    //[mpWordMap release];
-    [super dealloc];
-}
 
 @end

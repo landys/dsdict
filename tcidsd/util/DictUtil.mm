@@ -59,7 +59,6 @@
 	lpLabelTemp.text = ipString;
 	lpLabelTemp.font= [UIFont fontWithName:ipFontName size:iFontSize];
 	CGSize lCurSize = [lpLabelTemp sizeThatFits:CGSizeZero];
-	[lpLabelTemp release];
 	return lCurSize.width;
 }
 
@@ -68,7 +67,6 @@
 	lpLabelTemp.text = ipString;
 	lpLabelTemp.font= [UIFont fontWithName:ipFontName size:iFontSize];
 	CGSize lCurSize = [lpLabelTemp sizeThatFits:CGSizeZero];
-	[lpLabelTemp release];
 	return lCurSize;
 }
 

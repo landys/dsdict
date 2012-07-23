@@ -80,7 +80,6 @@
     } else {
         [lpDropDownList showInView:mpMainVC.view];
     }
-    [lpDropDownList release];
 }
 
 //- (void)dismissDropDownList {

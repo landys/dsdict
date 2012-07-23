@@ -21,7 +21,6 @@
             NSString* lpTitle = [[NSString alloc] initWithFormat:@"%d %@", iWordsCount, ipWordsTitle];
             UILabel* lpLblWordsTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height - 6)];
             lpLblWordsTitle.text = lpTitle;
-            [lpTitle release];
             lpLblWordsTitle.textAlignment = UITextAlignmentCenter;
             lpLblWordsTitle.backgroundColor = [UIColor clearColor];
             lpLblWordsTitle.font = [Global getCommonBoldFont:SECTION_TITLE_FOND_SIZE];//lpLblWordsTitle.font.pointSize];	
@@ -29,7 +28,6 @@
             lpLblWordsTitle.textColor = [UIColor whiteColor];
             lpLblWordsTitle.shadowColor=[UIColor colorWithRed:0xb1/0xff green:0xb1/0xff blue:0xb1/0xff alpha:0.5];
             [self addSubview:lpLblWordsTitle];
-            [lpLblWordsTitle release];
         }
 	}
 	

@@ -49,10 +49,8 @@
 }
 
 - (void)refreshData:(NSDictionary*)ipData dataKeys:(NSArray*)ipDataKeys {
-	[mpData release];
-	mpData = [ipData retain];
-    [mpDataKeys release];
-    mpDataKeys = [ipDataKeys retain];
+	mpData = ipData;
+    mpDataKeys = ipDataKeys;
     
 	[self reloadData];
     
@@ -72,12 +70,6 @@
     }
 }
 
-- (void)dealloc {
-	[mpData release];
-    [mpDataKeys release];
-	[mpLblNoResult release];
-	[super dealloc];
-}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
@@ -107,8 +99,8 @@
 	NSString* lpDataKey = (NSString*)([mpDataKeys objectAtIndex:section]);
 	NSArray* lpItems = (NSArray*)[mpData objectForKey:lpDataKey];
 
-	SectionHeaderViewer* lpSectionHeaderViewer = [[[SectionHeaderViewer alloc] 
-												   initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 30) wordsTitle:lpDataKey wordsCount:lpItems.count] autorelease];
+	SectionHeaderViewer* lpSectionHeaderViewer = [[SectionHeaderViewer alloc] 
+												   initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 30) wordsTitle:lpDataKey wordsCount:lpItems.count];
 	
 	return lpSectionHeaderViewer;
 }
@@ -126,7 +118,7 @@
 	if ([mpDataKeys count] == 0) {
 		cell = [tableView dequeueReusableCellWithIdentifier:EmptyCellIdentifier];
 		if (cell == nil) {
-			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:EmptyCellIdentifier] autorelease];
+			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:EmptyCellIdentifier];
 			cell.userInteractionEnabled = false;
 		}
 		
@@ -139,7 +131,7 @@
         cell = [tableView dequeueReusableCellWithIdentifier:TileCellIdentifier];
 		if (cell == nil) {
 			// there should be no release pool for cell here. It's released outside by Apple SDK.
-			cell = [[[TileTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TileCellIdentifier tileNum:mNTiles size:lCellSize] autorelease];
+			cell = [[TileTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TileCellIdentifier tileNum:mNTiles size:lCellSize];
             cell.userInteractionEnabled = false;
 		}
 		
@@ -154,14 +146,13 @@
                 [lpWords addObject:[lpItemDatas objectAtIndex:i]];
             }
             [lpResultCell applayData:lpWords begIndex:lIBeg];
-            [lpWords release];
 		}
     }
     else {
 		cell = [tableView dequeueReusableCellWithIdentifier:DetailCellIdentifier];
 		if (cell == nil) {
 			// there should be no release pool for cell here. It's released outside by Apple SDK.
-			cell = [[[DetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:DetailCellIdentifier size:lCellSize] autorelease];
+			cell = [[DetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:DetailCellIdentifier size:lCellSize];
 		}
 		
         DetailTableViewCell* lpResultCell = (DetailTableViewCell*)cell;

@@ -31,10 +31,10 @@
     
     //DropDownListViewController* mpDropDownListViewController;
     
-    id<DropDownButtonDelegate> mDelegate;
+    id<DropDownButtonDelegate> __unsafe_unretained mDelegate;
 }
 
-@property (nonatomic, assign) id<DropDownButtonDelegate> mDelegate;
+@property (nonatomic, unsafe_unretained) id<DropDownButtonDelegate> mDelegate;
 
 - (id)initWithFrame:(CGRect)frame mainVC:(UIViewController*)ipViewController popRect:(CGRect)iRect;
 //- (void)refleshData:(NSArray*)ipData selectIndex:(int)iSelectIndex; 

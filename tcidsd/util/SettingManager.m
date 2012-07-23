@@ -19,7 +19,7 @@
                 NSString* lpDocumentDirectory = [lpPaths objectAtIndex:0];
                 NSString* lpFinalPath = [lpDocumentDirectory stringByAppendingPathComponent:ipPListFileName];
 
-                mpPListPath = [lpFinalPath retain];
+                mpPListPath = lpFinalPath;
                 mpSettings = [[NSMutableDictionary alloc] initWithContentsOfFile:lpFinalPath];
                 if (mpSettings == nil) {
                     mpSettings = [[NSMutableDictionary alloc] initWithCapacity:0];
@@ -46,10 +46,5 @@
     return nil;
 }
 
-- (void)dealloc {
-    [mpPListPath release];
-    [mpSettings release];
-    [super dealloc];
-}
 
 @end

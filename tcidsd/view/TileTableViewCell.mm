@@ -35,7 +35,6 @@
             lpLblWord.hidden = YES;
             [mpLblWords addObject:lpLblWord];
             [self.contentView addSubview:lpLblWord];
-            [lpLblWord release]; 
         }
     }
     return self;
@@ -48,15 +47,13 @@
 }
 
 - (void)applayData:(NSArray*)ipWords begIndex:(int)iBegIndex {
-    [mpWords release];
-    mpWords = [ipWords retain];
+    mpWords = ipWords;
     
     for (int i=0; i<mpLblWords.count; ++i) {
         UILabel* lpLblWord = (UILabel*)[mpLblWords objectAtIndex:i];
         if (i < mpWords.count) {
             NSString* lpText = [[NSString alloc] initWithFormat:@"%d). %@", iBegIndex + i + 1, ((Word*)[mpWords objectAtIndex:i]).mpWord];
             lpLblWord.text = lpText;
-            [lpText release];
             lpLblWord.hidden = NO;
         }
         else {
@@ -65,11 +62,5 @@
     }
 }
 
-- (void)dealloc {
-    [mpLblWords release];
-    [mpWords release];
-    
-    [super dealloc];
-}
 
 @end

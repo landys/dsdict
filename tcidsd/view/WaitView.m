@@ -50,14 +50,12 @@
 	mpWaitLabel.textColor = [UIColor whiteColor];
 	//mpWaitLabel.autoresizingMask = (UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleBottomMargin);
     [self addSubview:mpWaitLabel];
-    [mpWaitLabel release];
 }
 
 - (void)addWaitActivity {
 	mpWaitActivity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
 	//mpWaitActivity.autoresizingMask = (UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleBottomMargin);
     [self addSubview:mpWaitActivity];
-    [mpWaitActivity release];
 }
 
 - (void)resetSubviewsFrames {

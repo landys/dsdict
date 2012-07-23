@@ -109,37 +109,26 @@ static WaitView* gpWaitView;
     gpPriorityMap = [[NSArray alloc] initWithObjects:@"Rare Words", @"Normal Words", @"Common Words", @"Most Likely Words", nil];
 //    }
     
-    gpLightTextColor = [[UIColor whiteColor] retain];
-    gpDarkTextColor = [[ColorUtil colorFromInteger:0x101010] retain];
-    gpTextBgColor = [[UIColor colorWithRed:0.98 green:0.98 blue:0.98 alpha:0.9] retain];
+    gpLightTextColor = [UIColor whiteColor];
+    gpDarkTextColor = [ColorUtil colorFromInteger:0x101010];
+    gpTextBgColor = [UIColor colorWithRed:0.98 green:0.98 blue:0.98 alpha:0.9];
     
-    gpHintInfoColor = [[ColorUtil colorFromInteger:HINT_INFO_COLOR] retain];
-    gpHintWarningColor = [[ColorUtil colorFromInteger:HINT_WARNING_COLOR] retain];
-    gpHintErrorColor = [[ColorUtil colorFromInteger:HINT_ERROR_COLOR] retain];
+    gpHintInfoColor = [ColorUtil colorFromInteger:HINT_INFO_COLOR];
+    gpHintWarningColor = [ColorUtil colorFromInteger:HINT_WARNING_COLOR];
+    gpHintErrorColor = [ColorUtil colorFromInteger:HINT_ERROR_COLOR];
     
-    gpAlphaSet = [[NSCharacterSet characterSetWithCharactersInString:ALPHA] retain];
-    gpNumbersSet = [[NSCharacterSet characterSetWithCharactersInString:NUMBERS] retain];
+    gpAlphaSet = [NSCharacterSet characterSetWithCharactersInString:ALPHA];
+    gpNumbersSet = [NSCharacterSet characterSetWithCharactersInString:NUMBERS];
     
     //gpIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     gpWaitView = [[WaitView alloc] initWithFrame:CGRectZero];
 }
 
 + (void)releaseGlobalValues {
-    [gpPriorityMap release];
-    [gpSettingManager release];
     //[gpLanguages release];
-    [gpLightTextColor release];
-    [gpDarkTextColor release];
-    [gpTextBgColor release];
-    [gpHintInfoColor release];
-    [gpHintWarningColor release];
-    [gpHintErrorColor release];
     
-    [gpAlphaSet release];
-    [gpNumbersSet release];
     
     //[gpIndicatorView release];
-    [gpWaitView release];
 }
 
 + (NSArray*)getPriorityMap {

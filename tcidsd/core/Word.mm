@@ -15,7 +15,7 @@
 - (id)initWithWordContent:(NSString*)lpWord priority:(int)iPriority {
     self = [super init];
     if (self) {
-        mpWord = [lpWord retain];
+        mpWord = lpWord;
         mPriority = iPriority;
     }
     
@@ -25,9 +25,9 @@
 - (id)initWithWordContent:(NSString*)lpWord en:(NSString*)lpEn cn:(NSString*)lpCn priority:(int)iPriority {
     self = [super init];
     if (self) {
-        mpWord = [lpWord retain];
-        mpEn = [lpEn retain];
-        mpCn = [lpCn retain];
+        mpWord = lpWord;
+        mpEn = lpEn;
+        mpCn = lpCn;
         mPriority = iPriority;
     }
     
@@ -63,12 +63,6 @@
     return [mpCn stringByReplacingOccurrencesOfString:@"#" withString:@". "];
 }
 
-- (void)dealloc {
-    [mpWord release];
-    [mpEn release];
-    [mpCn release];
-    [super dealloc];
-}
 
 - (NSString*)description {
     return [NSString stringWithFormat:@"%@|%d|%@|%@", mpWord, mPriority, mpEn, mpCn];

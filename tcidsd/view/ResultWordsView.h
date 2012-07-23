@@ -21,14 +21,14 @@
 	// key - date string, value - NSArray of CalendarItemData.
 	NSDictionary* mpData;
     NSArray* mpDataKeys;
-	id<ResultWordsViewDelegate> mDelegate;
+	id<ResultWordsViewDelegate> __unsafe_unretained mDelegate;
 	CGSize mVisibleSize;
 	UILabel* mpLblNoResult;
     
     int mNTiles;
 }
 
-@property (nonatomic, assign) id<ResultWordsViewDelegate> mDelegate;
+@property (nonatomic, unsafe_unretained) id<ResultWordsViewDelegate> mDelegate;
 @property (nonatomic, assign) CGSize mVisibleSize;
 
 - (void)refreshData:(NSDictionary*)ipData dataKeys:(NSArray*)ipDataKeys;

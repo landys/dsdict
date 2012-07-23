@@ -68,11 +68,5 @@
     }
 }
 
-- (void)dealloc {
-    [mpImagePicker release];
-    [mpPopover release];
-    [mpDelegate release];
-    [super dealloc];
-}
 
 @end

@@ -25,7 +25,7 @@
     id<ImageChooserDelegate> mpDelegate;
 }
 
-@property (nonatomic, retain) id<ImageChooserDelegate> mpDelegate;
+@property (nonatomic) id<ImageChooserDelegate> mpDelegate;
 
 - (id)initWithMainViewController:(UIViewController*)ipViewController popRect:(CGRect)iRect;
 - (void)displayImagePickerWindow;
