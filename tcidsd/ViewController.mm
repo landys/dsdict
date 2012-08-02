@@ -21,7 +21,8 @@
 
 - (void)reInitAdBannerView;
 - (GADRequest*)generateRequest;
-- (CGSize)getAdBannerSize;
+//- (CGSize)getAdBannerSize;
+- (GADAdSize)getAdBannerSize;
 
 @end
 
@@ -44,11 +45,15 @@
     return request;
 }
 
-- (CGSize)getAdBannerSize {
-    return [DictUtil isIPad] ? kGADAdSizeLeaderboard.size : kGADAdSizeBanner.size;
-    //return [DictUtil isIPad] ? GAD_SIZE_728x90 : GAD_SIZE_320x50;
-    //return [DictUtil isIPad] ? CGSizeMake(728, 90) : CGSizeMake(320, 50);
+- (GADAdSize)getAdBannerSize {
+    return [DictUtil isIPad] ? kGADAdSizeLeaderboard : kGADAdSizeBanner;
 }
+
+//- (CGSize)getAdBannerSize {
+//    return [DictUtil isIPad] ? kGADAdSizeLeaderboard.size : kGADAdSizeBanner.size;
+//    //return [DictUtil isIPad] ? GAD_SIZE_728x90 : GAD_SIZE_320x50;
+//    //return [DictUtil isIPad] ? CGSizeMake(728, 90) : CGSizeMake(320, 50);
+//}
 
 - (void)reloadAdBannerView {
     [self reInitAdBannerView];
@@ -61,13 +66,16 @@
     }
     
     // Create a view of the standard size at the bottom but out of the screen.
-    CGSize lBannerSize = [self getAdBannerSize];
-    CGRect lBannerFrame = CGRectMake((int)((self.view.frame.size.width - lBannerSize.width) / 2), self.view.frame.size.height, lBannerSize.width, lBannerSize.height);
+//    CGSize lBannerSize = [self getAdBannerSize];
+//    CGRect lBannerFrame = CGRectMake((int)((self.view.frame.size.width - lBannerSize.width) / 2), self.view.frame.size.height, lBannerSize.width, lBannerSize.height);
+    GADAdSize lBannerSize = [self getAdBannerSize];
+    CGPoint lBannerOrigin = CGPointMake((int)((self.view.frame.size.width - lBannerSize.size.width) / 2), self.view.frame.size.height);
     
 //    mpAdView = [AdWhirlView requestAdWhirlViewWithDelegate:self];
 //    mpAdView.frame = lBannerFrame;
     
-    mpAdView = [[GADBannerView alloc] initWithFrame:lBannerFrame];
+//    mpAdView = [[GADBannerView alloc] initWithFrame:lBannerFrame];
+    mpAdView = [[GADBannerView alloc] initWithAdSize:lBannerSize origin:lBannerOrigin];
     
     // Specify the ad's "unit identifier." This is your AdMob Publisher ID.
     mpAdView.adUnitID = [DictUtil isIPad] ? ADMOB_PUBLISHER_ID_IPAD : ADMOB_PUBLISHER_ID;
@@ -171,7 +179,8 @@
             adView.frame = CGRectMake(adView.frame.origin.x, self.view.frame.size.height - adView.frame.size.height, adView.frame.size.width, adView.frame.size.height);
         }];
         
-        [mpDictView resizeForAds:[self getAdBannerSize] showAd:YES animation:YES];
+        //[mpDictView resizeForAds:[self getAdBannerSize] showAd:YES animation:YES];
+        [mpDictView resizeForAds:[self getAdBannerSize].size showAd:YES animation:YES];
     }
 }
 
