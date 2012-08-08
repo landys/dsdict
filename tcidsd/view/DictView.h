@@ -15,7 +15,13 @@
 #import "DropDownButton.h"
 #import "SettingManager.h"
 
+#if defined (FREE_VERSION)
+#import "AdManager.h"
+
+@interface DictView : UIView <ImageChooserDelegate, UITextFieldDelegate, ResultWordsViewDelegate, DropDownButtonDelegate, AdManagerDelegate> {
+#else
 @interface DictView : UIView <ImageChooserDelegate, UITextFieldDelegate, ResultWordsViewDelegate, DropDownButtonDelegate> {
+#endif
     DictCore* mpDictCore;
     
     // subviews

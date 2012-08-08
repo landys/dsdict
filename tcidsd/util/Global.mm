@@ -73,6 +73,10 @@ static NSCharacterSet* gpNumbersSet;
 //static UIActivityIndicatorView* gpIndicatorView;
 static WaitView* gpWaitView;
 
+#if defined (FREE_VERSION)
+static AdManager* gpAdManager;
+#endif
+
 @interface Global (Private)
 
 + (NSString*)generatePrivilegeIdentify;
@@ -123,6 +127,16 @@ static WaitView* gpWaitView;
     //gpIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     gpWaitView = [[WaitView alloc] initWithFrame:CGRectZero];
 }
+
+#if defined (FREE_VERSION)
++ (void)initAdManager:(UIView*)ipParentView rootViewController:(UIViewController*)ipRootViewController {
+    gpAdManager = [[AdManager alloc] initWithParentView:ipParentView rootViewController:ipRootViewController];
+}
+
++ (AdManager*)getAdManager {
+    return gpAdManager;
+}
+#endif
 
 + (void)releaseGlobalValues {
     //[gpLanguages release];
@@ -190,10 +204,6 @@ static WaitView* gpWaitView;
     }
     
     return nil;
-}
-
-+ (BOOL)isBornSuper {
-    return IS_SUPER;
 }
 
 + (BOOL)hasSuperPrivilege {

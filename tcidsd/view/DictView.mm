@@ -392,26 +392,27 @@
 - (void)resetViews {
     [self releaseFocusInTextFields];
     
-    if (![Global isBornSuper]) {
-        NSString* lpText = mpTxtChars.text;
-        // get super privilege.
-        NSString* lpPrivilegeKey = [Global getPrivilegeKey];
-        if (lpPrivilegeKey != nil) {
-            if ([lpPrivilegeKey compare:lpText] == NSOrderedSame) {
-                [Global saveSuperPrivilege];
-                [self resizeForAds:CGSizeZero showAd:NO animation:NO];
-                [mpMainVC performSelector:@selector(unloadAdBannerView)];
-            }
-        }
-        // or remove super privilege
-        NSString* lpRemovePrivilegeKey = [Global getRemovePrivilegeKey];
-        if (lpRemovePrivilegeKey != nil) {
-            if ([lpRemovePrivilegeKey compare:lpText] == NSOrderedSame) {
-                [Global removeSuperPrivilege];
-                [mpMainVC performSelector:@selector(reloadAdBannerView)];
-            }
+#if defined (FREE_VERSION)
+    AdManager* lpAdManager = [Global getAdManager];
+    NSString* lpText = mpTxtChars.text;
+    // get super privilege.
+    NSString* lpPrivilegeKey = [Global getPrivilegeKey];
+    if (lpPrivilegeKey != nil) {
+        if ([lpPrivilegeKey compare:lpText] == NSOrderedSame) {
+            [Global saveSuperPrivilege];
+            [self resizeForAds:CGSizeZero showAd:NO animation:NO];
+            [lpAdManager performSelector:@selector(unloadAdBannerView)];
         }
     }
+    // or remove super privilege
+    NSString* lpRemovePrivilegeKey = [Global getRemovePrivilegeKey];
+    if (lpRemovePrivilegeKey != nil) {
+        if ([lpRemovePrivilegeKey compare:lpText] == NSOrderedSame) {
+            [Global removeSuperPrivilege];
+            [lpAdManager performSelector:@selector(reloadAdBannerView)];
+        }
+    }
+#endif
     
     // do real reset work.
     mpTxtChars.text = @"";
@@ -587,7 +588,6 @@
 	}
 }
 
-#pragma mark -
 #pragma mark - ImageChooserDelegate methods
 - (void)searchWordsWithImage:(UIImage*)ipImage {
     NSMutableString* lpChars = [[NSMutableString alloc] initWithCapacity:0];
@@ -620,7 +620,6 @@
     [self performSelector:@selector(searchWordsWithImage:) withObject:ipImage afterDelay:0];
 }
 
-#pragma mark -
 #pragma mark - UITextFieldDelegate methods
 - (BOOL)textFieldShouldReturn:(UITextField*)textField {
     [textField resignFirstResponder];
@@ -652,7 +651,6 @@
     return lAllowed;
 }
 
-#pragma mark -
 #pragma mark - ResultWordsViewDelegate methods
 - (void)didSelectItem:(Word*)ipWord cellFrame:(CGRect)iCellFrame {
     [self removeTooltipView];
@@ -667,7 +665,6 @@
     [self addSubview:mpTooltipView];
 }
 
-#pragma mark -
 #pragma mark - DropDownButtonDelegate methods
 - (void)didSelectItem:(NSString*)mpLanguage {
     if (![mpDictCore isCnDictLoaded] && mpLanguage != nil && [mpLanguage compare:LANGUAGE_NONE] != NSOrderedSame) {
@@ -689,5 +686,12 @@
     
     [Global hideWaitView];
 }
+
+#if defined (FREE_VERSION)
+#pragma mark - AdManagerDelegate methods
+- (void)adViewDidReceiveAd:(CGSize)iAdViewSize {
+    [self resizeForAds:iAdViewSize showAd:YES animation:YES];
+}
+#endif
 
 @end

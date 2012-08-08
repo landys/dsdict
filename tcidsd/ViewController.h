@@ -7,21 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GADBannerView.h"
-#import "GADBannerViewDelegate.h"
-//#import "AdWhirlView.h"
-//#import "AdWhirlDelegateProtocol.h"
+
 #import "DictView.h"
 
-@interface ViewController : UIViewController<GADBannerViewDelegate>/*<AdWhirlDelegate>*/ {
-    GADBannerView* mpAdView;
-    //AdWhirlView* mpAdView;
-    
+@interface ViewController : UIViewController {
     DictView* mpDictView;
 }
-
-- (void)reloadAdBannerView;
-- (void)unloadAdBannerView;
-- (void)requestNewAd;
 
 @end

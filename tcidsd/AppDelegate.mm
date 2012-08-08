@@ -9,7 +9,10 @@
 #import "AppDelegate.h"
 
 #import "ViewController.h"
+
+#if defined (FREE_VERSION)
 #import "Global.h"
+#endif
 
 @implementation AppDelegate
 
@@ -60,10 +63,13 @@
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
     
+#if defined (FREE_VERSION)
     // request new ad
     if (![Global hasSuperPrivilege]) {
-        [_viewController requestNewAd];
+        AdManager* lpAdManager = [Global getAdManager];
+        [lpAdManager requestNewAd];
     }
+#endif
     
 }
 

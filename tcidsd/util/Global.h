@@ -6,8 +6,12 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import "SettingManager.h"
+
+#if defined (FREE_VERSION)
+#import "AdManager.h"
+#endif
 
 // This defined value should not be changed in the later app versions.
 //#define LANGUAGE_ENGLISH @"en"
@@ -18,6 +22,11 @@
 
 + (void)initGlobalValues;
 + (void)releaseGlobalValues;
+
+#if defined (FREE_VERSION)
++ (void)initAdManager:(UIView*)ipParentView rootViewController:(UIViewController*)ipRootViewController;
++ (AdManager*)getAdManager;
+#endif
 
 + (NSArray*)getPriorityMap;
 //+ (NSArray*)getLanguages;
@@ -35,7 +44,6 @@
 + (void)removeSuperPrivilege;
 + (NSString*)getPrivilegeKey;
 + (NSString*)getRemovePrivilegeKey;
-+ (BOOL)isBornSuper;
 
 + (UIFont*)getCommonBoldFont:(int)iFontSize;
 + (UIFont*)getCommonFont:(int)iFontSize;
