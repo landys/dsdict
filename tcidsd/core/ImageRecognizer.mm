@@ -54,7 +54,7 @@
 #define CHAR_TOP_PADDING_IPAD 17
 #define CHAR_LEFT_PADDING_IPAD 9
 #define CHAR_BOTTOM_PADDING_IPAD 12
-#define CHAR_RIGHT_PADDING_IPAD 10
+#define CHAR_RIGHT_PADDING_IPAD 5
 #define CHAR_WIDTH_IPAD 77
 #define CHAR_HEIGHT_IPAD 75
 
@@ -414,8 +414,7 @@ typedef enum {IRIPhone, IRIPad} ImageResolution;
         mCharCodes[Q2] = 'Q';
         mCharCodes[Q3] = 'Q';
     }
-    return self;
-}
+    return self;}
 
 - (char)recognizeChar:(ImageCore *)ipImage leftTop:(CGPoint)iLeftTop ir:(ImageResolution)iIR {
     BOOL lCharBmp[STD_CHAR_HEIGHT][STD_CHAR_WIDTH];

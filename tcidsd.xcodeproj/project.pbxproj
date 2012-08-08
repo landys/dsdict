@@ -56,6 +56,7 @@
 		1FD1F28D156CEB0B000A1786 /* resethover.png in Resources */ = {isa = PBXBuildFile; fileRef = 99869948153DDB3D00B85BB7 /* resethover.png */; };
 		1FD2431915D2142800E66AB1 /* libGoogleAdMobAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FD242E415D2142800E66AB1 /* libGoogleAdMobAds.a */; };
 		1FD2432015D2152D00E66AB1 /* AdManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD2431F15D2152D00E66AB1 /* AdManager.m */; };
+		1FD243A515D2504E00E66AB1 /* libAdapterIAd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FD243A415D2504E00E66AB1 /* libAdapterIAd.a */; };
 		1FEB2536153D3CBE002F9C5A /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FEB2535153D3CBE002F9C5A /* AudioToolbox.framework */; };
 		1FEB2538153D3CD5002F9C5A /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FEB2537153D3CD5002F9C5A /* MessageUI.framework */; };
 		1FEB253A153D3D08002F9C5A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FEB2539153D3D08002F9C5A /* SystemConfiguration.framework */; };
@@ -174,6 +175,7 @@
 		1FD242E415D2142800E66AB1 /* libGoogleAdMobAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAdMobAds.a; sourceTree = "<group>"; };
 		1FD2431E15D2152D00E66AB1 /* AdManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdManager.h; sourceTree = "<group>"; };
 		1FD2431F15D2152D00E66AB1 /* AdManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdManager.m; sourceTree = "<group>"; };
+		1FD243A415D2504E00E66AB1 /* libAdapterIAd.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAdapterIAd.a; path = ../../../../tools/libAdapterIAd.a; sourceTree = "<group>"; };
 		1FEB2535153D3CBE002F9C5A /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		1FEB2537153D3CD5002F9C5A /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		1FEB2539153D3D08002F9C5A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -252,6 +254,7 @@
 				1F8D2C3C151DA348003DB451 /* Foundation.framework in Frameworks */,
 				1F8D2C3E151DA348003DB451 /* CoreGraphics.framework in Frameworks */,
 				1FD2431915D2142800E66AB1 /* libGoogleAdMobAds.a in Frameworks */,
+				1FD243A515D2504E00E66AB1 /* libAdapterIAd.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -333,6 +336,7 @@
 		1FD2428215D2142700E66AB1 /* GoogleAdMobAdsSdkiOS */ = {
 			isa = PBXGroup;
 			children = (
+				1FD243A415D2504E00E66AB1 /* libAdapterIAd.a */,
 				1FD2428315D2142700E66AB1 /* Add-ons */,
 				1FD242DB15D2142800E66AB1 /* GADAdMobExtras.h */,
 				1FD242DC15D2142800E66AB1 /* GADAdNetworkExtras.h */,
@@ -794,9 +798,13 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/tcidsd/GoogleAdMobAdsSdkiOS/Add-ons/GoogleAnalyticsiOS_2.0beta2/Library\"",
 					"\"$(SRCROOT)/tcidsd/GoogleAdMobAdsSdkiOS\"",
+					/tools,
 				);
 				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "-all_load";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "D14F3FED-77C4-4E22-9E32-2C5F45BA5ADF";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D14F3FED-77C4-4E22-9E32-2C5F45BA5ADF";
@@ -821,8 +829,12 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/tcidsd/GoogleAdMobAdsSdkiOS/Add-ons/GoogleAnalyticsiOS_2.0beta2/Library\"",
 					"\"$(SRCROOT)/tcidsd/GoogleAdMobAdsSdkiOS\"",
+					/tools,
 				);
-				OTHER_LDFLAGS = "-all_load";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "4E3DC234-D489-4CB1-BD2B-B0ED32125EEA";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4E3DC234-D489-4CB1-BD2B-B0ED32125EEA";

@@ -9,8 +9,15 @@
 #import "AdManager.h"
 #import "DictUtil.h"
 
-#define ADMOB_PUBLISHER_ID @"a14f8cf7c904423"
-#define ADMOB_PUBLISHER_ID_IPAD @"a14f8cf8b3c2a9c"
+// Admob mediation id
+#define ADMOB_PUBLISHER_ID @"a08dbfd0e8574025"
+#define ADMOB_PUBLISHER_ID_IPAD @"6d1e113f8af14bbc"
+
+// Admob id
+//#define ADMOB_PUBLISHER_ID @"a14f8cf7c904423"
+//#define ADMOB_PUBLISHER_ID_IPAD @"a14f8cf8b3c2a9c"
+
+// Adwhirl id
 //#define ADWHIRL_SDK_KEY @"cdd4cf099fdc437a84e636e4814e9392"
 //#define ADWHIRL_SDK_KEY_IPAD @"d2710366ddf546898764d521ebd39267"
 
