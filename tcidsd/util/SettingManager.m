@@ -1,6 +1,6 @@
 //
 //  SettingManager.m
-//  tcidsd
+//  dsdict
 //
 //  Created by Jinde Wang on 15/04/2012.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.

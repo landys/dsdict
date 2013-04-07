@@ -1,13 +1,13 @@
 //
 //  CharCode.h
-//  tcidsd
+//  dsdict
 //
 //  Created by Jinde Wang on 19/06/2012.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#ifndef tcidsd_Header_h
-#define tcidsd_Header_h
+#ifndef dsdict_Header_h
+#define dsdict_Header_h
 
 #define A 2121
 #define B 832

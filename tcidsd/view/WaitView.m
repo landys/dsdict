@@ -1,6 +1,6 @@
 //
 //  WaitView.m
-//  tcidsd
+//  dsdict
 //
 //  Created by Jinde Wang on 4/27/12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.

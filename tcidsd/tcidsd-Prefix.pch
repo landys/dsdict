@@ -1,5 +1,5 @@
 //
-// Prefix header for all source files of the 'tcidsd' target in the 'tcidsd' project
+// Prefix header for all source files of the 'dsdict' target in the 'dsdict' project
 //
 
 #import <Availability.h>

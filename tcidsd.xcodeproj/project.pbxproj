@@ -142,7 +142,7 @@
 		1F8D2C3D151DA348003DB451 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		1F8D2C43151DA348003DB451 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1F8D2C45151DA348003DB451 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		1F8D2C47151DA348003DB451 /* tcidsd-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "tcidsd-Prefix.pch"; sourceTree = "<group>"; };
+		1F8D2C47151DA348003DB451 /* dsdict-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "dsdict-Prefix.pch"; sourceTree = "<group>"; };
 		1F8D2C48151DA348003DB451 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1F8D2C49151DA348003DB451 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
 		1F8D2C4B151DA348003DB451 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
@@ -274,7 +274,7 @@
 		1F8D2C2A151DA348003DB451 = {
 			isa = PBXGroup;
 			children = (
-				1F8D2C3F151DA348003DB451 /* tcidsd */,
+				1F8D2C3F151DA348003DB451 /* dsdict */,
 				1F8D2C38151DA348003DB451 /* Frameworks */,
 				1F8D2C36151DA348003DB451 /* Products */,
 			);
@@ -303,7 +303,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		1F8D2C3F151DA348003DB451 /* tcidsd */ = {
+		1F8D2C3F151DA348003DB451 /* dsdict */ = {
 			isa = PBXGroup;
 			children = (
 				1FD2428215D2142700E66AB1 /* GoogleAdMobAdsSdkiOS */,
@@ -318,7 +318,7 @@
 				1F8D2C4B151DA348003DB451 /* ViewController.h */,
 				1F8D2C4C151DA348003DB451 /* ViewController.mm */,
 			);
-			path = tcidsd;
+			path = dsdict;
 			sourceTree = "<group>";
 		};
 		1F8D2C40151DA348003DB451 /* Supporting Files */ = {
@@ -328,7 +328,7 @@
 				1F8D2C51151DA348003DB451 /* ViewController_iPad.xib */,
 				1F8D2C42151DA348003DB451 /* InfoPlist.strings */,
 				1F8D2C45151DA348003DB451 /* main.m */,
-				1F8D2C47151DA348003DB451 /* tcidsd-Prefix.pch */,
+				1F8D2C47151DA348003DB451 /* dsdict-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -531,7 +531,7 @@
 			dependencies = (
 			);
 			name = "Draw Dict Free";
-			productName = tcidsd;
+			productName = dsdict;
 			productReference = 1F8D2C35151DA348003DB451 /* Draw Dict Free.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -549,7 +549,7 @@
 			dependencies = (
 			);
 			name = "Draw Dict";
-			productName = tcidsd;
+			productName = dsdict;
 			productReference = 1FD1F295156CEB0B000A1786 /* Draw Dict.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -561,7 +561,7 @@
 			attributes = {
 				LastUpgradeCheck = 0420;
 			};
-			buildConfigurationList = 1F8D2C2F151DA348003DB451 /* Build configuration list for PBXProject "tcidsd" */;
+			buildConfigurationList = 1F8D2C2F151DA348003DB451 /* Build configuration list for PBXProject "dsdict" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -785,19 +785,19 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jinde Wang (T5NXTACS89)";
 				COMPRESS_PNG_FILES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "tcidsd/tcidsd-Prefix.pch";
+				GCC_PREFIX_HEADER = "dsdict/dsdict-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 					FREE_VERSION,
 				);
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "";
-				INFOPLIST_FILE = "tcidsd/Draw Dict Free-Info.plist";
+				INFOPLIST_FILE = "dsdict/Draw Dict Free-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/tcidsd/GoogleAdMobAdsSdkiOS/Add-ons/GoogleAnalyticsiOS_2.0beta2/Library\"",
-					"\"$(SRCROOT)/tcidsd/GoogleAdMobAdsSdkiOS\"",
+					"\"$(SRCROOT)/dsdict/GoogleAdMobAdsSdkiOS/Add-ons/GoogleAnalyticsiOS_2.0beta2/Library\"",
+					"\"$(SRCROOT)/dsdict/GoogleAdMobAdsSdkiOS\"",
 					/tools,
 				);
 				OTHER_CFLAGS = "";
@@ -820,15 +820,15 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Jinde Wang";
 				COMPRESS_PNG_FILES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "tcidsd/tcidsd-Prefix.pch";
+				GCC_PREFIX_HEADER = "dsdict/dsdict-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = FREE_VERSION;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = "";
-				INFOPLIST_FILE = "tcidsd/Draw Dict Free-Info.plist";
+				INFOPLIST_FILE = "dsdict/Draw Dict Free-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/tcidsd/GoogleAdMobAdsSdkiOS/Add-ons/GoogleAnalyticsiOS_2.0beta2/Library\"",
-					"\"$(SRCROOT)/tcidsd/GoogleAdMobAdsSdkiOS\"",
+					"\"$(SRCROOT)/dsdict/GoogleAdMobAdsSdkiOS/Add-ons/GoogleAnalyticsiOS_2.0beta2/Library\"",
+					"\"$(SRCROOT)/dsdict/GoogleAdMobAdsSdkiOS\"",
 					/tools,
 				);
 				OTHER_LDFLAGS = (
@@ -851,13 +851,13 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jinde Wang (T5NXTACS89)";
 				COMPRESS_PNG_FILES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "tcidsd/tcidsd-Prefix.pch";
-				INFOPLIST_FILE = "tcidsd/Draw Dict Adless-Info.plist";
+				GCC_PREFIX_HEADER = "dsdict/dsdict-Prefix.pch";
+				INFOPLIST_FILE = "dsdict/Draw Dict Adless-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/tcidsd/GoogleAdMobAdsSdkiOS/Add-ons/GoogleAnalyticsiOS_2.0beta2/Library\"",
-					"\"$(SRCROOT)/tcidsd/GoogleAdMobAdsSdkiOS\"",
+					"\"$(SRCROOT)/dsdict/GoogleAdMobAdsSdkiOS/Add-ons/GoogleAnalyticsiOS_2.0beta2/Library\"",
+					"\"$(SRCROOT)/dsdict/GoogleAdMobAdsSdkiOS\"",
 				);
 				PRODUCT_NAME = "Draw Dict";
 				PROVISIONING_PROFILE = "E4AB4D3D-58FE-44F0-9296-9C8DC37B2647";
@@ -875,13 +875,13 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Jinde Wang";
 				COMPRESS_PNG_FILES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "tcidsd/tcidsd-Prefix.pch";
-				INFOPLIST_FILE = "tcidsd/Draw Dict Adless-Info.plist";
+				GCC_PREFIX_HEADER = "dsdict/dsdict-Prefix.pch";
+				INFOPLIST_FILE = "dsdict/Draw Dict Adless-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/tcidsd/GoogleAdMobAdsSdkiOS/Add-ons/GoogleAnalyticsiOS_2.0beta2/Library\"",
-					"\"$(SRCROOT)/tcidsd/GoogleAdMobAdsSdkiOS\"",
+					"\"$(SRCROOT)/dsdict/GoogleAdMobAdsSdkiOS/Add-ons/GoogleAnalyticsiOS_2.0beta2/Library\"",
+					"\"$(SRCROOT)/dsdict/GoogleAdMobAdsSdkiOS\"",
 				);
 				PRODUCT_NAME = "Draw Dict";
 				PROVISIONING_PROFILE = "E61086F5-7936-4ED3-A25F-23F98066E2E9";
@@ -893,7 +893,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1F8D2C2F151DA348003DB451 /* Build configuration list for PBXProject "tcidsd" */ = {
+		1F8D2C2F151DA348003DB451 /* Build configuration list for PBXProject "dsdict" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1F8D2C54151DA348003DB451 /* Debug */,
