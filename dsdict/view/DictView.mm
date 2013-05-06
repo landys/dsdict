@@ -13,16 +13,16 @@
 
 #define DEFAULT_WORD_LENGTH 5
 #define MIN_WORD_LENGTH 2
-#define MAX_WORD_LENGTH 8
+#define MAX_WORD_LENGTH 9
 
 #define BG_TOP_COLOR 0x40c5f2 //0x3b6dcd
 #define BG_BOTTOM_COLOR 0xe1f9ff //0x9be1f9 //0xffffff
 
 #define LENGTH_ONLY_NUMBER_ALLOWED @"Only numbers are allowed in \"Word Length\" field, and the value should be bigger than 0."
-#define NO_WORDS_FOR_LENGTH @"No results for word length bigger than 8, since it's designed only for \"Draw Something\". :)"
-#define CANNOT_FIND_WORDS @"No results for current word length and candidate letters. Please enter more.\n\nIf you have finished your input, I'd to say the word is not in our library. :("
+#define NO_WORDS_FOR_LENGTH @"Not word length bigger than 9."
+#define CANNOT_FIND_WORDS @"No results for current word length and candidate letters. Please enter more.\n\nIf you have finished your input, sorry that the word is not in our library. :("
 #define LETTERS_ONLY_LETTER_ALLOWED @"Only letters are allowed in \"Enter Letters\" field."
-#define SCREENSHOT_CANNOT_RECOGNIZE @"Sorry, the screenshot cannot be recognized. You may try to input letters manually.\n\nPlease check if it's really a screenshot of your \"Draw Something\" game. It should have the candidate letters at the bottom. :)"
+#define SCREENSHOT_CANNOT_RECOGNIZE @"Sorry, the screenshot cannot be recognized. You may try to input letters manually.\n\nPlease check if it's really a screenshot of your \"Draw Something\" game. It should have the candidate letters at the bottom.\n\nAnd it doesn't support \"Draw Something 2\" yet. :)"
 
 #define LOADING_DICTIONARY @"Loading Dictionaries..."
 
@@ -434,7 +434,7 @@
         return;
     }
     
-    if (lLen > 8) {
+    if (lLen > 9) {
         [self displayHints:NO_WORDS_FOR_LENGTH textColor:[Global getHintErrorColor]];
         return;
     }
