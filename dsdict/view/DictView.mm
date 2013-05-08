@@ -19,10 +19,10 @@
 #define BG_BOTTOM_COLOR 0xe1f9ff //0x9be1f9 //0xffffff
 
 #define LENGTH_ONLY_NUMBER_ALLOWED @"Only numbers are allowed in \"Word Length\" field, and the value should be bigger than 0."
-#define NO_WORDS_FOR_LENGTH @"Not word length bigger than 9."
-#define CANNOT_FIND_WORDS @"No results for current word length and candidate letters. Please enter more.\n\nIf you have finished your input, sorry that the word is not in our library. :("
+#define NO_WORDS_FOR_LENGTH @"Word length must NOT be bigger than 9."
+#define CANNOT_FIND_WORDS @"No results for current search. Please enter more letters.\n\nIf you have finished your input, sorry that the word is not in our library. :("
 #define LETTERS_ONLY_LETTER_ALLOWED @"Only letters are allowed in \"Enter Letters\" field."
-#define SCREENSHOT_CANNOT_RECOGNIZE @"Sorry, the screenshot cannot be recognized. You may try to input letters manually.\n\nPlease check if it's really a screenshot of your \"Draw Something\" game. It should have the candidate letters at the bottom.\n\nAnd it doesn't support \"Draw Something 2\" yet. :)"
+#define SCREENSHOT_CANNOT_RECOGNIZE @"The screenshot cannot be recognized. You may try to input letters manually.\n\nPlease check if it's really a screenshot of your \"Draw Something\" game. It should have the candidate letters at the bottom.\n\nAnd it doesn't support \"Draw Something 2\" yet. :("
 
 #define LOADING_DICTIONARY @"Loading Dictionaries..."
 

@@ -13,8 +13,9 @@
 //#define DICT_CN_FILE @"dict_cn.txt"
 //#define DICT_EN_FILE @"dict_en.txt"
 //#define DICT_FILE @"dict.txt"
-#define DICT_FILE @"d_e"
-#define WORDS_FILE @"w_e"
+#define DICT_FILE @"de"
+#define WORDS_FILE @"we"
+#define WORDS_N9_FILE @"w9"
 
 //#define WORDS_NUM_LEVEL 160000
 
@@ -63,6 +64,9 @@
     
     NSString* lFileName = (iOnlyWords ? WORDS_FILE : DICT_FILE);
     [self readDictFile:lFileName onlyWords:iOnlyWords];
+    
+    // read aditional plain words with length 9, which is added later.
+    [self readPlainWordFile:WORDS_N9_FILE];
 
     if (!iOnlyWords) {
         mCnDictLoaded = YES;
@@ -218,6 +222,34 @@
                     lpCn = [[NSString alloc] initWithUTF8String:lpBuf];
                 }
             }
+            
+            int lIDict = (lpWordText.length > MAX_WORD_LENGTH ? MAX_WORD_LENGTH : lpWordText.length);
+            NSMutableArray* lpWords = [mpDict objectAtIndex:lIDict];
+            
+            Word* lpWord = [[Word alloc] initWithWordContent:lpWordText en:nil cn:lpCn priority:lPriority];
+            [lpWords addObject:lpWord];
+            
+        }
+        
+        fclose(lpFHandle);
+    }
+}
+
+// read the plain words, each line has a word, such as "word".
+- (void)readPlainWordFile:(NSString*)ipFileName {
+    if (ipFileName == nil) return;
+    
+    NSString* lpFinalPath = [[NSBundle mainBundle] pathForResource:ipFileName ofType:@""];
+    FILE* lpFHandle = fopen([lpFinalPath UTF8String], "r");
+    const int lBufSize = 100;
+    char lWordBuf[lBufSize];
+    if (lpFHandle != nil) {
+        while (fscanf(lpFHandle, "%s", lWordBuf) != EOF) {
+            NSString* lpWordText = nil;
+            NSString* lpCn = nil;
+            int lPriority = 1;
+
+            lpWordText = [[NSString alloc] initWithUTF8String:lWordBuf];
             
             int lIDict = (lpWordText.length > MAX_WORD_LENGTH ? MAX_WORD_LENGTH : lpWordText.length);
             NSMutableArray* lpWords = [mpDict objectAtIndex:lIDict];
