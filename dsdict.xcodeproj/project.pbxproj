@@ -102,6 +102,8 @@
 		C083FA941733529500B2C6DE /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 99D587601585147D007160B4 /* Icon.png */; };
 		C083FA951733529800B2C6DE /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 99D587611585147D007160B4 /* Icon@2x.png */; };
 		C083FA961733529A00B2C6DE /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 99D587621585147D007160B4 /* iTunesArtwork */; };
+		C088A4DA173B5F7800E3F21C /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C088A4D9173B5F7800E3F21C /* AdSupport.framework */; };
+		C088A4DC173B5FFC00E3F21C /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C088A4DB173B5FFC00E3F21C /* StoreKit.framework */; };
 		FE02A23715789890006ADF45 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = FE02A2331578988F006ADF45 /* Default.png */; };
 		FE02A23815789890006ADF45 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = FE02A2331578988F006ADF45 /* Default.png */; };
 		FE02A23915789890006ADF45 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FE02A23415789890006ADF45 /* Default@2x.png */; };
@@ -240,6 +242,8 @@
 		C000A18A173B3DFE00EEB16A /* GADRequestError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADRequestError.h; sourceTree = "<group>"; };
 		C000A18B173B3DFE00EEB16A /* libGoogleAdMobAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAdMobAds.a; sourceTree = "<group>"; };
 		C000A1C5173B3E4E00EEB16A /* libAdapterIAd.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAdapterIAd.a; sourceTree = "<group>"; };
+		C088A4D9173B5F7800E3F21C /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		C088A4DB173B5FFC00E3F21C /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		FE02A2331578988F006ADF45 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		FE02A23415789890006ADF45 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		FE02A23515789890006ADF45 /* Default~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default~ipad.png"; sourceTree = "<group>"; };
@@ -251,6 +255,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C088A4DC173B5FFC00E3F21C /* StoreKit.framework in Frameworks */,
+				C088A4DA173B5F7800E3F21C /* AdSupport.framework in Frameworks */,
 				1FEB2536153D3CBE002F9C5A /* AudioToolbox.framework in Frameworks */,
 				99B5163B158434E800D0E739 /* iAd.framework in Frameworks */,
 				1FEB253A153D3D08002F9C5A /* SystemConfiguration.framework in Frameworks */,
@@ -279,6 +285,8 @@
 		1F8D2C2A151DA348003DB451 = {
 			isa = PBXGroup;
 			children = (
+				C088A4DB173B5FFC00E3F21C /* StoreKit.framework */,
+				C088A4D9173B5F7800E3F21C /* AdSupport.framework */,
 				1F8D2C3F151DA348003DB451 /* dsdict */,
 				1F8D2C38151DA348003DB451 /* Frameworks */,
 				1F8D2C36151DA348003DB451 /* Products */,
@@ -806,10 +814,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/dsdict/GoogleAdMobAdsSdkiOS/Add-ons/GoogleAnalyticsiOS_2.0beta2/Library\"",
 					"\"$(SRCROOT)/dsdict/GoogleAdMobAdsSdkiOS\"",
-					/tools,
-					"\"$(SRCROOT)/dsdict/GoogleAdMobAdsSdkiOS/Add-ons/GoogleAnalyticsiOS_2.0beta4/Library\"",
 				);
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = (
@@ -838,10 +843,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/dsdict/GoogleAdMobAdsSdkiOS/Add-ons/GoogleAnalyticsiOS_2.0beta2/Library\"",
 					"\"$(SRCROOT)/dsdict/GoogleAdMobAdsSdkiOS\"",
-					/tools,
-					"\"$(SRCROOT)/dsdict/GoogleAdMobAdsSdkiOS/Add-ons/GoogleAnalyticsiOS_2.0beta4/Library\"",
 				);
 				OTHER_LDFLAGS = (
 					"-all_load",
@@ -866,11 +868,7 @@
 				GCC_PREFIX_HEADER = "dsdict/dsdict-Prefix.pch";
 				INFOPLIST_FILE = "dsdict/Draw Dict Adless-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/dsdict/GoogleAdMobAdsSdkiOS/Add-ons/GoogleAnalyticsiOS_2.0beta2/Library\"",
-					"\"$(SRCROOT)/dsdict/GoogleAdMobAdsSdkiOS\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "Draw Dict";
 				PROVISIONING_PROFILE = "E4AB4D3D-58FE-44F0-9296-9C8DC37B2647";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E4AB4D3D-58FE-44F0-9296-9C8DC37B2647";
@@ -890,11 +888,7 @@
 				GCC_PREFIX_HEADER = "dsdict/dsdict-Prefix.pch";
 				INFOPLIST_FILE = "dsdict/Draw Dict Adless-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/dsdict/GoogleAdMobAdsSdkiOS/Add-ons/GoogleAnalyticsiOS_2.0beta2/Library\"",
-					"\"$(SRCROOT)/dsdict/GoogleAdMobAdsSdkiOS\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "Draw Dict";
 				PROVISIONING_PROFILE = "E61086F5-7936-4ED3-A25F-23F98066E2E9";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E61086F5-7936-4ED3-A25F-23F98066E2E9";
