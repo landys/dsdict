@@ -12,9 +12,10 @@
 #import <Foundation/Foundation.h>
 
 #import "GADAdSize.h"
+#import "GADBannerView.h"
 
 @protocol GADAdSizeDelegate <NSObject>
 
-- (void)willChangeAdSizeTo:(GADAdSize)size;
+- (void)adView:(GADBannerView *)view willChangeAdSizeTo:(GADAdSize)size;
 
 @end

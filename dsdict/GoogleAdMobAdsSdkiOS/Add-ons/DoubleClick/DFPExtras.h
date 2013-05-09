@@ -18,4 +18,6 @@
 
 @interface DFPExtras : GADAdMobExtras
 
+@property (nonatomic, copy) NSString *publisherProvidedID;
+
 @end
