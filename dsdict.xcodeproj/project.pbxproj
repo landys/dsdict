@@ -95,6 +95,8 @@
 		C000A125173B389F00EEB16A /* we in Resources */ = {isa = PBXBuildFile; fileRef = C000A11F173B389F00EEB16A /* we */; };
 		C000A1C0173B3DFE00EEB16A /* libGoogleAdMobAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C000A18B173B3DFE00EEB16A /* libGoogleAdMobAds.a */; };
 		C000A1C6173B3E4E00EEB16A /* libAdapterIAd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C000A1C5173B3E4E00EEB16A /* libAdapterIAd.a */; };
+		C042D641173C9C7400150A34 /* d9 in Resources */ = {isa = PBXBuildFile; fileRef = C042D640173C9C7400150A34 /* d9 */; };
+		C042D642173C9C7400150A34 /* d9 in Resources */ = {isa = PBXBuildFile; fileRef = C042D640173C9C7400150A34 /* d9 */; };
 		C083FA901733528A00B2C6DE /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 99D5875C1585147D007160B4 /* Icon-72.png */; };
 		C083FA911733528D00B2C6DE /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 99D5875D1585147D007160B4 /* Icon-Small-50.png */; };
 		C083FA921733529100B2C6DE /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 99D5875E1585147D007160B4 /* Icon-Small.png */; };
@@ -242,6 +244,7 @@
 		C000A18A173B3DFE00EEB16A /* GADRequestError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADRequestError.h; sourceTree = "<group>"; };
 		C000A18B173B3DFE00EEB16A /* libGoogleAdMobAds.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAdMobAds.a; sourceTree = "<group>"; };
 		C000A1C5173B3E4E00EEB16A /* libAdapterIAd.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAdapterIAd.a; sourceTree = "<group>"; };
+		C042D640173C9C7400150A34 /* d9 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = d9; sourceTree = "<group>"; };
 		C088A4D9173B5F7800E3F21C /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		C088A4DB173B5FFC00E3F21C /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		FE02A2331578988F006ADF45 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
@@ -349,6 +352,7 @@
 		999E5F6C15347E4F00F231AF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C042D640173C9C7400150A34 /* d9 */,
 				C000A11D173B389F00EEB16A /* de */,
 				C000A11E173B389F00EEB16A /* w9 */,
 				C000A11F173B389F00EEB16A /* we */,
@@ -623,6 +627,7 @@
 				C000A120173B389F00EEB16A /* de in Resources */,
 				C000A122173B389F00EEB16A /* w9 in Resources */,
 				C000A124173B389F00EEB16A /* we in Resources */,
+				C042D641173C9C7400150A34 /* d9 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -653,6 +658,7 @@
 				C000A121173B389F00EEB16A /* de in Resources */,
 				C000A123173B389F00EEB16A /* w9 in Resources */,
 				C000A125173B389F00EEB16A /* we in Resources */,
+				C042D642173C9C7400150A34 /* d9 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

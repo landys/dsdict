@@ -16,6 +16,7 @@
 #define DICT_FILE @"de"
 #define WORDS_FILE @"we"
 #define WORDS_N9_FILE @"w9"
+#define DICT_N9_FILE @"d9"
 
 //#define WORDS_NUM_LEVEL 160000
 
@@ -27,7 +28,7 @@
 @interface DictCore (Private)
 
 - (NSArray*)countChars:(NSString*)ipChars;
-- (void)readDictFile:(NSString*)ipFileName onlyWords:(BOOL)iOnlyWords;
+- (void)readDictFile:(NSString*)ipFileName onlyWords:(BOOL)iOnlyWords plain:(BOOL)iPlain;
 - (void)cleanDicts;
 
 //- (void)readWordsFile;
@@ -63,10 +64,13 @@
     [self cleanDicts];
     
     NSString* lFileName = (iOnlyWords ? WORDS_FILE : DICT_FILE);
-    [self readDictFile:lFileName onlyWords:iOnlyWords];
+    [self readDictFile:lFileName onlyWords:iOnlyWords plain:NO];
     
     // read aditional plain words with length 9, which is added later.
-    [self readPlainWordFile:WORDS_N9_FILE];
+    //[self readPlainWordFile:WORDS_N9_FILE];
+    NSString* lN9FileName = (iOnlyWords ? WORDS_N9_FILE : DICT_N9_FILE);
+    [self readDictFile:lN9FileName onlyWords:iOnlyWords plain:YES];
+    
 
     if (!iOnlyWords) {
         mCnDictLoaded = YES;
@@ -176,7 +180,7 @@
 
 // read encrypted dict file, every item in the dict is as "word|1|chinese/english mean".
 // for onlyWords, the item is like "word|1".
-- (void)readDictFile:(NSString*)ipFileName onlyWords:(BOOL)iOnlyWords {
+- (void)readDictFile:(NSString*)ipFileName onlyWords:(BOOL)iOnlyWords plain:(BOOL)iPlain {
     if (ipFileName == nil) return;
     
     NSString* lpFinalPath = [[NSBundle mainBundle] pathForResource:ipFileName ofType:@""];
@@ -184,19 +188,23 @@
     const int lBufSize = 10240;
     char lWordBuf[lBufSize];
     if (lpFHandle != nil) {
-        char* lpBuf = nil;
+        char* lpBuf = (iPlain ? lWordBuf : (lWordBuf + 1));
         while (fgets(lWordBuf, lBufSize, lpFHandle) != nil) {
             NSString* lpWordText = nil;
             NSString* lpCn = nil;
             int lPriority = 0;
             
-            // for decription
-            int lMinusV = lWordBuf[0] - 'A';
-            lpBuf = lWordBuf + 1;
             int i = -1;
-            while (lpBuf[++i] != '|') {
-                // decript
-                lpBuf[i] = lpBuf[i] + (lMinusV + i);
+            if (iPlain) {
+                while (lpBuf[++i] != '|'); // correct ;.
+            }
+            else {
+                // for decription
+                int lMinusV = lWordBuf[0] - 'A';
+                while (lpBuf[++i] != '|') {
+                    // decript
+                    lpBuf[i] = lpBuf[i] + (lMinusV + i);
+                }
             }
             
             // construct string
@@ -236,32 +244,32 @@
 }
 
 // read the plain words, each line has a word, such as "word".
-- (void)readPlainWordFile:(NSString*)ipFileName {
-    if (ipFileName == nil) return;
-    
-    NSString* lpFinalPath = [[NSBundle mainBundle] pathForResource:ipFileName ofType:@""];
-    FILE* lpFHandle = fopen([lpFinalPath UTF8String], "r");
-    const int lBufSize = 100;
-    char lWordBuf[lBufSize];
-    if (lpFHandle != nil) {
-        while (fscanf(lpFHandle, "%s", lWordBuf) != EOF) {
-            NSString* lpWordText = nil;
-            NSString* lpCn = nil;
-            int lPriority = 1;
-
-            lpWordText = [[NSString alloc] initWithUTF8String:lWordBuf];
-            
-            int lIDict = (lpWordText.length > MAX_WORD_LENGTH ? MAX_WORD_LENGTH : lpWordText.length);
-            NSMutableArray* lpWords = [mpDict objectAtIndex:lIDict];
-            
-            Word* lpWord = [[Word alloc] initWithWordContent:lpWordText en:nil cn:lpCn priority:lPriority];
-            [lpWords addObject:lpWord];
-            
-        }
-        
-        fclose(lpFHandle);
-    }
-}
+//- (void)readPlainWordFile:(NSString*)ipFileName {
+//    if (ipFileName == nil) return;
+//    
+//    NSString* lpFinalPath = [[NSBundle mainBundle] pathForResource:ipFileName ofType:@""];
+//    FILE* lpFHandle = fopen([lpFinalPath UTF8String], "r");
+//    const int lBufSize = 100;
+//    char lWordBuf[lBufSize];
+//    if (lpFHandle != nil) {
+//        while (fscanf(lpFHandle, "%s", lWordBuf) != EOF) {
+//            NSString* lpWordText = nil;
+//            NSString* lpCn = nil;
+//            int lPriority = 1;
+//
+//            lpWordText = [[NSString alloc] initWithUTF8String:lWordBuf];
+//            
+//            int lIDict = (lpWordText.length > MAX_WORD_LENGTH ? MAX_WORD_LENGTH : lpWordText.length);
+//            NSMutableArray* lpWords = [mpDict objectAtIndex:lIDict];
+//            
+//            Word* lpWord = [[Word alloc] initWithWordContent:lpWordText en:nil cn:lpCn priority:lPriority];
+//            [lpWords addObject:lpWord];
+//            
+//        }
+//        
+//        fclose(lpFHandle);
+//    }
+//}
 
 //- (void)clearDict {
 //    [mpDict removeAllObjects];
