@@ -23,7 +23,7 @@
         CGSize lSize = self.frame.size;
         // the width in self.frame.size is not accurate, and seems always 320.
         lSize.width = iCellSize.width;
-        float lWordWidth = [DictUtil isIPad] ? 120.f : 110.f;
+        float lWordWidth = [DictUtil isIPad] ? 135.f : 125.f;
 
         // render duration
         mpLblWord = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, lWordWidth, lSize.height)];

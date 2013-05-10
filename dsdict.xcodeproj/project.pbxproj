@@ -823,10 +823,7 @@
 					"\"$(SRCROOT)/dsdict/GoogleAdMobAdsSdkiOS\"",
 				);
 				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = (
-					"-all_load",
-					"-ObjC",
-				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "D14F3FED-77C4-4E22-9E32-2C5F45BA5ADF";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D14F3FED-77C4-4E22-9E32-2C5F45BA5ADF";
@@ -851,10 +848,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/dsdict/GoogleAdMobAdsSdkiOS\"",
 				);
-				OTHER_LDFLAGS = (
-					"-all_load",
-					"-ObjC",
-				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "4E3DC234-D489-4CB1-BD2B-B0ED32125EEA";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4E3DC234-D489-4CB1-BD2B-B0ED32125EEA";

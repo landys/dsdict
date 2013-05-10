@@ -188,7 +188,7 @@
     const int lBufSize = 10240;
     char lWordBuf[lBufSize];
     if (lpFHandle != nil) {
-        char* lpBuf = (iPlain ? lWordBuf : (lWordBuf + 1));
+        char* lpBuf = nil;
         while (fgets(lWordBuf, lBufSize, lpFHandle) != nil) {
             NSString* lpWordText = nil;
             NSString* lpCn = nil;
@@ -196,10 +196,12 @@
             
             int i = -1;
             if (iPlain) {
+                lpBuf = lWordBuf;
                 while (lpBuf[++i] != '|'); // correct ;.
             }
             else {
                 // for decription
+                lpBuf = lWordBuf + 1;
                 int lMinusV = lWordBuf[0] - 'A';
                 while (lpBuf[++i] != '|') {
                     // decript

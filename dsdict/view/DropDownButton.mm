@@ -55,16 +55,16 @@
 //    NSArray* lpLanguages = mpData;
     UIActionSheet* lpDropDownList = [[UIActionSheet alloc] initWithTitle:@"Settings" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
     if (mStatus == 0) {
-        [lpDropDownList addButtonWithTitle:@"Show Chinese Explanations"];
+        [lpDropDownList addButtonWithTitle:@"Chinese Dict"];
     }
     else {
-        [lpDropDownList addButtonWithTitle:@"Hide Chinese Explanations"];
+        [lpDropDownList addButtonWithTitle:@"Words Only"];
     }
     
     [lpDropDownList addButtonWithTitle:@"Rate me"];
     NSString* lpUpgradeUrl = [Global getUpgradeUrl];
     if (lpUpgradeUrl != nil && lpUpgradeUrl.length > 0) {
-        [lpDropDownList addButtonWithTitle:@"Upgrade to Ad Free Version"];
+        [lpDropDownList addButtonWithTitle:@"No Ad Version"];
     }
     
 //    for (int i=0; i<lpLanguages.count; ++i) {
