@@ -321,6 +321,17 @@
 //    [mpActivityIndicator setCenter:CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2)];
 //    [mpMainVC.view addSubview:mpActivityIndicator];
 //    [mpActivityIndicator release];
+    
+    // hide UIs for screenshot to get default lauch image.
+#if defined (UI_HIDDEN)
+    mpBtnChooseImage.hidden = YES;
+    mpBtnSetting.hidden = YES;
+    mpTxtChars.hidden = YES;
+    mpSldLength.hidden = YES;
+    mpLblLength.hidden = YES;
+    mpBtnReset.hidden = YES;
+    mpResultWordsView.hidden = YES;
+#endif
 }
 
 - (void)initHintsText {
@@ -385,7 +396,9 @@
 }
 
 - (void)displayHints:(NSString*)iHints textColor:(UIColor*)ipColor {
+#if !defined (UI_HIDDEN)
     mpTxtHint.text = iHints;
+#endif
     mpTxtHint.textColor = ipColor;
     
     mpResultWordsView.hidden = YES;

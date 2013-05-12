@@ -18,6 +18,8 @@
 #define LANGUAGE_CHINESE @"cn"
 #define LANGUAGE_NONE @"none"
 
+//#define UI_HIDDEN YES
+
 @interface Global : NSObject
 
 + (void)initGlobalValues;
