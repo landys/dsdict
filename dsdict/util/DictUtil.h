@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#define isIPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
+
 @interface DictUtil : NSObject
 
 + (BOOL)isIPad;

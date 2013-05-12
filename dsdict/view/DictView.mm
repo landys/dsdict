@@ -126,45 +126,58 @@
 }
 
 - (void)createSubViews {
-    // ipod=320*460. ipad=768*1004, because the title out of our application takes 20 pixels.
-    // define frame size from photoshop, for iphone/ipod, assume size is 640*960;
-    // for ipad, assume size is 720*960.
-    CGRect lChooseImageFrame = CGRectMake(5, 3, 240, 360);
-    CGRect lTitleFrame = CGRectMake(258, 10, 288, 72);
-    CGRect lSettingFrame = CGRectMake(552, 10, 74, 72);
-    //CGRect lLblLengthFrame = CGRectMake(260, 90, 224, 72);
-    //CGRect lTxtLengthFrame = CGRectMake(485, 96, 150, 72);
-    CGRect lSldLengthFrame = CGRectMake(260, 93, 320, 72);
-    CGRect lLblLengthFrame = CGRectMake(590, 90, 45, 72);
-    CGRect lTxtLettersFrame = CGRectMake(258, 186, 377, 72);
-    CGRect lResetFrame = CGRectMake(368, 276, 148, 72);
-    CGRect lResultAreaFrame = CGRectMake(5, 368, 630, 589);
+    // ipod/iphone=320*460. iphone5=320*548, ipad=768*1004, because the title out of our application takes 20 points.
+    // Notes: here, it's the points but not pixels.
+    // For pixels, iphone 5=1136*640, retina iphone/ipod is 640*960, ...
+    // For the position and side values below, we define frame size from photoshop,
+    // for iphone/ipod, assume size is 320*460;
+    // for iphone 5, assume size is 320*548.
+    // for ipad, assume size is 360*460.
+    CGRect lChooseImageFrame = CGRectMake(2, 2, 120, 174);
+    CGRect lTitleFrame = CGRectMake(129, 5, 144, 36);
+    CGRect lSettingFrame = CGRectMake(276, 5, 37, 36);
+    CGRect lSldLengthFrame = CGRectMake(127, 46, 166, 36);
+    CGRect lLblLengthFrame = CGRectMake(296, 45, 23, 36);
+    CGRect lTxtLettersFrame = CGRectMake(127, 83, 191, 36);
+    CGRect lResetFrame = CGRectMake(184, 132, 74, 36);
+    CGRect lResultAreaFrame = CGRectMake(2, 178, 316, 281);
+    
+    CGSize lViewSize = self.bounds.size;
+    float lWidthRatio = lViewSize.width / 320.0;
+    float lHeightRatio = lViewSize.height / 460.0;
+    
     if ([DictUtil isIPad]) {
-        lTitleFrame.size.width += 80;
-        lSettingFrame.origin.x += 80;
+        lTitleFrame.size.width += 40;
+        lSettingFrame.origin.x += 40;
         //lLblLengthFrame.origin.y += 4;
         //lTxtLengthFrame.origin.x -= 10;
         //lTxtLengthFrame.size.width += 90;
-        lSldLengthFrame.size.width += 80;
-        lLblLengthFrame.origin.x += 80;
-        lTxtLettersFrame.size.width += 80;
-        lResetFrame.origin.x += 80 / 2;
-        lResultAreaFrame.size.width += 80;
+        lSldLengthFrame.size.width += 40;
+        lLblLengthFrame.origin.x += 40;
+        lTxtLettersFrame.size.width += 40;
+        lResetFrame.origin.x += 40 / 2;
+        lResultAreaFrame.size.width += 40;
+        
+        lWidthRatio = lViewSize.width / 360.0;
+    }
+    else if (isIPhone5) {
+        lResultAreaFrame.size.height += 88;
+        lHeightRatio = lViewSize.height / 548.0;
     }
     
-    // resizing according to self.frame;
-    CGRect lFrame = self.frame;
-    float lSizeRatio = lFrame.size.height / lFrame.size.width;
-    float lWidthRatio = 0;
-    float lHeightRatio = lFrame.size.height / 960.0;
-    if (fabsf(lSizeRatio - 960.0 / 640.0) < fabsf(lSizeRatio - 960.0 / 720.0)) {
-        // ipod/iphone
-        lWidthRatio = lFrame.size.width / 640.0;
-    }
-    else {
-        // ipad
-        lWidthRatio = lFrame.size.width / 720.0;
-    }
+//    // resizing according to self.frame;
+//    CGRect lFrame = self.frame;
+//    float lSizeRatio = lFrame.size.height / lFrame.size.width;
+//    float lWidthRatio = 0;
+//    float lHeightRatio = lFrame.size.height / 960.0;
+//    if (fabsf(lSizeRatio - 960.0 / 640.0) < fabsf(lSizeRatio - 960.0 / 720.0)) {
+//        // ipod/iphone
+//        lWidthRatio = lFrame.size.width / 640.0;
+//    }
+//    else {
+//        // ipad
+//        lWidthRatio = lFrame.size.width / 720.0;
+//    }
     
     // resize frames.
     if (lWidthRatio != 1 || lHeightRatio != 1) {
@@ -324,8 +337,8 @@
 //        [lpHintsText appendString:@"2. The app provides candidate words in an instant, with or without Chinese explanations configured by the top-right \"Setting\" button.\n"];
     }
     
-    [lpHintsText appendString:@"1. The app can automatically recognize the screenshot from your \"Draw Something\" game, and also the letters entered by you manually.\n"];
-    [lpHintsText appendString:@"2. The app provides candidate words in an instant, with or without Chinese explanations configured by the top-right \"Settings\" button.\n\n"];
+    [lpHintsText appendString:@"1. The app can automatically recognize the screenshot of your \"Draw Something\" game.\n"];
+    [lpHintsText appendString:@"2. It also supports entering letters manumally if the recognizer fails. The screenshots of \"Draw Something 2\" are not supported yet.\n\n"];
     [lpHintsText appendString:@"Please rate me if you like it. :)"];
     
     mpHintsText = lpHintsText;
